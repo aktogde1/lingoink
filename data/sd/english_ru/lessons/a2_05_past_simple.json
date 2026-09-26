@@ -1,0 +1,308 @@
+{
+  "format": 1,
+  "id": "a2_05",
+  "title": "Past Simple",
+  "level": "A2",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Рассказать о вчерашнем дне и задать вопрос.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "PAST SIMPLE: ФОРМА",
+      "lines": [
+        "Правильные глаголы: V + -ed",
+        "work → worked, play → played",
+        "stop → stopped (удвоение), study → studied",
+        "",
+        "Неправильные — вторая форма (V2):",
+        "go → went, see → saw, buy → bought",
+        "",
+        "Вопрос и отрицание — через did + V1:",
+        "Did you go?  I didn't go."
+      ]
+    },
+    {
+      "title": "КОГДА ИСПОЛЬЗОВАТЬ",
+      "lines": [
+        "Действие закончилось в конкретный",
+        "момент прошлого:",
+        "• Yesterday I watched two films.",
+        "• We met in 2019.",
+        "• She didn't call me last night.",
+        "",
+        "Слова-маркеры: yesterday, ago,",
+        "last week / last year, in 2010, then."
+      ]
+    },
+    {
+      "title": "ТИПИЧНЫЕ ОШИБКИ",
+      "lines": [
+        "После did глагол в первой форме!",
+        "✗ I didn't went → ✓ I didn't go",
+        "✗ Did you saw? → ✓ Did you see?",
+        "✗ Did he worked? → ✓ Did he work?",
+        "",
+        "was / were — прошедшее от be:",
+        "I was, he was, we/they were."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "Yesterday I ___ my grandmother.",
+      "options": [
+        "visit",
+        "visited",
+        "am visiting",
+        "have visited"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.visit"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "explain": "Yesterday — маркер законченного прошлого → V + -ed: visited.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "We ___ to Turkey in 2023.",
+      "options": [
+        "go",
+        "went",
+        "gone",
+        "have gone"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.went"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular"
+      ],
+      "explain": "in 2023 — конкретный момент в прошлом → V2: go → went.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Она не позвонила вчера.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "She doesn't call yesterday.",
+        "She didn't called yesterday.",
+        "She didn't call yesterday.",
+        "She wasn't call yesterday."
+      ],
+      "correct": 2,
+      "srs": [
+        "gd.did-v1"
+      ],
+      "tags": [
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "didn't + первая форма: didn't call. «didn't called» — двойное прошедшее.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "buy",
+      "promptSmall": "Как это будет в прошедшем времени?",
+      "options": [
+        "buyed",
+        "bought",
+        "boughten",
+        "brought"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.bought"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular"
+      ],
+      "explain": "buy → bought. Brought — это bring → brought, не путайте.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "___ you see that film last night?",
+      "options": [
+        "Did",
+        "Do",
+        "Was",
+        "Were"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.did-v1"
+      ],
+      "tags": [
+        "past-simple",
+        "questions"
+      ],
+      "explain": "Вопрос о прошлом с обычным глаголом → Did + подлежащее + V1.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Я купил хлеб по дороге домой.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I buyed bread on my way home.",
+        "I bought bread on my way home.",
+        "I have bought bread on my way home.",
+        "I was buy bread on my way home."
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.bought",
+        "vp.on-my-way"
+      ],
+      "tags": [
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "on my way home — «по дороге домой»; купил вчера/тогда → bought.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "He didn't went to work.",
+      "options": [
+        "didn't went → didn't go",
+        "to work → to the work",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.did-v1"
+      ],
+      "tags": [
+        "past-simple",
+        "do-does"
+      ],
+      "explain": "После did всегда первая форма: He didn't go to work.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "Did she liked the gift?",
+      "options": [
+        "Did she liked → Did she like",
+        "the gift → the gifts",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.did-v1"
+      ],
+      "tags": [
+        "past-simple",
+        "questions"
+      ],
+      "explain": "Did уже несёт прошедшее время — глагол возвращается в V1: Did she like...?",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "They ___ at home last Sunday. (be)",
+      "options": [
+        "was",
+        "were",
+        "are",
+        "did be"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.were"
+      ],
+      "tags": [
+        "past-simple",
+        "verb-be"
+      ],
+      "explain": "they → were. Was только после I / he / she / it.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Где Past Simple?",
+      "promptSmall": "Выберите предложение в прошедшем законченном",
+      "options": [
+        "I have finished the book.",
+        "I finished the book an hour ago.",
+        "I finish the book every day.",
+        "I am finishing the book."
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.markers"
+      ],
+      "tags": [
+        "past-simple",
+        "pp-vs-past"
+      ],
+      "explain": "an hour ago — момент в прошлом → Past Simple. «ago» не дружит с Present Perfect.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "My father ___ me to ride a bike. (teach)",
+      "options": [
+        "teached",
+        "taught",
+        "teaches",
+        "has taught"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.taught"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular"
+      ],
+      "explain": "teach → taught (не teached!). Та же схема: buy → bought, catch → caught.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Мы не купили билеты вчера.",
+      "answer": "We did not buy tickets yesterday.",
+      "srs": [
+        "ps.did-v1"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "skill": "grammar",
+      "explain": "Допустимо didn’t buy. После did not нужна форма buy."
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите: Ты видел Анну вчера?",
+      "answer": "Did you see Anna yesterday?",
+      "srs": [
+        "ps.did-v1"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "skill": "grammar",
+      "explain": "Did + подлежащее + see, а не saw."
+    }
+  ],
+  "objective": "Рассказать о вчерашнем дне и задать вопрос."
+}

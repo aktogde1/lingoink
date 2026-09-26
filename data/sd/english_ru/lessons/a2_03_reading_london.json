@@ -18,44 +18,113 @@
       "type": "choice",
       "prompt": "Why did everything feel new to Tom?",
       "options": [
-        "He had never visited London before.",
-        "The city changed a lot.",
         "He forgot his glasses.",
+        "The city changed a lot.",
+        "He had never visited London before.",
         "It was his birthday."
       ],
-      "correct": 0,
-      "srs": ["rd.london-1"],
-      "tags": ["reading"]
+      "correct": 2,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В первом абзаце: He had never visited the city before. Поэтому город был для него новым.",
+      "reviewable": false,
+      "skill": "reading"
     },
     {
       "type": "choice",
       "prompt": "«It was free to enter» means:",
-      "options": ["the museum cost nothing", "the museum was closed", "the guard gave him a gift", "Tom entered first"],
-      "correct": 0,
-      "srs": ["vp.free"],
-      "tags": ["reading", "vocab"]
+      "options": [
+        "the museum was closed",
+        "the museum cost nothing",
+        "the guard gave him a gift",
+        "Tom entered first"
+      ],
+      "correct": 1,
+      "srs": [],
+      "tags": [
+        "reading",
+        "vocab"
+      ],
+      "explain": "Во втором абзаце free to enter означает бесплатный вход, а не свободное время.",
+      "reviewable": false,
+      "skill": "reading"
     },
     {
       "type": "cloze",
       "prompt": "A friendly guard ___ him about the reading room.",
-      "options": ["told", "said", "spoke", "talked"],
-      "correct": 0,
-      "srs": ["vp.tell-say"],
-      "tags": ["reading", "say-tell"],
-      "explain": "tell somebody about something (сразу есть объект), say something (без объекта)."
+      "options": [
+        "talked",
+        "said",
+        "spoke",
+        "told"
+      ],
+      "correct": 3,
+      "srs": [],
+      "tags": [
+        "reading",
+        "say-tell"
+      ],
+      "explain": "Tell somebody about something: told him about the reading room. Say требует другой конструкции: said something to him.",
+      "reviewable": false,
+      "skill": "reading"
     },
     {
       "type": "choice",
       "prompt": "What were the pigeons doing?",
       "options": [
-        "trying to steal his lunch",
-        "singing on the bench",
         "eating fish and chips politely",
+        "singing on the bench",
+        "trying to steal his lunch",
         "sleeping in the square"
       ],
-      "correct": 0,
-      "srs": ["rd.london-2"],
-      "tags": ["reading"]
+      "correct": 2,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В последнем абзаце голуби пытались украсть его обед: tried to steal his lunch.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Он рассказал мне о музее.",
+      "answer": "He told me about the museum.",
+      "srs": [
+        "vp.tell-about"
+      ],
+      "tags": [
+        "collocations"
+      ],
+      "skill": "vocabulary",
+      "explain": "Tell + человек + about + тема."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я никогда не был в Риме. Используйте Present Perfect.",
+      "answer": "I have never been to Rome.",
+      "srs": [
+        "pp.form"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "skill": "grammar",
+      "explain": "Have + been; never показывает отсутствие опыта до сейчас."
+    }
+  ],
+  "objective": "Понять рассказ о поездке и назвать действия.",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять рассказ о поездке и назвать действия.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
     }
   ]
 }

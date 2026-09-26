@@ -1,0 +1,298 @@
+{
+  "format": 1,
+  "id": "a2_10",
+  "title": "Modals: can / must / have to",
+  "level": "A2",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Различать запрет, обязанность и отсутствие необходимости.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "CAN — МОГУ, УМЕЮ",
+      "lines": [
+        "can + V1 (без to!):",
+        "I can swim.  She can't drive.",
+        "Can you help me?",
+        "",
+        "Прошедшее: could = мог, умел:",
+        "He could read at five.",
+        "Разрешение: Can I open the window?"
+      ]
+    },
+    {
+      "title": "MUST И HAVE TO",
+      "lines": [
+        "must + V1 — правило, долг:",
+        "I must finish this today.",
+        "have to + V1 — вынуждают обстоятельства:",
+        "I have to work on Saturday.",
+        "",
+        "Прошлую обязанность здесь выражаем had to:",
+        "Yesterday I had to stay late."
+      ]
+    },
+    {
+      "title": "НЕ ПУТАЙ!",
+      "lines": [
+        "mustn't = ЗАПРЕЩЕНО:",
+        "You mustn't smoke here.",
+        "don't have to = НЕ ОБЯЗАТЕЛЬНО:",
+        "You don't have to come early.",
+        "",
+        "can / must + V1; have to + V1: I have to work.",
+        "✗ can to swim → ✓ can swim"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "I can ___ very fast. (run)",
+      "options": [
+        "to run",
+        "run",
+        "running",
+        "ran"
+      ],
+      "correct": 1,
+      "srs": [
+        "md.can-v1"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "После can глагол голый, без to: can run.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Она не умеет водить машину.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "She can't to drive a car.",
+        "She can't drive a car.",
+        "She doesn't can drive a car.",
+        "She can't driving a car."
+      ],
+      "correct": 1,
+      "srs": [
+        "md.can-v1"
+      ],
+      "tags": [
+        "ru2en",
+        "modals"
+      ],
+      "explain": "can't + V1: She can't drive. «doesn't can» не существует.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "It's late. I ___ go home now.",
+      "options": [
+        "must",
+        "musts",
+        "must to",
+        "am must"
+      ],
+      "correct": 0,
+      "srs": [
+        "md.must"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "must + V1 без to: I must go home.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "You mustn't park here.",
+      "promptSmall": "Что это значит?",
+      "options": [
+        "Парковаться здесь запрещено.",
+        "Можно не парковаться здесь.",
+        "Вы должны припарковаться."
+      ],
+      "correct": 0,
+      "srs": [
+        "md.mustnt"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "mustn't — жёсткий запрет. Don't have to — совсем другое: «не обязательно».",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "You don't have to come early tomorrow.",
+      "promptSmall": "Что это значит?",
+      "options": [
+        "Можно прийти не рано — не обязательно.",
+        "Приходить рано запрещено.",
+        "Вы обязаны прийти рано."
+      ],
+      "correct": 0,
+      "srs": [
+        "md.dont-have-to"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "don't have to = нет необходимости. Запрет был бы mustn't.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "She can to speak three languages.",
+      "options": [
+        "can to speak → can speak",
+        "three → a three",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.can-to"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "После can никогда не бывает to: can speak.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Yesterday I ___ to stay at work until nine.",
+      "options": [
+        "must",
+        "had",
+        "have",
+        "should"
+      ],
+      "correct": 1,
+      "srs": [
+        "md.had-to"
+      ],
+      "tags": [
+        "modals",
+        "past-simple"
+      ],
+      "explain": "must не имеет прошедшего → had to: Yesterday I had to stay.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Он умел читать с пяти лет.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "He can read at five.",
+        "He could read at five.",
+        "He must read at five.",
+        "He may read at five."
+      ],
+      "correct": 1,
+      "srs": [
+        "md.could"
+      ],
+      "tags": [
+        "ru2en",
+        "modals"
+      ],
+      "explain": "Умение в прошлом → could: He could read at five.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Can I open the window?",
+      "promptSmall": "Что это?",
+      "options": [
+        "Вежливая просьба о разрешении.",
+        "Вопрос о умении.",
+        "Предсказание будущего."
+      ],
+      "correct": 0,
+      "srs": [
+        "md.can-permission"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "Can I...? = можно мне...? Ответ: Sure / Of course / No, you can't.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Students ___ use phones in the exam. (запрещено)",
+      "options": [
+        "mustn't",
+        "don't have to",
+        "can",
+        "don't must"
+      ],
+      "correct": 0,
+      "srs": [
+        "md.mustnt"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "Запрет → mustn't. «Don't have to» означало бы «можно не пользоваться».",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Мне приходится много работать.",
+      "promptSmall": "Переведите — обстоятельства вынуждают",
+      "options": [
+        "I must to work a lot.",
+        "I have to work a lot.",
+        "I can work a lot.",
+        "I having to work a lot."
+      ],
+      "correct": 1,
+      "srs": [
+        "md.have-to"
+      ],
+      "tags": [
+        "ru2en",
+        "modals"
+      ],
+      "explain": "Вынужден по обстоятельствам → have to. Must — про правило или собственное решение.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Здесь нельзя парковаться. Используйте mustn’t.",
+      "answer": "You must not park here.",
+      "srs": [
+        "md.mustnt"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "skill": "grammar",
+      "explain": "Mustn’t = must not, запрет."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Тебе не обязательно приходить рано.",
+      "answer": "You do not have to come early.",
+      "srs": [
+        "md.dont-have-to"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "skill": "grammar",
+      "explain": "Допустимо don’t have to. Это отсутствие необходимости, не запрет."
+    }
+  ],
+  "objective": "Различать запрет, обязанность и отсутствие необходимости."
+}

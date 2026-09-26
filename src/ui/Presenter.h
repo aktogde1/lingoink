@@ -2,10 +2,14 @@
 // Presenter pushes a rendered Canvas to the panel with an e-ink-aware
 // refresh policy:
 //   Fast     — cursor moves inside a screen (quick, slightly ghosty)
-//   Balanced — feedback transitions (HALF)
-//   Full     — screen change (slow, removes ghosting)
-// After FAST_REFRESH_BETWEEN_FULL fast refreshes a full refresh is forced to
-// stop ghosting from accumulating.
+//   Balanced — feedback transitions (delivered as FAST; no HALF in v0.2)
+//   Full     — screen change request
+// Product rule (user-validated on hardware): every interactive update is a
+// fast DU refresh. A FULL refresh happens ONLY when:
+//   - the panel must be wiped once (forceFullOnce_, e.g. power-off card,
+//     Clean Screen Now, orientation change), or
+//   - the user enabled Auto Clean in Settings (every N fast updates).
+// The mode argument is advisory only — the waveform is chosen here.
 
 #include "Canvas.h"
 #include "Log.h"
@@ -30,19 +34,24 @@ class Presenter {
     lgHeapDiag("post-smoke");
   }
 
-  // Queue exactly one FULL refresh for the next present() — used once at boot
-  // to clear whatever the panel held through deep sleep.
+  // Queue exactly one FULL refresh for the next present() — used for the
+  // power-off card, Clean Screen Now and orientation changes.
   void fullNext() { forceFullOnce_ = true; }
 
+  // Auto clean: 0 = off (default), else a FULL refresh every N fast updates.
+  void setAutoCleanScreens(uint8_t every) {
+    autoCleanEvery_ = every;
+    if (autoCleanEvery_ == 0) fastStreak_ = 0;
+  }
+
   void present(Canvas& canvas, Refresh mode) {
-    display_.drawImage(canvas.bits(), 0, 0, (uint16_t)canvas.width(),
-                       (uint16_t)canvas.height());
-    // Product rule (user-validated on hardware): NEVER a multi-second wipe
-    // during interaction. Every update is a fast DU refresh; FULL appears only
-    // once at boot (fullNext) and periodically to clear e-ink residue.
+    (void)mode;
+    // The canvas buffer is always panel-native 800x480 (portrait is a
+    // coordinate transform inside Canvas) — blit the full panel every time.
+    display_.drawImage(canvas.bits(), 0, 0, (uint16_t)cfg::SCREEN_W,
+                       (uint16_t)cfg::SCREEN_H);
     if (forceFullOnce_ ||
-        (cfg::FAST_REFRESH_BETWEEN_FULL != 0 &&
-         fastStreak_ >= cfg::FAST_REFRESH_BETWEEN_FULL)) {
+        (autoCleanEvery_ != 0 && fastStreak_ >= autoCleanEvery_)) {
       display_.displayBuffer(EInkDisplay::FULL_REFRESH);
       fastStreak_ = 0;
       forceFullOnce_ = false;
@@ -55,5 +64,6 @@ class Presenter {
  private:
   EInkDisplay& display_;
   uint8_t fastStreak_ = 0;
+  uint8_t autoCleanEvery_ = 0;
   bool forceFullOnce_ = false;
 };

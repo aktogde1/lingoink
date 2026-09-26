@@ -165,9 +165,13 @@ LessonParseResult lessonParse(Lesson& L, const char* json, size_t len) {
     if (strcmp(type, "cloze") == 0) E.type = ExType::Cloze;
     else if (strcmp(type, "mistake") == 0) E.type = ExType::Mistake;
     else if (strcmp(type, "reading") == 0) E.type = ExType::Reading;
+    else if (strcmp(type, "recall") == 0) E.type = ExType::Recall;
     else E.type = ExType::Choice;
 
     parseCommon(ex, E, L);
+    E.reviewable = ex["reviewable"] | true;
+    copyStr(ex["skill"], &E.skill, L, "skill", res, false);
+    if (!res.ok) return res;
 
     if (E.type == ExType::Reading) {
       copyStr(ex["title"], &E.readingTitle, L, "reading.title", res, true);
@@ -198,7 +202,14 @@ LessonParseResult lessonParse(Lesson& L, const char* json, size_t len) {
       if (!ex["explain"].isNull()) {
         copyStr(ex["explain"], &E.explain, L, "explain", res, false);
       }
-      if (!parseOptions(ex, E, L, res)) {
+      if (E.type == ExType::Recall) {
+        copyStr(ex["answer"], &E.answer, L, "answer", res, true);
+        if (!res.ok || !E.answer || !E.answer[0]) { res.ok = false; return res; }
+        E.optionCount = 2;
+        E.correct = 1;
+        E.options[0] = "Not yet";
+        E.options[1] = "Recalled";
+      } else if (!parseOptions(ex, E, L, res)) {
         res.ok = false;
         return res;
       }

@@ -2,9 +2,26 @@
 
 #include <ArduinoJson.h>
 
-void ProgressStore::write(File& f) {
+bool ProgressStore::write(File& f) {
   JsonDocument doc;
-  doc["v"] = 1;
+  doc["v"] = 2;
+  doc["date"] = calendarDate;
+  JsonArray states=doc["lessonStates"].to<JsonArray>();
+  for(const auto& s:lessons) if(s.id[0]) {
+    auto o=states.add<JsonObject>(); o["id"]=s.id; o["stage"]=s.stage; o["day"]=s.day;
+  }
+  const StudySession& s=session;
+  JsonObject b=doc["session"].to<JsonObject>();
+  b["lesson"]=s.lesson; b["hash"]=s.fingerprint;
+  b["phase"]=s.phase; b["theory"]=s.theory; b["line"]=s.line;
+  b["page"]=s.page; b["offset"]=s.offset; b["cursor"]=s.cursor;
+  b["answers"]=s.answers; b["correct"]=s.correct;
+  b["firstLo"]=(uint32_t)s.first; b["firstHi"]=(uint32_t)(s.first>>32);
+  b["wrongLo"]=(uint32_t)s.unresolved; b["wrongHi"]=(uint32_t)(s.unresolved>>32);
+  b["answered"]=s.answered; b["helped"]=s.helped; b["revealed"]=s.revealed;
+  b["review"]=s.review; b["chosen"]=s.chosen;
+  auto plan=b["plan"].to<JsonArray>(); for(uint8_t i=0;i<s.length;++i) plan.add(s.plan[i]);
+  auto attempts=b["attempts"].to<JsonArray>(); for(auto a:s.attempts) attempts.add(a);
   doc["course"] = courseId;
   doc["lastLesson"] = lastLessonId;
   doc["level"] = currentLevel;
@@ -13,6 +30,11 @@ void ProgressStore::write(File& f) {
   doc["streak"] = streakDays;
   doc["day"] = time.day;
   doc["uptimeMin"] = time.uptimeMin;
+  doc["orient"] = orient;
+  doc["cleanMode"] = cleanMode;
+  doc["cleanEvery"] = cleanEvery;
+  doc["uiLang"] = uiLang;
+  doc["done"] = doneMask;
 
   JsonArray srs = doc["srs"].to<JsonArray>();
   for (uint16_t i = 0; i < itemCount; i++) {
@@ -20,6 +42,7 @@ void ProgressStore::write(File& f) {
     JsonObject o = srs.add<JsonObject>();
     o["id"] = it.id;
     o["e"] = it.easePct;
+    o["retained"] = it.retained;
     o["iv"] = it.intervalDays;
     o["r"] = it.reps;
     o["l"] = it.lapses;
@@ -43,7 +66,7 @@ void ProgressStore::write(File& f) {
     o["n"] = mastery.tags[i].stat.count;
   }
 
-  serializeJson(doc, f);
+  return serializeJson(doc, f)==measureJson(doc);
 }
 
 bool ProgressStore::parse(const char* json, size_t len) {
@@ -59,6 +82,39 @@ bool ProgressStore::parse(const char* json, size_t len) {
   streakDays = doc["streak"] | 0;
   time.day = doc["day"] | 0;
   time.uptimeMin = doc["uptimeMin"] | 0;
+  orient = (doc["orient"] | 0) % 4;
+  cleanMode = doc["cleanMode"] | 0;
+  cleanEvery = doc["cleanEvery"] | 0;
+  uiLang = (doc["uiLang"] | 1) ? 1 : 0;
+  doneMask = doc["done"] | 0;
+
+  calendarDate=doc["date"] | 0;
+  if(dateOrdinal(calendarDate)<0) calendarDate=0;
+  stableLessons=doc["lessonStates"].is<JsonArrayConst>();
+  for(auto& s:lessons) s=LessonState{};
+  for(auto o:doc["lessonStates"].as<JsonArrayConst>()) {
+    const char* id=o["id"] | "";
+    if(!id[0]) continue;
+    auto s=state(id); if(!s) break;
+    s->stage=o["stage"] | 0; if(s->stage>2) s->stage=2;
+    s->day=o["day"] | 0;
+  }
+  session=StudySession{};
+  auto b=doc["session"].as<JsonObjectConst>();
+  auto& s=session;
+  strlcpy(s.lesson,b["lesson"] | "",sizeof(s.lesson));
+  s.fingerprint=b["hash"] | 0u;
+  s.phase=b["phase"] | 0; s.theory=b["theory"] | 0; s.line=b["line"] | 0;
+  s.page=b["page"] | 0; s.offset=b["offset"] | 0; s.cursor=b["cursor"] | 0;
+  s.answers=b["answers"] | 0; s.correct=b["correct"] | 0;
+  s.first=(uint64_t)(b["firstLo"] | 0u) | ((uint64_t)(b["firstHi"] | 0u)<<32);
+  s.unresolved=(uint64_t)(b["wrongLo"] | 0u) | ((uint64_t)(b["wrongHi"] | 0u)<<32);
+  s.answered=b["answered"] | false; s.helped=b["helped"] | false;
+  s.revealed=b["revealed"] | false; s.review=b["review"] | false;
+  s.chosen=b["chosen"] | 0;
+  for(auto v:b["plan"].as<JsonArrayConst>()) { if(s.length>=96) break; s.plan[s.length++]=v.as<uint8_t>(); }
+  uint8_t ai=0; for(auto v:b["attempts"].as<JsonArrayConst>()) { if(ai>=cfg::MAX_EXERCISES) break; s.attempts[ai++]=v.as<uint8_t>(); }
+  if(s.cursor>s.length || (s.cursor==s.length && s.phase!=5) || s.phase<2 || s.phase>5) session=StudySession{};
 
   itemCount = 0;
   for (JsonVariantConst o : doc["srs"].as<JsonArrayConst>()) {
@@ -66,7 +122,9 @@ bool ProgressStore::parse(const char* json, size_t len) {
     SrsItem& it = items[itemCount++];
     strlcpy(it.id, o["id"] | "", sizeof(it.id));
     it.easePct = o["e"] | 250;
+    if(it.easePct<130 || it.easePct>280)it.easePct=250;
     it.intervalDays = o["iv"] | 0;
+    it.retained=o["retained"] | false;
     it.reps = o["r"] | 0;
     it.lapses = o["l"] | 0;
     it.lastDay = o["ld"] | 0;

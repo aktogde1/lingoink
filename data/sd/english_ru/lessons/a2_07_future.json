@@ -1,0 +1,298 @@
+{
+  "format": 1,
+  "id": "a2_07",
+  "title": "Future: will / going to",
+  "level": "A2",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Выразить план и обещание.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "БУДУЩЕЕ: WILL",
+      "lines": [
+        "will + V1 — для всех лиц:",
+        "I will call you later.",
+        "She won't like it. (won't = will not)",
+        "Will you help me?",
+        "",
+        "Will — когда решаем в момент речи:",
+        "«The phone is ringing. — I'll answer!»",
+        "Обещания и предсказания: I think..."
+      ]
+    },
+    {
+      "title": "БУДУЩЕЕ: GOING TO",
+      "lines": [
+        "am / is / are going to + V1:",
+        "I'm going to learn 20 words today.",
+        "It's going to rain. (облака уже видно!)",
+        "",
+        "Going to — план (решено ДО разговора)",
+        "или очевидный признак будущего."
+      ]
+    },
+    {
+      "title": "КАК ВЫБРАТЬ",
+      "lines": [
+        "План на вечер:",
+        "→ I'm going to meet Bob.",
+        "Решение прямо сейчас:",
+        "→ I'll help you!",
+        "Предсказание по признаку:",
+        "→ Look! It's going to rain.",
+        "Мнение: I think it will be OK. Will и going to иногда оба возможны; контекст меняет акцент."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "I think it ___ rain tomorrow.",
+      "options": [
+        "will",
+        "is going to",
+        "wills",
+        "going to"
+      ],
+      "correct": 0,
+      "srs": [
+        "fu.will"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "I think... — мнение о будущем → will. Going to тоже бывает возможно в предсказании; здесь проверяем форму will.",
+      "promptSmall": "Заполните пропуск формой will",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Look at those clouds! It ___ rain.",
+      "options": [
+        "will",
+        "is going to",
+        "wants",
+        "shall"
+      ],
+      "correct": 1,
+      "srs": [
+        "fu.going-to"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "Тучи — видимый признак: is going to rain. Will тоже используется для прогнозов; здесь тренируем going to.",
+      "promptSmall": "Используйте going to для прогноза по видимому признаку",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Я собираюсь выучить 20 слов сегодня.",
+      "promptSmall": "Переведите — это ваш план",
+      "options": [
+        "I go to learn 20 words today.",
+        "I'm going to learn 20 words today.",
+        "I will to learn 20 words today.",
+        "I learning 20 words today."
+      ],
+      "correct": 1,
+      "srs": [
+        "fu.going-to"
+      ],
+      "tags": [
+        "ru2en",
+        "future"
+      ],
+      "explain": "am going to + V1 — план. «I go to learn» — это «я иду, чтобы выучить».",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "A: The phone is ringing. B: I ___ answer it!",
+      "options": [
+        "am going to",
+        "will",
+        "answer",
+        "do"
+      ],
+      "correct": 1,
+      "srs": [
+        "fu.will"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "Решил в момент речи → will. Телефон зазвонил — и сразу решение.",
+      "promptSmall": "Используйте will для решения в момент речи",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "She wills to buy a car.",
+      "options": [
+        "wills to buy → will buy",
+        "She → Her",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.will-v1"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "will не меняется по лицам и не требует to: She will buy a car.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "won't = ?",
+      "options": [
+        "will not",
+        "want not",
+        "will now",
+        "went not"
+      ],
+      "correct": 0,
+      "srs": [
+        "fu.wont"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "won't = will not. I won't tell anyone — никому не скажу.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "We ___ to visit Rome next summer. (план уже есть)",
+      "options": [
+        "will",
+        "are going",
+        "go to",
+        "was going"
+      ],
+      "correct": 1,
+      "srs": [
+        "fu.going-to"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "Планы, решённые заранее → are going to visit.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Я помогу тебе завтра. (обещание)",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I helping you tomorrow.",
+        "I'm going to helping you.",
+        "I'll help you tomorrow.",
+        "I help you will tomorrow."
+      ],
+      "correct": 2,
+      "srs": [
+        "fu.will"
+      ],
+      "tags": [
+        "ru2en",
+        "future"
+      ],
+      "explain": "Обещание → will (I'll). I'll help you tomorrow.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "It will raining soon.",
+      "options": [
+        "will raining → will rain",
+        "soon → sooner",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.will-v1"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "После will — первая форма: It will rain soon.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "План, решённый ДО разговора — это...",
+      "options": [
+        "will + V1",
+        "going to + V1",
+        "V2",
+        "V + -ing"
+      ],
+      "correct": 1,
+      "srs": [
+        "fu.choice"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "Решено заранее → going to. Решено прямо сейчас → will.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Don't worry, I'm sure she ___ come.",
+      "options": [
+        "will",
+        "is going to",
+        "would",
+        "does"
+      ],
+      "correct": 0,
+      "srs": [
+        "fu.will"
+      ],
+      "tags": [
+        "future"
+      ],
+      "explain": "I'm sure... — уверенное предсказание → will. Going to тоже бывает возможно в предсказании; здесь проверяем форму will.",
+      "promptSmall": "Заполните пропуск формой will",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Пообещайте: Я позвоню тебе завтра. Используйте will.",
+      "answer": "I will call you tomorrow.",
+      "srs": [
+        "fu.will"
+      ],
+      "tags": [
+        "future"
+      ],
+      "skill": "grammar",
+      "explain": "Допустимо I’ll call you tomorrow."
+    },
+    {
+      "type": "recall",
+      "prompt": "Расскажите о плане: Мы собираемся посетить Рим.",
+      "answer": "We are going to visit Rome.",
+      "srs": [
+        "fu.going-to"
+      ],
+      "tags": [
+        "future"
+      ],
+      "skill": "grammar",
+      "explain": "We + are going to + visit. Допустимо We’re."
+    }
+  ],
+  "objective": "Выразить план и обещание."
+}

@@ -1,0 +1,166 @@
+{
+  "format": 1,
+  "id": "a2_15",
+  "title": "Conan Doyle: Sherlock Holmes",
+  "level": "A2",
+  "kind": "reading",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять вывод героя и описать совместное жильё.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "to meet — встретить (met)",
+        "a soldier — солдат",
+        "to share a flat — снимать жильё вместе",
+        "strange — странный",
+        "to notice — замечать",
+        "a crime — преступление",
+        "to solve — раскрывать (загадку)",
+        "science — наука",
+        "amazing — удивительный",
+        "wounded — раненый"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Лондон, 1881. Доктор Ватсон вернулся",
+        "из Афганистана раненым и ищет жильё.",
+        "Друг знакомит его со странным студентом,",
+        "который работает в больнице... с химией.",
+        "А. Конан Дойл, 1887 — адаптировано."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "A STUDY IN SCARLET",
+      "pages": [
+        "Young Stamford looked at me in surprise. «You are as thin as a lath and as brown as a nut,» he said. I had come back from Afghanistan wounded and sick, and I needed a cheap flat in London. «Who is the man who wants to share rooms with me?» I asked. «You must meet him first. His name is Sherlock Holmes. He is a little strange, I think.»",
+        "In a laboratory at the hospital a young man jumped up from the corner and shook my hand. «I am very glad to see you. I see you have been to Afghanistan.» «How do you know that?» I cried. Stamford laughed: «Nothing simpler. He is a madman, an unpractical dreamer — that is my opinion of him. But he knows things.» Holmes smiled at me: «A doctor, I see, and a soldier.»",
+        "We found rooms at 221B Baker Street — bright and cheerful, with two bedrooms. Holmes did not study medicine. He studied crime: his science was to notice small things — a scratch on a boot, a stain on a sleeve — and from them to build the whole story of a man and his day. «You know,» he said one morning, «it is simple logic. Eliminate the impossible, and what remains, however improbable, must be the truth.»"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Why did Dr. Watson need a cheap flat?",
+      "options": [
+        "He had returned from the war wounded and sick.",
+        "He lost all his money in a casino.",
+        "He was a student."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Ватсон вернулся из Афганистана раненым и больным; ему нужно недорогое жильё.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "How did Holmes know Watson had been to Afghanistan?",
+      "options": [
+        "He observed him and drew a conclusion.",
+        "Stamford told him.",
+        "He guessed by luck."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Текст описывает метод Холмса: замечать детали и делать выводы. Конкретные шаги вывода об Афганистане в адаптации не даны.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Where did Holmes and Watson live?",
+      "options": [
+        "221B Baker Street.",
+        "At the hospital.",
+        "In Afghanistan."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "Адрес прямо указан: 221B Baker Street.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What was Holmes's «science»?",
+      "options": [
+        "Noticing small things and building the story.",
+        "Making medicines.",
+        "Reading old books."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Холмс замечает мелочи: царапину на ботинке, пятно на рукаве, — и делает выводы.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "«Eliminate the impossible, and what remains...»",
+      "options": [
+        "...must be the truth.",
+        "...is always a crime.",
+        "...goes to prison."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В финальной реплике после исключения невозможного остаётся истина: must be the truth.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Мы снимаем жильё вместе. Используйте share.",
+      "answer": "We share a flat.",
+      "srs": [
+        "vp.share-flat"
+      ],
+      "tags": [
+        "vocab"
+      ],
+      "skill": "vocabulary",
+      "explain": "Также верно: We share an apartment."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Ты бывал в Лондоне?",
+      "answer": "Have you been to London?",
+      "srs": [
+        "pp.questions"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "skill": "grammar",
+      "explain": "Спрашиваем об опыте до настоящего момента. Можно добавить ever."
+    }
+  ],
+  "objective": "Понять вывод героя и описать совместное жильё."
+}

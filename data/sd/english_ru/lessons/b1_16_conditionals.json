@@ -1,0 +1,297 @@
+{
+  "format": 1,
+  "id": "b1_16",
+  "title": "Conditionals 0 & 1",
+  "level": "B1",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Выразить условие и возможный результат.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "ТИП 0 — ВСЕГДА ПРАВДА",
+      "lines": [
+        "If + Present Simple, Present Simple",
+        "",
+        "Законы природы и привычки:",
+        "• If you heat ice, it melts.",
+        "• If I drink coffee at night, I don't sleep.",
+        "",
+        "= «когда/всякий раз если»."
+      ]
+    },
+    {
+      "title": "ТИП 1 — РЕАЛЬНОЕ БУДУЩЕЕ",
+      "lines": [
+        "If + Present Simple, will + V1",
+        "",
+        "• If it rains, we will stay home.",
+        "• If you come early, I'll make tea.",
+        "В главной части также: can / may /",
+        "going to: If he calls, I can help him.",
+        "",
+        "В этих условных предложениях после if используем Present Simple, а не will."
+      ]
+    },
+    {
+      "title": "ТИПИЧНЫЕ ОШИБКИ",
+      "lines": [
+        "✗ If you will come, we'll talk.",
+        "✓ If you come, we'll talk.",
+        "",
+        "✗ If he'll call... → ✓ If he calls...",
+        "",
+        "Порядок частей свободен:",
+        "We'll stay home if it rains.",
+        "Если if-часть первая, после неё ставим запятую."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "If you ___ me tomorrow, I'll tell you everything. (call)",
+      "options": [
+        "will call",
+        "call",
+        "called",
+        "calls"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "После if — Present Simple, даже про будущее: If you call...",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "If you heat water to 100°C, it ___. (boil)",
+      "options": [
+        "will boil",
+        "boils",
+        "would boil",
+        "boiled"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.zero"
+      ],
+      "tags": [
+        "conditionals",
+        "zero-conditional"
+      ],
+      "explain": "Тип 0 — закон природы: обе части в Present Simple: it boils.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Если пойдёт дождь, мы останемся дома.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "If it will rain, we stay home.",
+        "If it rains, we will stay home.",
+        "If it rain, we will stay home.",
+        "If it rains, we would stay home."
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.first"
+      ],
+      "tags": [
+        "ru2en",
+        "conditionals"
+      ],
+      "explain": "Тип 1: If + Present Simple (rains), will + V1 (will stay).",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "If she will pass the exam, her parents will be happy.",
+      "options": [
+        "will pass → passes",
+        "happy → happily",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "If-часть — без will: If she passes the exam...",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Where is the mistake?",
+      "options": [
+        "If I will see him, I will say hello.",
+        "We'll stay home if it rains.",
+        "If he calls, I can help."
+      ],
+      "correct": 0,
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "Первое предложение: will дважды. Правильно: If I see him, I will say hello.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "If he ___ harder, he gets better grades. (привычка, тип 0)",
+      "options": [
+        "will work",
+        "works",
+        "worked",
+        "would work"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.zero"
+      ],
+      "tags": [
+        "conditionals",
+        "zero-conditional"
+      ],
+      "explain": "Постоянная зависимость → тип 0: обе части Present Simple.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "If you don't hurry, you ___ the bus.",
+      "options": [
+        "miss",
+        "will miss",
+        "missed",
+        "are missing"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.first"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "Реальное будущее последствие → will miss.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "В какой фразе будет тип 0 (всегда правда)?",
+      "options": [
+        "If plants don't get water, they die.",
+        "If I win the lottery, I'll buy a boat.",
+        "If you call me, I'll come."
+      ],
+      "correct": 0,
+      "srs": [
+        "cj.zero"
+      ],
+      "tags": [
+        "conditionals",
+        "zero-conditional"
+      ],
+      "explain": "Растения без воды умирают ВСЕГДА — это не про будущее, а про правило.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "We'll go to the beach ___ it's sunny.",
+      "options": [
+        "if",
+        "will if",
+        "whether if",
+        "if will"
+      ],
+      "correct": 0,
+      "srs": [
+        "cj.if"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "if = если. We'll go if it's sunny.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Правильный порядок без запятой:",
+      "options": [
+        "We will stay home if it rains.",
+        "We will stay home if it will rain.",
+        "We stay will home if it rains.",
+        "If we will stay home it rains."
+      ],
+      "correct": 0,
+      "srs": [
+        "cj.order"
+      ],
+      "tags": [
+        "conditionals",
+        "word-order"
+      ],
+      "explain": "Главная часть первой — без запятой: We will stay home if it rains.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "If she ___ early, she can catch the train. (leave)",
+      "options": [
+        "will leave",
+        "leaves",
+        "left",
+        "leaving"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "После if Present Simple: If she leaves early. В главной части — can.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Если она позвонит, я помогу ей.",
+      "answer": "If she calls, I will help her.",
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "skill": "grammar",
+      "explain": "If + Present Simple; will в главной части. Допустимо I’ll."
+    },
+    {
+      "type": "recall",
+      "prompt": "Закончите: If you heat ice, it ...",
+      "answer": "melts.",
+      "srs": [
+        "cj.zero"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "skill": "grammar",
+      "explain": "Общая зависимость: Present Simple в обеих частях."
+    }
+  ],
+  "objective": "Выразить условие и возможный результат."
+}

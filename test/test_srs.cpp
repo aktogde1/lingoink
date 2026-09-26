@@ -63,10 +63,33 @@ void test_mastery_ema_and_weak_tags() {
   }
   const char* weak[2];
   int n = m.weakTags(weak, 2);
-  TEST_ASSERT_EQUAL_INT32(2, n);
+  TEST_ASSERT_EQUAL_INT32(1, n);
   TEST_ASSERT_EQUAL_STRING("pp-vs-past", weak[0]);
 }
 
+void test_same_day_does_not_expand_interval() {
+  SrsItem it=SrsScheduler::makeItem("x",0);
+  SrsScheduler::grade(it,5,0);
+  SrsScheduler::grade(it,5,0,true);
+  TEST_ASSERT_EQUAL_UINT8(1,it.reps);
+  TEST_ASSERT_EQUAL_UINT16(1,it.nextDay);
+  TEST_ASSERT_FALSE(it.retained);
+}
+void test_failure_not_erased_by_immediate_retry() {
+  SrsItem it=SrsScheduler::makeItem("x",0);
+  SrsScheduler::grade(it,1,0);
+  SrsScheduler::grade(it,5,0,true);
+  TEST_ASSERT_EQUAL_UINT8(0,it.reps);
+  TEST_ASSERT_FALSE(it.retained);
+}
+void test_recall_on_later_day_and_ease_280() {
+  SrsItem it=SrsScheduler::makeItem("x",0);
+  SrsScheduler::grade(it,5,0);
+  SrsScheduler::grade(it,5,1,true);
+  TEST_ASSERT_TRUE(it.retained);
+  for(int i=0;i<20;++i)SrsScheduler::grade(it,5,it.nextDay,true);
+  TEST_ASSERT_EQUAL_UINT16(280,it.easePct);
+}
 int main() {
   UNITY_BEGIN();
   RUN_TEST(test_new_item_is_due_immediately);
@@ -74,5 +97,8 @@ int main() {
   RUN_TEST(test_failure_resets_and_shortens_interval);
   RUN_TEST(test_ease_clamped_to_minimum);
   RUN_TEST(test_mastery_ema_and_weak_tags);
+  RUN_TEST(test_same_day_does_not_expand_interval);
+  RUN_TEST(test_failure_not_erased_by_immediate_retry);
+  RUN_TEST(test_recall_on_later_day_and_ease_280);
   return UNITY_END();
 }

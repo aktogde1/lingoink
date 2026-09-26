@@ -21,11 +21,20 @@ bool CourseCatalog::loadManifest(const char* manifestPath) {
 
   JsonDocument doc;
   bool ok = false;
+  course.levelFrom[0] = 0;
+  course.levelTo[0] = 0;
   if (!deserializeJson(doc, buf, got)) {
     strlcpy(course.id, doc["id"] | "", sizeof(course.id));
     strlcpy(course.title, doc["title"] | "", sizeof(course.title));
     strlcpy(course.from, doc["from"] | "", sizeof(course.from));
     strlcpy(course.to, doc["to"] | "", sizeof(course.to));
+    // Level track ("levels": ["A2", "B1"]) is optional: UI falls back to
+    // the stored current level when absent (backward compatible).
+    JsonArrayConst levels = doc["levels"].as<JsonArrayConst>();
+    if (!levels.isNull() && levels.size() >= 2) {
+      strlcpy(course.levelFrom, levels[0] | "", sizeof(course.levelFrom));
+      strlcpy(course.levelTo, levels[1] | "", sizeof(course.levelTo));
+    }
     if (course.id[0]) {
       // dir is /courses/<id>
       snprintf(course.dir, sizeof(course.dir), "%s/%s", cfg::COURSE_DIR, course.id);
@@ -40,6 +49,7 @@ bool CourseCatalog::loadManifest(const char* manifestPath) {
         strlcpy(m.file, path, sizeof(m.file));
         strlcpy(m.title, l["title"] | "", sizeof(m.title));
         strlcpy(m.level, l["level"] | "", sizeof(m.level));
+        m.legacyIndex = l["legacyIndex"] | course.lessonCount;
         const char* kind = l["kind"] | "mixed";
         m.kind = LessonKind::Mixed;
         if (strcmp(kind, "vocab") == 0) m.kind = LessonKind::Vocab;

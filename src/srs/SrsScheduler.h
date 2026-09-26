@@ -14,8 +14,9 @@
 
 struct SrsItem {
   char id[28];        // e.g. "vp.actually", "pp.form"
-  uint8_t easePct;    // ease factor * 100 (130..280)
+  uint16_t easePct;    // ease factor * 100 (130..280)
   uint16_t intervalDays;
+  bool retained = false; // independent free recall on a later due day
   uint8_t reps;       // consecutive successful recalls
   uint8_t lapses;     // total failures
   uint16_t lastDay;   // day counter of last review
@@ -35,16 +36,23 @@ class SrsScheduler {
   }
 
   // Grades one review. quality: 0..5.
-  static void grade(SrsItem& it, uint8_t quality, uint16_t today) {
+  static void grade(SrsItem& it, uint8_t quality, uint16_t today, bool freeRecall = false) {
     if (quality > 5) quality = 5;
+    // A second success today is practice, not another spaced recall.
+    // A failure still wins, and cannot be erased by immediately seeing the answer.
+    if (quality >= 3 && (it.reps || it.lapses) &&
+        (it.lastDay == today || it.nextDay > today)) return;
+    if (quality < 3 && it.lastDay == today && it.lapses && it.reps == 0) return;
     float ease = it.easePct / 100.0f;
     if (quality < 3) {
+      it.retained=false;
       it.reps = 0;
-      it.lapses++;
+      if(it.lapses<255) it.lapses++;
       it.intervalDays = cfg::DAY_MIN;
       ease -= 0.20f;
     } else {
-      it.reps++;
+      if(it.reps<255) it.reps++;
+      if(freeRecall && it.reps>=2) it.retained=true;
       if (it.reps == 1) {
         it.intervalDays = cfg::DAY_MIN;
       } else if (it.reps == 2) {
@@ -59,11 +67,11 @@ class SrsScheduler {
       }
       if (ease < cfg::EASE_MIN) ease = cfg::EASE_MIN;
       if (ease > cfg::EASE_MAX) ease = cfg::EASE_MAX;
-      it.easePct = (uint8_t)(ease * 100);
+      it.easePct = (uint16_t)(ease * 100);
     }
     if (ease < cfg::EASE_MIN) ease = cfg::EASE_MIN;
     if (ease > cfg::EASE_MAX) ease = cfg::EASE_MAX;
-    it.easePct = (uint8_t)(ease * 100);
+    it.easePct = (uint16_t)(ease * 100);
     it.lastDay = today;
     it.nextDay = (uint16_t)(today + it.intervalDays);
   }

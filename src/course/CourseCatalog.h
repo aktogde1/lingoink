@@ -11,8 +11,9 @@ struct LessonMeta {
   char id[32];
   char file[80];   // path relative to SD root, e.g. /courses/english_ru/lessons/x.json
   char title[64];
-  char level[8];
+  char level[16];  // grouping key: "A2" or day labels like "День 1" (11 bytes)
   LessonKind kind;
+  uint8_t legacyIndex = 255;
 };
 
 struct CourseMeta {
@@ -21,6 +22,8 @@ struct CourseMeta {
   char title[48];
   char from[8];    // "ru"
   char to[8];      // "en"
+  char levelFrom[8]; // "A2" (optional; older manifests leave it empty)
+  char levelTo[8];   // "B1"
   uint8_t lessonCount;
   LessonMeta lessons[cfg::MAX_LESSONS];
 };
@@ -56,6 +59,16 @@ class CourseCatalog {
       }
     }
     return nullptr;
+  }
+
+  // 0-based index of a lesson id, or -1 when unknown.
+  int indexOf(const char* id) const {
+    for (uint8_t i = 0; i < course.lessonCount; i++) {
+      if (strncmp(course.lessons[i].id, id, sizeof(LessonMeta::id)) == 0) {
+        return i;
+      }
+    }
+    return -1;
   }
 
   // Next lesson after `id`, or the first lesson when id is empty/null.

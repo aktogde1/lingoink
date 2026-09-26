@@ -1,0 +1,167 @@
+{
+  "format": 1,
+  "id": "a2_12",
+  "title": "J. M. Barrie: Peter Pan",
+  "level": "A2",
+  "kind": "reading",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять сказочный эпизод и попросить научить действию.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "to fly — летать",
+        "a fairy — фея",
+        "a shadow — тень",
+        "to wake up — будить / просыпаться",
+        "a window — окно",
+        "never — никогда",
+        "an island — остров",
+        "an adventure — приключение",
+        "to teach — учить (taught)",
+        "to sew — шить, пришивать"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Венди живёт с братьями в Лондоне.",
+        "Однажды ночью в окно влетает мальчик,",
+        "который не хочет взрослеть,",
+        "и маленькая светящаяся фея — Динь-Дилинь.",
+        "Дж. М. Барри, 1911 — адаптировано."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "PETER PAN",
+      "pages": [
+        "One night, when Mrs. Darling was tidying the children's room, she found something strange: not a leaf, not a toy — a shadow. She knew at once whose it was. It belonged to Peter Pan. She rolled it up and put it into a drawer.",
+        "Some nights later Peter came back for his shadow. He cried when he could not make the shadow stay on him. Wendy woke up and was not afraid. «You can sew it on,» she said. She took her needle and sewed the shadow to Peter's foot, and there it was — like a paper boat on water. Peter was so happy that he began to talk about his island: «Neverland! There are fairies there, and pirates, and adventures every day! And no one ever grows up.»",
+        "«Can you teach us to fly?» asked Wendy. «Of course,» said Peter. He blew some fairy dust on the children from his little friend Tinker Bell. «Just think happy thoughts, and move your arms like this.» And soon Wendy, John and Michael were flying around the room, out of the window, up above the sleeping town — second star to the right, and straight on till morning."
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Mrs. Darling find in the children's room?",
+      "options": [
+        "Peter Pan's shadow.",
+        "A fairy.",
+        "A paper boat."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В первом фрагменте названа тень: a shadow. Она принадлежала Питеру.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "How did Wendy fix the shadow?",
+      "options": [
+        "She sewed it on with a needle.",
+        "She glued it with fairy dust.",
+        "She threw it out of the window."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading",
+        "vocab"
+      ],
+      "explain": "Венди берёт иголку и пришивает тень к ноге: sewed the shadow to Peter’s foot.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What is special about Neverland?",
+      "options": [
+        "Nobody ever grows up there.",
+        "There are no adventures there.",
+        "Children must work there."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Питер говорит: no one ever grows up — никто не взрослеет.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "How did Peter teach the children to fly?",
+      "options": [
+        "Happy thoughts + fairy dust.",
+        "A magic umbrella.",
+        "He taught them to jump high."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "Питер использует fairy dust и просит думать о хорошем — happy thoughts.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "«Second star to the right, and straight on till morning» is...",
+      "options": [
+        "the way to Neverland.",
+        "a song about London.",
+        "the way to school."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Финальная фраза указывает маршрут полёта в Неверленд: направо у второй звезды.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите: Ты можешь научить меня плавать?",
+      "answer": "Can you teach me to swim?",
+      "srs": [
+        "vp.teach-to"
+      ],
+      "tags": [
+        "collocations"
+      ],
+      "skill": "vocabulary",
+      "explain": "Teach + человек + to + действие."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Он никогда не взрослеет.",
+      "answer": "He never grows up.",
+      "srs": [
+        "pv.grow-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Grow up — взрослеть; he → grows."
+    }
+  ],
+  "objective": "Понять сказочный эпизод и попросить научить действию."
+}

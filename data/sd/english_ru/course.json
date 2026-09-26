@@ -1,38 +1,181 @@
 {
   "format": 1,
   "id": "english_ru",
-  "title": "English A2 → B1",
+  "title": "English: A2 / B1 practice",
   "from": "ru",
   "to": "en",
-  "levels": ["A2", "B1"],
+  "levels": [
+    "A2",
+    "B1"
+  ],
   "lessons": [
     {
       "id": "a2_01",
       "file": "lessons/a2_01_vocab_everyday.json",
       "level": "A2",
       "kind": "vocab",
-      "title": "Everyday words"
+      "title": "Everyday words",
+      "legacyIndex": 0
+    },
+    {
+      "id": "a2_11",
+      "file": "lessons/a2_11_home_routine.json",
+      "level": "A2",
+      "kind": "vocab",
+      "title": "Home & daily routine",
+      "legacyIndex": 10
+    },
+    {
+      "id": "a2_05",
+      "file": "lessons/a2_05_past_simple.json",
+      "level": "A2",
+      "kind": "grammar",
+      "title": "Past Simple",
+      "legacyIndex": 4
+    },
+    {
+      "id": "a2_06",
+      "file": "lessons/a2_06_gift_of_magi.json",
+      "level": "A2",
+      "kind": "reading",
+      "title": "O. Henry: The Gift of the Magi",
+      "legacyIndex": 5
     },
     {
       "id": "a2_02",
       "file": "lessons/a2_02_present_perfect.json",
       "level": "A2",
       "kind": "grammar",
-      "title": "Present Perfect"
+      "title": "Present Perfect",
+      "legacyIndex": 1
     },
     {
       "id": "a2_03",
       "file": "lessons/a2_03_reading_london.json",
       "level": "A2",
       "kind": "reading",
-      "title": "A day in London"
+      "title": "A day in London",
+      "legacyIndex": 2
     },
     {
       "id": "a2_04",
       "file": "lessons/a2_04_mixed_review.json",
       "level": "A2",
       "kind": "mixed",
-      "title": "Mixed review"
+      "title": "Mixed review",
+      "legacyIndex": 3
+    },
+    {
+      "id": "a2_07",
+      "file": "lessons/a2_07_future.json",
+      "level": "A2",
+      "kind": "grammar",
+      "title": "Future: will / going to",
+      "legacyIndex": 6
+    },
+    {
+      "id": "a2_08",
+      "file": "lessons/a2_08_travel.json",
+      "level": "A2",
+      "kind": "vocab",
+      "title": "Travel & directions",
+      "legacyIndex": 7
+    },
+    {
+      "id": "a2_09",
+      "file": "lessons/a2_09_tom_sawyer.json",
+      "level": "A2",
+      "kind": "reading",
+      "title": "Mark Twain: Tom Sawyer",
+      "legacyIndex": 8
+    },
+    {
+      "id": "a2_10",
+      "file": "lessons/a2_10_modals.json",
+      "level": "A2",
+      "kind": "grammar",
+      "title": "Modals: can / must / have to",
+      "legacyIndex": 9
+    },
+    {
+      "id": "a2_12",
+      "file": "lessons/a2_12_peter_pan.json",
+      "level": "A2",
+      "kind": "reading",
+      "title": "J. M. Barrie: Peter Pan",
+      "legacyIndex": 11
+    },
+    {
+      "id": "a2_13",
+      "file": "lessons/a2_13_comparatives.json",
+      "level": "A2",
+      "kind": "grammar",
+      "title": "Comparatives & superlatives",
+      "legacyIndex": 12
+    },
+    {
+      "id": "a2_14",
+      "file": "lessons/a2_14_work.json",
+      "level": "A2",
+      "kind": "vocab",
+      "title": "Work & office",
+      "legacyIndex": 13
+    },
+    {
+      "id": "a2_15",
+      "file": "lessons/a2_15_sherlock_holmes.json",
+      "level": "A2",
+      "kind": "reading",
+      "title": "Conan Doyle: Sherlock Holmes",
+      "legacyIndex": 14
+    },
+    {
+      "id": "b1_16",
+      "file": "lessons/b1_16_conditionals.json",
+      "level": "B1",
+      "kind": "grammar",
+      "title": "Conditionals 0 & 1",
+      "legacyIndex": 15
+    },
+    {
+      "id": "b1_17",
+      "file": "lessons/b1_17_small_talk.json",
+      "level": "B1",
+      "kind": "vocab",
+      "title": "Small talk & phrases",
+      "legacyIndex": 16
+    },
+    {
+      "id": "b1_18",
+      "file": "lessons/b1_18_alice.json",
+      "level": "B1",
+      "kind": "reading",
+      "title": "Lewis Carroll: Alice",
+      "legacyIndex": 17
+    },
+    {
+      "id": "b1_19",
+      "file": "lessons/b1_19_pp_vs_past.json",
+      "level": "B1",
+      "kind": "grammar",
+      "title": "Present Perfect vs Past Simple",
+      "legacyIndex": 18
+    },
+    {
+      "id": "b1_20",
+      "file": "lessons/b1_20_phrasal_verbs.json",
+      "level": "B1",
+      "kind": "vocab",
+      "title": "Phrasal verbs",
+      "legacyIndex": 19
+    },
+    {
+      "id": "b1_21",
+      "file": "lessons/b1_21_last_leaf.json",
+      "level": "B1",
+      "kind": "mixed",
+      "title": "O. Henry: The Last Leaf + тест",
+      "legacyIndex": 20
     }
   ]
 }

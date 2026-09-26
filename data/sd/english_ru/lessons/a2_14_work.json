@@ -1,0 +1,271 @@
+{
+  "format": 1,
+  "id": "a2_14",
+  "title": "Work & office",
+  "level": "A2",
+  "kind": "vocab",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Рассказать о работе и попросить о помощи.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "НА РАБОТЕ",
+      "lines": [
+        "a meeting — встреча, совещание",
+        "a deadline — срок сдачи",
+        "a colleague — коллега",
+        "an email — письмо  |  a report — отчёт",
+        "busy — занят  |  free — свободен",
+        "a salary — зарплата",
+        "to send — отправлять (sent)",
+        "to ask for a day off — просить отгул"
+      ]
+    },
+    {
+      "title": "О СЕБЕ НА СОБЕСЕДОВАНИИ",
+      "lines": [
+        "I work as a... — я работаю (кем-то)",
+        "I work for... — я работаю в (компании)",
+        "I'm looking for a job — ищу работу",
+        "I have experience in... — есть опыт",
+        "I'm good at... — хорошо умею",
+        "«I work as a teacher» — артикль a!"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "a deadline",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "срок сдачи работы",
+        "смертельная линия",
+        "поздний вечер",
+        "последний поезд"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.deadline"
+      ],
+      "tags": [
+        "vocab",
+        "work"
+      ],
+      "explain": "Meet the deadline — уложиться в срок. Miss the deadline — просрочить.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I can't talk now, I'm ___ — let's speak after the meeting.",
+      "options": [
+        "busy",
+        "free",
+        "empty",
+        "full"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.busy"
+      ],
+      "tags": [
+        "work"
+      ],
+      "explain": "busy = занят. I'm free = свободен.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Я работаю учителем.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I work like a teacher.",
+        "I work as teacher.",
+        "I work as a teacher.",
+        "I working a teacher."
+      ],
+      "correct": 2,
+      "srs": [
+        "vp.work-as"
+      ],
+      "tags": [
+        "ru2en",
+        "work",
+        "articles"
+      ],
+      "explain": "work as a + профессия: as a teacher. Like — «похож на», не про должность.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "She ___ the report yesterday evening.",
+      "options": [
+        "sended",
+        "sent",
+        "send",
+        "has send"
+      ],
+      "correct": 1,
+      "srs": [
+        "vp.send"
+      ],
+      "tags": [
+        "work",
+        "past-simple",
+        "irregular"
+      ],
+      "explain": "send → sent (одна t!): She sent the report.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "How to ask a colleague about their job?",
+      "options": [
+        "What do you do?",
+        "What are you doing?",
+        "What do you make?",
+        "Who are you working?"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.what-do-you-do"
+      ],
+      "tags": [
+        "work",
+        "questions"
+      ],
+      "explain": "What do you do? = чем занимаешься (профессия). What ARE you doing? = что делаешь прямо сейчас.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "mistake",
+      "prompt": "I'm looking a new job.",
+      "options": [
+        "looking → looking for",
+        "a → an",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.look-for"
+      ],
+      "tags": [
+        "work",
+        "phrasal-verbs"
+      ],
+      "explain": "look FOR a job — искать работу. Look — просто смотреть.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "We have a ___ at ten. (= рабочее совещание)",
+      "options": [
+        "meeting",
+        "meet",
+        "date",
+        "party"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.meeting"
+      ],
+      "tags": [
+        "work"
+      ],
+      "explain": "Рабочее совещание — a meeting. Have a meeting — участвовать во встрече или проводить её.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "I'm good ___ maths.",
+      "options": [
+        "at",
+        "in",
+        "on",
+        "with"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.good-at"
+      ],
+      "tags": [
+        "work",
+        "prepositions"
+      ],
+      "explain": "good AT + навык: I'm good at English / at maths.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Как сказать «просить отгул»?",
+      "options": [
+        "to ask for a day off",
+        "to ask a free day",
+        "to request off day",
+        "to ask from a day"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.day-off"
+      ],
+      "tags": [
+        "vocab",
+        "work"
+      ],
+      "explain": "a day off — выходной среди недели. Ask for — просить что-то.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "My ___ are very friendly — we have lunch together.",
+      "options": [
+        "colleagues",
+        "collections",
+        "colleagueship",
+        "collars"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.colleague"
+      ],
+      "tags": [
+        "work"
+      ],
+      "explain": "A colleague — коллега. My colleagues are friendly — мои коллеги дружелюбны. Обратите внимание на написание colleague.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я ищу работу.",
+      "answer": "I am looking for a job.",
+      "srs": [
+        "gd.look-for"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Look for — искать; перед job нужен a. Допустимо I’m."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Она отправила письмо вчера.",
+      "answer": "She sent an email yesterday.",
+      "srs": [
+        "vp.send"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "skill": "grammar",
+      "explain": "Send → sent; конкретное завершённое событие."
+    }
+  ],
+  "objective": "Рассказать о работе и попросить о помощи."
+}

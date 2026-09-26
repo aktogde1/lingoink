@@ -1,0 +1,228 @@
+{
+  "format": 1,
+  "id": "b1_21",
+  "title": "O. Henry: The Last Leaf",
+  "level": "B1",
+  "kind": "mixed",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять мотивы героев и применить изученные конструкции.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "a leaf — лист (leaves)",
+        "ivy — плющ",
+        "the wind — ветер",
+        "sick / ill — больной",
+        "hope — надежда",
+        "an artist — художник",
+        "to paint — рисовать",
+        "a masterpiece — шедевр",
+        "poor — бедный",
+        "to survive — выжить"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Нью-Йорк, зима. Художница Джонси",
+        "тяжело больна и следит за плющом",
+        "за окном: пока на ветке есть листья —",
+        "она держится. Листья облетают...",
+        "Завершаем этот набор тем:",
+        "после текста — смешанная практика."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "THE LAST LEAF",
+      "pages": [
+        "In a little district west of Washington Square two young artists shared a flat: Sue and Johnsy. In November a cold, invisible stranger walked through the town, touching people — the doctor called him pneumonia. Johnsy lay almost still on her bed, and through the window she could see the bare wall of the opposite house and an old ivy vine climbing half-way up.",
+        "«Leaves,» she said to Sue. «On the vine. When the last leaf falls, I will go too. I have known this for three days.» The old ivy was losing its leaves one by one in the cold wind. «Oh, I never heard such nonsense,» cried Sue. «Try to eat your soup!» But Johnsy only watched the leaves fall. The old painter Behrman, who lived downstairs and always talked about his future masterpiece, heard everything from Sue. That night the north wind and the rain worked together over the little district.",
+        "In the morning Johnsy asked to open the window. And there, on the wall — one ivy leaf, dark green in the grey morning, hanging from a branch. It did not fall in the wind, it did not fall in the rain. All that day and the next night it stayed there. «I have been a bad girl,» whispered Johnsy. «Somebody wants me to live.» The leaf saved her life. Only much later Sue told her: Behrman painted his leaf — his real masterpiece — in the storm, on that terrible night. He caught pneumonia and died two days after. The last leaf stayed on the wall for many days — a true masterpiece."
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Johnsy believe?",
+      "options": [
+        "When the last leaf falls, she will die.",
+        "The ivy will cure her.",
+        "Sue painted the leaves."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Джонси связывает свою смерть с падением последнего листа: When the last leaf falls, I will go too.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Why did the last leaf never fall?",
+      "options": [
+        "Behrman painted it on the wall during the storm.",
+        "The wind stopped for a week.",
+        "It was made of iron."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В финале Сью объясняет: Берман нарисовал лист на стене ночью во время бури.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What happened to Behrman?",
+      "options": [
+        "He caught pneumonia and died after painting the leaf.",
+        "He sold his masterpiece and became rich.",
+        "He moved to Washington Square."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "После этой ночи Берман заболел пневмонией и умер через два дня.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Why is the painted leaf «a true masterpiece»?",
+      "options": [
+        "It cost the artist his life and saved another's.",
+        "It was the biggest picture in the city.",
+        "It looked exactly like a real leaf."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Лист вернул Джонси надежду; Берман пожертвовал жизнью. Так в этой адаптации раскрывается смысл слова masterpiece.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "cloze",
+      "prompt": "ФИНАЛЬНЫЙ ТЕСТ: Yesterday she ___ the whole evening reading. (spend)",
+      "options": [
+        "spent",
+        "has spent",
+        "spends",
+        "was spend"
+      ],
+      "correct": 0,
+      "srs": [
+        "ps.spend"
+      ],
+      "tags": [
+        "pp-vs-past",
+        "past-simple"
+      ],
+      "explain": "yesterday + вечер (закрытый отрезок) → Past Simple: spent.",
+      "promptSmall": "Используйте Present Simple в if-части",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "ФИНАЛЬНЫЙ ТЕСТ: If it ___ tomorrow, we will paint indoors.",
+      "options": [
+        "will rain",
+        "rains",
+        "rained",
+        "is raining"
+      ],
+      "correct": 1,
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "explain": "После if — Present Simple: If it rains...",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "ФИНАЛЬНЫЙ ТЕСТ: The doctor ___ visit her tonight. (обязан)",
+      "options": [
+        "must",
+        "musts",
+        "must to",
+        "is must"
+      ],
+      "correct": 0,
+      "srs": [
+        "md.must"
+      ],
+      "tags": [
+        "modals"
+      ],
+      "explain": "must + V1 без to: The doctor must visit her.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "ФИНАЛЬНЫЙ ТЕСТ: Как будет «не сдаваться»?",
+      "options": [
+        "not give up",
+        "not give off",
+        "not give in up",
+        "not take off"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.give-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "give up = сдаваться. Never give up — никогда не сдавайся.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Если пойдёт дождь, мы останемся дома.",
+      "answer": "If it rains, we will stay home.",
+      "srs": [
+        "cj.if-no-will"
+      ],
+      "tags": [
+        "conditionals"
+      ],
+      "skill": "grammar",
+      "explain": "If + rains; will stay в главной части. Допустимо stay at home."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Она не сдалась.",
+      "answer": "She did not give up.",
+      "srs": [
+        "pv.give-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Допустимо didn’t give up. После did not — give, не gave."
+    }
+  ],
+  "objective": "Понять мотивы героев и применить изученные конструкции."
+}

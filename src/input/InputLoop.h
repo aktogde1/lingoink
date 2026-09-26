@@ -1,7 +1,13 @@
 #pragma once
 // InputLoop wraps the freeink-sdk InputManager (single instance — it owns
-// edge state) and turns raw button edges into Key events, adding a
-// synthesized OkLong when OK is held. Also tracks idle time for auto-sleep.
+// edge state) and turns raw button edges into Key events, adding synthesized
+// long-presses: OK held -> OkLong (explanation reader), POWER held ->
+// Key::Power (shut down). Also tracks idle time for auto-sleep.
+//
+// Power semantics (user decision, 2026-09-26): the device is turned OFF only
+// by HOLDING the power button (~1 s); a short tap acts as OK — it confirms
+// the selected option in tests and menus. Wake-up stays a hardware feature
+// (any power press boots the device).
 
 #include "Keys.h"
 #include <InputManager.h>
@@ -16,12 +22,15 @@ class InputLoop {
     im_.update();
     Key k = Key::None;
 
-    if (im_.wasPressed(InputManager::BTN_LEFT)) k = Key::Left;
-    else if (im_.wasPressed(InputManager::BTN_RIGHT)) k = Key::Right;
+    // Hardware note (verified on the X4, 2026-09-26): the ADC ladder decodes
+    // the two rightmost bottom buttons inverted against their physical
+    // placement — the rightmost button fires BTN_LEFT. Swap them here so the
+    // physical right button always means forward/next.
+    if (im_.wasPressed(InputManager::BTN_LEFT)) k = Key::Right;
+    else if (im_.wasPressed(InputManager::BTN_RIGHT)) k = Key::Left;
     else if (im_.wasPressed(InputManager::BTN_BACK)) k = Key::Back;
     else if (im_.wasPressed(InputManager::BTN_UP)) k = Key::Up;
     else if (im_.wasPressed(InputManager::BTN_DOWN)) k = Key::Down;
-    else if (im_.wasPressed(InputManager::BTN_POWER)) k = Key::Power;
 
     // OK: short press fires on release (unless the long-press already fired);
     // holding >= OK_LONG_PRESS_MS fires OkLong once.
@@ -41,6 +50,24 @@ class InputLoop {
       okDownSince_ = 0;
     }
 
+    // POWER: holding >= POWER_HOLD_MS fires Key::Power once (shut down);
+    // a short tap on release acts as OK (confirm the current selection).
+    const bool pwrDown = im_.isPressed(InputManager::BTN_POWER);
+    if (pwrDown) {
+      if (pwrDownSince_ == 0) {
+        pwrDownSince_ = nowMs;
+        pwrLongFired_ = false;
+      } else if (!pwrLongFired_ && nowMs - pwrDownSince_ >= cfg::POWER_HOLD_MS) {
+        pwrLongFired_ = true;
+        k = Key::Power;
+      }
+    } else {
+      if (pwrDownSince_ != 0 && !pwrLongFired_) {
+        k = Key::Ok;  // short power tap = confirm
+      }
+      pwrDownSince_ = 0;
+    }
+
     if (k != Key::None) {
       lastActivityMs_ = nowMs;
     }
@@ -53,5 +80,7 @@ class InputLoop {
   InputManager im_;
   uint32_t okDownSince_ = 0;
   bool okLongFired_ = false;
+  uint32_t pwrDownSince_ = 0;
+  bool pwrLongFired_ = false;
   uint32_t lastActivityMs_ = 0;
 };

@@ -14,6 +14,8 @@
 #include "../srs/Mastery.h"
 
 #include <SD.h>
+#include "StudyState.h"
+#include "../course/CourseCatalog.h"
 
 struct DayTime {
   uint16_t day = 0;        // monotonic day counter for SRS
@@ -29,6 +31,61 @@ class ProgressStore {
   uint16_t streakDays = 0;
   char currentLevel[8] = "A2";
 
+  // Settings (persisted here; unknown to older firmware, which ignores them).
+  // Orientation: 0 landscape, 1 portrait, 2 landscape 180°, 3 portrait 180°.
+  uint8_t orient = 0;
+  uint8_t cleanMode = 0;       // 0 = manual clean only, 1 = auto clean
+  uint8_t cleanEvery = 0;      // auto clean every N screens (0 = off)
+  uint8_t uiLang = 1;          // chrome language: 0 English, 1 Russian
+  uint32_t doneMask = 0;       // bit i = lesson #i of the course finished
+
+  uint32_t calendarDate = 0;
+  StudySession session;
+  LessonState lessons[cfg::MAX_LESSONS];
+  bool stableLessons = false;
+  bool saveFailed = false;
+
+  void bindCourse(const CourseCatalog& catalog) {
+    if (courseId[0] && strcmp(courseId, catalog.course.id) != 0) reset();
+    if (!stableLessons) {
+      for (uint8_t i=0;i<catalog.course.lessonCount;++i) {
+        const auto& m=catalog.course.lessons[i];
+        if (m.legacyIndex<32 && (doneMask & (1UL<<m.legacyIndex))) state(m.id)->stage=1;
+      }
+      stableLessons=true;
+    }
+    strncpy(courseId,catalog.course.id,sizeof(courseId)-1);
+  }
+  LessonState* state(const char* id) {
+    for(auto& s:lessons) if(strcmp(s.id,id)==0) return &s;
+    for(auto& s:lessons) if(!s.id[0]) { strncpy(s.id,id,sizeof(s.id)-1); return &s; }
+    return nullptr;
+  }
+  uint8_t stage(const char* id) const {
+    for(const auto& s:lessons) if(strcmp(s.id,id)==0) return s.stage;
+    return 0;
+  }
+  const LessonMeta* nextLesson(const CourseCatalog& c) const {
+    if(session.lesson[0]) { auto m=c.findLesson(session.lesson); if(m) return m; }
+    for(uint8_t i=0;i<c.course.lessonCount;++i)
+      if(stage(c.course.lessons[i].id)==0) return &c.course.lessons[i];
+    return nullptr;
+  }
+  bool setDate(uint32_t date) {
+    int next=dateOrdinal(date), prev=dateOrdinal(calendarDate);
+    if(next<0 || (prev>=0 && next<prev)) return false;
+    if(prev>=0 && next>prev) {
+      time.day=(uint16_t)(time.day+(next-prev)); todayMinutes=0;
+    }
+    calendarDate=date;
+    return true;
+  }
+  uint16_t confirmedCount() const {
+    uint16_t n=0;
+    for(uint16_t i=0;i<itemCount;++i) if(items[i].retained && !SrsScheduler::isDue(items[i],time.day)) ++n;
+    return n;
+  }
+
   DayTime time;
   Mastery mastery;
 
@@ -43,41 +100,37 @@ class ProgressStore {
     return load();
   }
 
-  bool load() {
-    if (!SD.exists(cfg::PROGRESS_FILE)) {
-      return true; // fresh start
-    }
-    File f = SD.open(cfg::PROGRESS_FILE, FILE_READ);
-    if (!f) return false;
-    // Progress JSON is bounded (MAX_SRS items), so read it whole.
-    size_t sz = f.size();
-    if (sz > 48 * 1024) {
-      f.close();
-      return false;
-    }
-    char* buf = (char*)malloc(sz + 1);
-    if (!buf) {
-      f.close();
-      return false;
-    }
-    size_t got = f.readBytes(buf, sz);
-    f.close();
-    buf[got] = 0;
-    bool ok = parse(buf, got);
-    free(buf);
-    return ok;
+  bool loadPath(const char* path) {
+    File f=SD.open(path,FILE_READ);
+    if(!f)return false;
+    size_t sz=f.size();
+    if(!sz || sz>48*1024) {f.close();return false;}
+    char* buf=(char*)malloc(sz+1);
+    if(!buf){f.close();return false;}
+    size_t got=f.readBytes(buf,sz);f.close();buf[got]=0;
+    bool ok=got==sz && parse(buf,got);free(buf);return ok;
   }
-
-  // Atomic-ish: write temp then rename over the target.
+  bool load() {
+    if(SD.exists(cfg::PROGRESS_FILE) && loadPath(cfg::PROGRESS_FILE)) return true;
+    if(SD.exists("/lingoink/progress.bak")) return loadPath("/lingoink/progress.bak");
+    return !SD.exists(cfg::PROGRESS_FILE);
+  }
   bool save() {
-    File f = SD.open(cfg::PROGRESS_TMP, FILE_WRITE);
-    if (!f) return false;
-    write(f);
-    f.close();
-    if (SD.exists(cfg::PROGRESS_FILE)) {
-      SD.remove(cfg::PROGRESS_FILE);
+    // Keep the previous complete file until replacement succeeds. Recovery
+    // also works if power is lost between the two renames.
+    if(SD.exists(cfg::PROGRESS_TMP)) SD.remove(cfg::PROGRESS_TMP);
+    File f=SD.open(cfg::PROGRESS_TMP,FILE_WRITE);
+    if(!f)return false;
+    bool ok=write(f);f.flush();f.close();
+    if(!ok)return false;
+    const char* backup="/lingoink/progress.bak";
+    if(SD.exists(cfg::PROGRESS_FILE)) {
+      if(SD.exists(backup) && !SD.remove(backup))return false;
+      if(!SD.rename(cfg::PROGRESS_FILE,backup))return false;
     }
-    return SD.rename(cfg::PROGRESS_TMP, cfg::PROGRESS_FILE);
+    if(SD.rename(cfg::PROGRESS_TMP,cfg::PROGRESS_FILE))return true;
+    if(SD.exists(backup))SD.rename(backup,cfg::PROGRESS_FILE);
+    return false;
   }
 
   SrsItem* find(const char* id) {
@@ -103,32 +156,50 @@ class ProgressStore {
     return n;
   }
 
-  // Call once per boot; advances the day counter based on persisted uptime.
-  void advanceDay(uint16_t newUptimeMin) {
-    uint32_t total = (uint32_t)time.uptimeMin + newUptimeMin;
-    time.uptimeMin = (uint16_t)(total % (24u * 60u));
-    uint16_t days = (uint16_t)(total / (24u * 60u));
-    if (days > 0) {
-      uint16_t before = time.day;
-      time.day += days;
-      if (time.day != before) {
-        todayMinutes = 0; // new day, reset the daily counter
-      }
-    }
+  // Settings change helper: auto clean is only active in mode 1 with N > 0.
+  uint8_t autoCleanScreens() const {
+    return (cleanMode == 1) ? cleanEvery : 0;
   }
 
+  // Per-lesson completion marks (bitmask over course lesson index).
+  bool lessonDone(uint8_t idx) const {
+    return idx < cfg::MAX_LESSONS && ((doneMask >> idx) & 1u) != 0;
+  }
+
+  void markLessonDone(uint8_t idx) {
+    if (idx < cfg::MAX_LESSONS) doneMask |= (1UL << idx);
+  }
+
+  // Wipe all user state back to factory defaults (SRS, mastery, resume
+  // pointer, counters AND settings). Courses on the SD are untouched.
+  void reset() {
+    courseId[0] = 0;
+    lastLessonId[0] = 0;
+    goalMinutes = cfg::GOAL_MINUTES_DEFAULT;
+    todayMinutes = 0;
+    streakDays = 0;
+    strncpy(currentLevel, "A2", sizeof(currentLevel) - 1);
+    currentLevel[sizeof(currentLevel) - 1] = 0;
+    orient = 0;
+    cleanMode = 0;
+    cleanEvery = 0;
+    uiLang = 1;
+    doneMask = 0;
+    time = DayTime{};
+    calendarDate=0; session=StudySession{}; stableLessons=false;
+    for(auto& s:lessons) s=LessonState{};
+    mastery = Mastery{};
+    itemCount = 0;
+  }
+
+  // Duration is display-only and never advances the calendar.
   void addMinutes(uint16_t m) {
-    uint32_t t = (uint32_t)todayMinutes + m;
-    todayMinutes = (uint16_t)(t > 600 ? 600 : t);
-    uint32_t up = (uint32_t)time.uptimeMin + m;
-    time.uptimeMin = (uint16_t)(up % (24u * 60u));
-    if (up >= 24u * 60u) {
-      time.day += (uint16_t)(up / (24u * 60u));
-      todayMinutes = 0;
-    }
+    uint32_t t=(uint32_t)todayMinutes+m;
+    todayMinutes=(uint16_t)(t>600?600:t);
   }
 
  private:
-  void write(File& f);
+  friend struct StudyTests;
+  bool write(File& f);
   bool parse(const char* json, size_t len);
 };

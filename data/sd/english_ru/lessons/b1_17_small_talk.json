@@ -1,0 +1,266 @@
+{
+  "format": 1,
+  "id": "b1_17",
+  "title": "Small talk & phrases",
+  "level": "B1",
+  "kind": "vocab",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Начать разговор и отреагировать на реплику.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "РАЗГОВОРНЫЙ ЭКСПРЕСС",
+      "lines": [
+        "How's it going? — Как дела?",
+        "Not bad. / Same old. / Can't complain!",
+        "Неплохо. / Всё по-старому. /",
+        "Не жалуюсь!",
+        "Long time no see! — Сто лет не виделись!",
+        "What have you been up to? — Что делал-то?"
+      ]
+    },
+    {
+      "title": "СВЯЗКИ РАЗГОВОРА",
+      "lines": [
+        "By the way — кстати",
+        "Anyway — в общем / короче",
+        "Sounds great! — Звучит отлично!",
+        "No way! — Не может быть!",
+        "I bet... — Ставлю на то, что... /",
+        "наверняка...",
+        "It depends. — Как посмотреть / зависит."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "How's it going?",
+      "promptSmall": "Выберите разговорный ответ",
+      "options": [
+        "Can't complain!",
+        "Yes, it is.",
+        "I go by bus.",
+        "It goes to London."
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.cant-complain"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "Can’t complain — «не жалуюсь». Это один из естественных ответов на How’s it going?",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Long time no see!",
+      "promptSmall": "Что это значит?",
+      "options": [
+        "Сто лет не виделись!",
+        "Долго ждать не придётся!",
+        "Никогда не прощаю!",
+        "Время не ждет!"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.long-time-no-see"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "Грамматически «неправильная», но живая фраза при встрече после долгой паузы.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "___ the way, have you heard from Anna?",
+      "options": [
+        "By",
+        "On",
+        "In",
+        "At"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.by-the-way"
+      ],
+      "tags": [
+        "smalltalk",
+        "prepositions"
+      ],
+      "explain": "By the way — «кстати», чтобы сменить тему.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "What have you been up to?",
+      "promptSmall": "О чём спрашивают?",
+      "options": [
+        "Чем ты занимался (за последнее время)?",
+        "Куда ты собираешься?",
+        "Ты уже наверху?",
+        "Что ты натворил опять?"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.been-up-to"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "be up to — «заниматься чем-то». What are you up to tonight? — какие планы на вечер?",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "I bet he forgot again.",
+      "promptSmall": "Что значит I bet?",
+      "options": [
+        "Ставлю на то / наверняка он снова забыл.",
+        "Он бросил это дело.",
+        "Он побил рекорд.",
+        "Он поспорил с кем-то."
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.i-bet"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "I bet = «я уверен, наверняка» — разговорное уверенное предположение.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "It ___ on the weather whether we go.",
+      "options": [
+        "depends",
+        "depended anyway",
+        "decides",
+        "takes"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.depends"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "It depends (on...) — «зависит от...». Один из самых частых ответов англичанина.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Друг рассказал классную идею. Ваша реакция:",
+      "options": [
+        "Sounds great!",
+        "You're great sounding!",
+        "Good sounding!",
+        "It hears great!"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.sounds-great"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "Sounds great! — «звучит здорово!». Глагол sound = «звучать (казаться)».",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "No way!",
+      "promptSmall": "Как это по-русски?",
+      "options": [
+        "Не может быть! / Да ладно!",
+        "Нет пути!",
+        "Никаких дорог!",
+        "Ни за что не скажу!"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.no-way"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "No way — удивление («быть не может!») или отказ («ни за что»).",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "— The meeting was terrible. — ___, let's just go home.",
+      "options": [
+        "Anyway",
+        "By the way",
+        "Someday",
+        "Perhaps"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.anyway"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "Anyway — «в общем/короче», закрывает тему и возвращает к делу.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Как сказать «всё по-старому» на вопрос о делах?",
+      "options": [
+        "Same old, same old.",
+        "Old same always.",
+        "The same old of it.",
+        "Same to you old."
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.same-old"
+      ],
+      "tags": [
+        "smalltalk"
+      ],
+      "explain": "Same old, same old — «ничего нового, всё как всегда».",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Как сказать «всё по-старому», отвечая на вопрос о делах?",
+      "answer": "Same old, same old.",
+      "srs": [
+        "vp.same-old"
+      ],
+      "tags": [
+        "small-talk"
+      ],
+      "skill": "vocabulary",
+      "explain": "Допустимо короткое Same old. Это разговорный ответ."
+    },
+    {
+      "type": "recall",
+      "prompt": "Добавьте «кстати»: ... have you heard from Anna?",
+      "answer": "By the way, have you heard from Anna?",
+      "srs": [
+        "vp.by-the-way"
+      ],
+      "tags": [
+        "small-talk"
+      ],
+      "skill": "vocabulary",
+      "explain": "By the way вводит дополнительную тему."
+    }
+  ],
+  "objective": "Начать разговор и отреагировать на реплику."
+}

@@ -2,126 +2,106 @@
 
 **One device. One purpose. Learn a language.**
 
-LingoInk превращает XTEINK X4 (ESP32-C3, 4.3" e-ink 800×480) в автономный
-языковой тренажёр: без соцсетей, браузера, уведомлений и библиотеки книг.
-Короткие уроки, тесты, чтение, грамматика и интервальное повторение —
-полностью офлайн, контент на SD-карте.
+LingoInk — автономный офлайн языковой тренажёр для XTEINK X4
+(ESP32-C3, 4.3" e-ink 800×480): короткие уроки, тесты, чтение, грамматика
+и интервальное повторение. Без Wi-Fi, уведомлений и отвлекающих функций;
+контент и прогресс живут на SD-карте.
 
-Это отдельное приложение, а не форк читалки: reader-функционал не
-переносится; из open-source экосистемы X4 берётся только hardware-слой
-[freeink-sdk](https://github.com/Free-Ink/freeink-sdk) (MIT).
+Это отдельное приложение, а не форк читалки: из open-source экосистемы X4
+берётся только hardware-слой [freeink-sdk](https://github.com/Free-Ink/freeink-sdk)
+(MIT, вендорен в `lib/`).
 
-## Сборка и прошивка
+## Документация
 
-Требуется PlatformIO (Python 3.10–3.13 — ограничение платформы pioarduino).
-**esptool не работает из Git Bash (MSys) — выполняйте прошивку из cmd или
-PowerShell.**
+| Файл | О чём |
+|---|---|
+| `docs/PRODUCT.md` | идея продукта, аудитория, отличия от Anki/Duolingo |
+| `docs/ARCHITECTURE.md` | слои, модули, зависимости |
+| `docs/HARDWARE.md` | X4: экран, кнопки, память, ограничения |
+| `docs/UX.md` | управление, экраны, refresh, lock screen |
+| `docs/COURSE_FORMAT.md` | спецификация формата курсов (SD) |
+| `docs/ROADMAP.md` | текущее состояние и планы версий |
+| `docs/HARDWARE_VALIDATION.md` | чек-лист проверки на железе |
+| `docs/TECHNICAL_PLAN.md` | исторический план (исследование 2026-09) |
+| `AGENTS.md` | правила для AI-агентов |
 
-```bash
-pio run -e esp32c3              # сборка
-pio run -e esp32c3 -t upload    # прошивка (USB-C)
-pio device monitor              # логи 115200
-```
+## Сборка
 
-### Что именно записывает прошивка (safety)
-
-Проверено по коду платформы pioarduino 55.03.37 (Arduino framework не задаёт
-`FLASH_EXTRA_IMAGES`): `pio upload` и ручная команда ниже пишут **только
-слот app0 @ 0x10000**. Не затрагиваются: bootloader @ 0x0, partition table @
-0x8000, **NVS @ 0x9000 (там калибровка панели)**, otadata @ 0xE000, вся
-остальная flash. `erase_flash` не используется.
-
-Ручная прошивка тем же единственным offset:
+PlatformIO, Python 3.10–3.13 (ограничение платформы pioarduino).
+Системный Python 3.14 не подходит — используйте venv проекта:
 
 ```bat
-esptool --chip esp32c3 --port COMx --baud 921600 ^
-    write-flash 0x10000 .pio\build\esp32c3\firmware.bin
+%USERPROFILE%\lingoink-venv\Scripts\pio.exe run --project-dir . -e esp32c3
 ```
 
-⚠️ Устройства с AliExpress могут быть USB-locked — см. раздел Risks в
-`docs/TECHNICAL_PLAN.md`. Если на устройстве стоял CrossPoint и оно
-загружалось из слота app1, после прошивки LingoInk в app0 старая прошивка
-может продолжить грузиться (otadata указывает на app1) — см. «otadata» в
-`docs/HARDWARE_VALIDATION.md`.
+Если Python подходящей версии стоит системно:
+
+```bash
+pio run -e esp32c3              # сборка прошивки
+pio test -e native              # тесты домена (SRS/mastery) — нужен host g++
+```
+
+## Прошивка
+
+**esptool не работает из Git Bash (MSys) — шейте из cmd или PowerShell.**
+
+Прошивается **только слот app0 @ 0x10000** (bootloader, partition table и
+NVS с калибровкой панели не затрагиваются, `erase_flash` не используется).
+**Внимание: `pio run -t upload` на этой плате перезаписывает ещё и
+bootloader (0x0), partition table (0x8000) и otadata (0xE000)** — проверено
+на железе 2026-09-26, `upload_offset_address` pioarduino игнорирует.
+Санкционированная процедура — прямой esptool; после прошивки сверяй вывод:
+ровно одна запись `Wrote ... at 0x00010000`:
+
+```bat
+esptool --chip esp32c3 --port COMx --baud 921600 --before default_reset --after hard_reset write-flash 0x10000 .pio\build\esp32c3\firmware.bin
+```
+
+Монитор: `pio device monitor -p COMx -b 115200`.
 
 ### Backup перед первой прошивкой (обязательно)
 
-Из cmd/PowerShell (esptool из venv: `%USERPROFILE%\lingoink-venv\Scripts\`):
-
 ```bat
-:: полный образ flash (16 MB) — ~3–5 минут, полная обратимость
 esptool --chip esp32c3 --port COMx --baud 921600 read-flash 0 0x1000000 lingoink-x4-backup-full.bin
-
-:: отдельно критические разделы
-esptool --chip esp32c3 --port COMx read-flash 0x0    0x10000 lingoink-bootloader-region.bin
-esptool --chip esp32c3 --port COMx read-flash 0x8000 0x1000  lingoink-partitions.bin
-esptool --chip esp32c3 --port COMx read-flash 0x9000 0x5000  lingoink-nvs.bin
-esptool --chip esp32c3 --port COMx read-flash 0xE000 0x2000  lingoink-otadata.bin
 ```
 
-Восстановление любой предыдущей прошивки — запись полного бэкапа назад
-(или web flasher CrossPoint / стока, они пишут полный образ с 0x0):
+Восстановление стока: `write-flash 0 lingoink-x4-backup-full.bin`.
 
-```bat
-esptool --chip esp32c3 --port COMx --baud 921600 write-flash 0 lingoink-x4-backup-full.bin
-```
+Если после прошивки грузится старая прошивка (стоял CrossPoint, otadata
+указывает на app1) — затереть otadata файлом 0xFF размером 0x2000 по адресу
+0xE000 (после снятого backup). Подробности и предупреждения об USB-locked
+партиях AliExpress: `docs/TECHNICAL_PLAN.md` § Risks.
 
-### otadata (только если после прошивки грузится старая прошивка)
+## Структура SD-карты
 
-Прочитать и посмотреть: все `FF` в первых секторах — ок, LingoInk загрузится.
-Если там валидная запись об app1 (стоял CrossPoint) — затереть otadata
-(backup уже снят; write-flash стирает только записываемые секторы):
-
-```bat
-:: подготовить файл 0xFF размером 0x2000 и записать его в otadata
-python -c "open('blank_otadata.bin','wb').write(b'\xFF'*0x2000)"
-esptool --chip esp32c3 --port COMx write-flash 0xE000 blank_otadata.bin
-```
-
-## Подготовка SD-карты
-
-Карта FAT32. Из `data/sd/english_ru/` сделать на карте корневой каталог
-`courses` (Windows: карта — это диск `X:`):
+Карта FAT32, вставляется **до включения** (монтирование при старте):
 
 ```
-X:\courses\english_ru\course.json
-X:\courses\english_ru\lessons\a2_01_vocab_everyday.json
-X:\courses\english_ru\lessons\a2_02_present_perfect.json
-X:\courses\english_ru\lessons\a2_03_reading_london.json
-X:\courses\english_ru\lessons\a2_04_mixed_review.json
+X:\courses\english_ru\course.json          # манифест курса
+X:\courses\english_ru\lessons\*.json       # уроки
+X:\lingoink\progress.json                  # создаёт прошивка после первого урока
 ```
 
-То есть: скопировать папку `english_ru` в созданную папку `courses` в
-корне карты. Вставить карту **до включения** устройства (монтирование —
-при старте). Прогресс появится в `X:\lingoink\progress.json` после первого
-урока.
+Быстрый старт: скопировать папку `data/sd/english_ru` в `courses` в корне
+карты. Формат — `docs/COURSE_FORMAT.md`.
 
-Чек-лист проверки на железе: `docs/HARDWARE_VALIDATION.md`.
+## Запуск
 
-## Управление
-
-| Кнопка | Действие |
-|---|---|
-| Left / Right (или Up / Down) | выбор варианта / навигация |
-| OK | подтвердить ответ / далее |
-| OK (удержание) | показать объяснение |
-| Back | назад |
-| Power | выключение (deep sleep) |
-
-## Тесты домена
-
-```bash
-pio test -e native    # SRS (SM-2), mastery — нужен host-компилятор
-```
-
-## Структура и планы
-
-- `docs/TECHNICAL_PLAN.md` — архитектура, исследование железа, лицензии, roadmap.
-- `docs/course-format.md` — спецификация формата курса.
-- `LICENSE-NOTES.md` — лицензионная ведомость третьих сторон.
+Включение кнопкой Power → splash → Home (CONTINUE / PROGRESS / SETTINGS).
+Ориентация (landscape/portrait), очистка экрана и сброс прогресса — в
+SETTINGS. Управление кнопками — `docs/UX.md`. Прогресс сохраняется в конце
+урока и при выключении; resume подхватывает следующий урок.
 
 ## Лицензии
 
-Собственный код LingoInk — proprietary (© авторы проекта). Вендоренные
-компоненты: freeink-sdk (MIT), ArduinoJson (MIT), шрифты Inter (OFL 1.1).
-Полная ведомость — `LICENSE-NOTES.md`.
+Собственный код — proprietary (© авторы LingoInk). Вендоренные компоненты:
+freeink-sdk (MIT), ArduinoJson (MIT), шрифты Inter (OFL 1.1). Полная
+ведомость — `LICENSE-NOTES.md`.
+
+## Обновление обучения (2026-09-26)
+
+Рабочие повторы, ручная календарная дата, 42 задания на самостоятельное вспоминание,
+возврат ошибок, чтение без обрезки и сохранение места. Описание и проверки:
+[docs/LEARNING_UPDATE.md](docs/LEARNING_UPDATE.md).
+Для нового контента обновите **и прошивку, и папку курса** `data/sd/english_ru` на SD.
+Папку `/lingoink` с личным прогрессом сохраняйте. До замены файлов выключите устройство.

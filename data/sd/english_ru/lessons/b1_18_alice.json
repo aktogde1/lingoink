@@ -1,0 +1,166 @@
+{
+  "format": 1,
+  "id": "b1_18",
+  "title": "Lewis Carroll: Alice",
+  "level": "B1",
+  "kind": "reading",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять события и описать движение.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "to fall — падать (fell)",
+        "a hole — нора",
+        "a rabbit — кролик",
+        "a pocket — карман",
+        "a waistcoat — жилет",
+        "a shelf — полка",
+        "to pick up — поднимать",
+        "to grow — расти (grew)",
+        "strange — странный",
+        "sleepy — сонный"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Алиса сидит на берегу с сестрой",
+        "и очень скучает. Вдруг мимо бежит",
+        "кролик... с часами. И говорит сам с собой!",
+        "Л. Кэрролл, 1865 — адаптировано."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "DOWN THE RABBIT HOLE",
+      "pages": [
+        "Alice was beginning to get very tired of sitting by her sister on the bank, with nothing to do. Suddenly a White Rabbit with pink eyes ran close by her. There was nothing so very strange in that; but when the Rabbit took a watch out of its waistcoat-pocket, and looked at it, and then hurried on, Alice stood up. «A rabbit with a watch!» she said.",
+        "She ran across the field after it, and was just in time to see it pop down a large rabbit-hole. In a moment down went Alice after it. The hole went straight down, like a very deep well, and slowly Alice fell. Down, down, down. While she fell she had time to look around: the walls were covered with cupboards and book-shelves, and here and there she saw maps and pictures hung upon pegs. She took down a jar from one of the shelves: it said ORANGE MARMALADE, but to her great disappointment it was empty.",
+        "«Well!» thought Alice to herself, «after such a fall as this, I shall think nothing of tumbling down stairs! How brave they'll all think me at home! Why, I wouldn't say anything about it, even if I fell off the top of the house!» And down, down, down she went. Would the fall never come to an end? «I wonder how many miles I've fallen by this time?» she said aloud. «I must be getting somewhere near the centre of the earth.»"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "What surprised Alice about the Rabbit?",
+      "options": [
+        "It took a watch out of its pocket.",
+        "It had pink eyes.",
+        "It ran very fast."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Алису удивляет, что кролик достаёт часы из кармана жилета.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Alice take from a shelf?",
+      "options": [
+        "A jar labelled ORANGE MARMALADE.",
+        "A pocket watch.",
+        "A map of London."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "В тексте Алиса берёт с полки банку с надписью ORANGE MARMALADE.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Why was Alice disappointed about the jar?",
+      "options": [
+        "It was empty.",
+        "It was too small.",
+        "It said «POISON»."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading",
+        "vocab"
+      ],
+      "explain": "Она разочарована, потому что банка пуста: it was empty.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Alice think about falling down stairs at home?",
+      "options": [
+        "After this fall, stairs would seem like nothing.",
+        "She would never walk again.",
+        "She would tell her sister everything."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "После такого долгого падения обычное падение с лестницы кажется ей пустяком.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Where did Alice think she was falling to?",
+      "options": [
+        "Near the centre of the earth.",
+        "To Australia.",
+        "Back home."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Алиса предполагает, что приближается к центру Земли: near the centre of the earth.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я поднял книгу. Используйте pick up.",
+      "answer": "I picked up the book.",
+      "srs": [
+        "pv.pick-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Также верно: I picked the book up."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Банка была пустая.",
+      "answer": "The jar was empty.",
+      "srs": [
+        "vp.empty"
+      ],
+      "tags": [
+        "vocab"
+      ],
+      "skill": "vocabulary",
+      "explain": "Empty — пустой; was — прошедшее от be."
+    }
+  ],
+  "objective": "Понять события и описать движение."
+}

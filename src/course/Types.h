@@ -9,6 +9,7 @@ enum class ExType : uint8_t {
   Choice,    // multiple choice (vocab RU->EN, dialogue line, comprehension QA)
   Cloze,     // fill the gap: prompt with ___ , option list
   Mistake,   // find the mistake: sentence + "a → b" options
+  Recall,    // produce an answer before revealing it; honest self-assessment
   Reading,   // multi-page text, comprehension questions follow as Choice/Cloze
 };
 
@@ -31,6 +32,9 @@ struct Exercise {
   uint8_t optionCount;
   uint8_t correct;          // index into options
 
+  const char* answer;      // Recall model answer, optional alternatives in explain
+  const char* skill;       // explicit skill overrides the UI exercise shape
+  bool reviewable;         // story trivia is not a language recall item
   const char* explain;      // long-press OK (may be null)
 
   // Reading payload (type == Reading).

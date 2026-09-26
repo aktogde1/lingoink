@@ -1,0 +1,272 @@
+{
+  "format": 1,
+  "id": "a2_08",
+  "title": "Travel & directions",
+  "level": "A2",
+  "kind": "vocab",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Спросить дорогу и рассказать о поездке.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "В ДОРОГЕ",
+      "lines": [
+        "a ticket — билет",
+        "a platform — платформа, путь",
+        "a train — поезд  |  a bus — автобус",
+        "a flight — рейс  |  an airport — аэропорт",
+        "to catch a bus — успеть на автобус",
+        "to miss a train — опоздать на поезд",
+        "left / right — налево / направо",
+        "straight ahead — прямо",
+        "How do I get to...? — Как добраться до...?"
+      ]
+    },
+    {
+      "title": "ЛОЖНЫЕ ДРУЗЬЯ",
+      "lines": [
+        "actual — фактический (не «актуальный»)",
+        "pretend — притворяться (не «претендовать»)",
+        "a chance — возможность: Give me a chance.",
+        "to arrive in London / at the station:",
+        "in — город, at — точка на карте."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "a platform",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "платформа, путь",
+        "планшет",
+        "площадь",
+        "перрон-чемодан"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.platform"
+      ],
+      "tags": [
+        "vocab",
+        "travel"
+      ],
+      "explain": "The train leaves from platform 3 — поезд отправляется с третьего пути.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Excuse me, how do I ___ to the station?",
+      "options": [
+        "get",
+        "go",
+        "arrive",
+        "reach"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.get-to"
+      ],
+      "tags": [
+        "travel",
+        "prepositions"
+      ],
+      "explain": "How do I get to...? — «как добраться до...?». Go to — просто «идти».",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Поймать автобус (успеть на него).",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "to eat a bus",
+        "to catch a bus",
+        "to hunt a bus",
+        "to receive a bus"
+      ],
+      "correct": 1,
+      "srs": [
+        "vp.catch-bus"
+      ],
+      "tags": [
+        "vocab",
+        "travel"
+      ],
+      "explain": "catch a bus / catch a flight — «успеть». Miss — наоборот, опоздать.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Идите прямо.",
+      "promptSmall": "Что скажет прохожий?",
+      "options": [
+        "Go straight ahead.",
+        "Go straight up.",
+        "Walk direct before.",
+        "Go right straight."
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.straight-ahead"
+      ],
+      "tags": [
+        "travel",
+        "ru2en"
+      ],
+      "explain": "straight ahead — прямо. Go straight up так не говорят.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "mistake",
+      "prompt": "We arrived to London at night.",
+      "options": [
+        "arrived to → arrived in",
+        "at night → on night",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.arrive-in"
+      ],
+      "tags": [
+        "travel",
+        "prepositions"
+      ],
+      "explain": "arrive IN городе (in London), arrive AT точке (at the station).",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "We ___ the train and waited an hour.",
+      "options": [
+        "caught",
+        "missed",
+        "took off",
+        "flew"
+      ],
+      "correct": 1,
+      "srs": [
+        "vp.miss-train"
+      ],
+      "tags": [
+        "travel",
+        "past-simple"
+      ],
+      "explain": "Раз ждали ЧАС — опоздали: missed the train.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Two tickets ___ Oxford, please.",
+      "options": [
+        "to",
+        "in",
+        "at",
+        "on"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.ticket-to"
+      ],
+      "tags": [
+        "travel",
+        "prepositions"
+      ],
+      "explain": "Билет КУДА-ТО → to: a ticket to Oxford.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Как спросить, где остановка автобуса?",
+      "options": [
+        "Where is the bus stop?",
+        "Where is the bus station of stop?",
+        "When is the bus stop?",
+        "Where goes the bus stop?"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.bus-stop"
+      ],
+      "tags": [
+        "travel",
+        "questions"
+      ],
+      "explain": "the bus stop — остановка. The bus station — автостанция (большая).",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "The flight ___ at 6:40 in the morning.",
+      "options": [
+        "departs",
+        "has departed already",
+        "is depart",
+        "departing"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.flight-departs"
+      ],
+      "tags": [
+        "travel",
+        "present-simple"
+      ],
+      "explain": "Расписание → Present Simple: The flight departs at 6:40.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Turn ___ at the bank. (= налево)",
+      "options": [
+        "left",
+        "to left",
+        "the left side",
+        "leftward"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.turn-left"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "explain": "Turn left — поверните налево. Turn right — направо. Здесь русский смысл однозначно задаёт left.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите, как добраться до аэропорта.",
+      "answer": "How do I get to the airport?",
+      "srs": [
+        "vp.get-to"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "skill": "vocabulary",
+      "explain": "How do I get to + место. Можно добавить Excuse me."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Мы опоздали на поезд.",
+      "answer": "We missed the train.",
+      "srs": [
+        "vp.miss-train"
+      ],
+      "tags": [
+        "travel"
+      ],
+      "skill": "vocabulary",
+      "explain": "Miss the train — не успеть на поезд."
+    }
+  ],
+  "objective": "Спросить дорогу и рассказать о поездке."
+}

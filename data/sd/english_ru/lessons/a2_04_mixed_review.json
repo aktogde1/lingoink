@@ -8,62 +8,161 @@
     {
       "type": "cloze",
       "prompt": "I ___ in London for three years. I still live there.",
-      "options": ["have lived", "lived", "live", "was living"],
-      "correct": 0,
-      "srs": ["pp.form", "pp-vs-past"],
-      "tags": ["present-perfect", "pp-vs-past"],
-      "explain": "«до сих пор живу» — незаконченный период → Present Perfect."
+      "options": [
+        "live",
+        "lived",
+        "have lived",
+        "was living"
+      ],
+      "correct": 2,
+      "srs": [
+        "pp.form",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "present-perfect",
+        "pp-vs-past"
+      ],
+      "explain": "«до сих пор живу» — незаконченный период → Present Perfect.",
+      "skill": "grammar"
     },
     {
       "type": "cloze",
       "prompt": "I ___ in London for three years. Then I moved to Leeds.",
-      "options": ["lived", "have lived", "am living", "live"],
-      "correct": 0,
-      "srs": ["ps.lived", "pp-vs-past"],
-      "tags": ["past-simple", "pp-vs-past"],
-      "explain": "Период закрыт (then I moved) → Past Simple."
+      "options": [
+        "have lived",
+        "lived",
+        "am living",
+        "live"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.lived",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "past-simple",
+        "pp-vs-past"
+      ],
+      "explain": "Период закрыт (then I moved) → Past Simple.",
+      "skill": "grammar"
     },
     {
       "type": "choice",
       "prompt": "Его телефон всегда разряжен.",
-      "promptSmall": "Переведите предложение",
+      "promptSmall": "Выберите обычный нейтральный порядок слов",
       "options": [
-        "His phone is always dead.",
+        "His phone is dead always.",
         "His phone always is dead.",
         "His phone dead always is.",
-        "His phone is dead always."
+        "His phone is always dead."
       ],
-      "correct": 0,
-      "srs": ["vp.always-late"],
-      "tags": ["ru2en", "word-order"],
-      "explain": "always между подлежащим и связкой: His phone is always dead."
+      "correct": 3,
+      "srs": [
+        "vp.always-late"
+      ],
+      "tags": [
+        "ru2en",
+        "word-order"
+      ],
+      "explain": "После be обычно ставим always: His phone is always dead. Dead здесь значит «разряжен».",
+      "skill": "vocabulary"
     },
     {
       "type": "mistake",
       "prompt": "I have never been to Paris last year.",
-      "options": ["have been → went", "never → ever", "to → in", "no mistake"],
-      "correct": 0,
-      "srs": ["pp-vs-past"],
-      "tags": ["pp-vs-past"],
-      "explain": "last year — указание на законченное время → Past Simple: I never went to Paris last year."
+      "options": [
+        "to → in",
+        "never → ever",
+        "have been → went",
+        "no mistake"
+      ],
+      "correct": 2,
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "last year — указание на законченное время → Past Simple: I never went to Paris last year.",
+      "skill": "grammar"
     },
     {
       "type": "choice",
       "prompt": "actually",
       "promptSmall": "Выберите правильный перевод",
-      "options": ["на самом деле", "сейчас", "актуально", "действительно быстро"],
-      "correct": 0,
-      "srs": ["vp.actually"],
-      "tags": ["vocab"]
+      "options": [
+        "сейчас",
+        "на самом деле",
+        "актуально",
+        "действительно быстро"
+      ],
+      "correct": 1,
+      "srs": [
+        "vp.actually"
+      ],
+      "tags": [
+        "vocab"
+      ],
+      "explain": "actually означает «на самом деле»: Actually, I live in Leeds — на самом деле я живу в Лидсе.",
+      "skill": "vocabulary"
     },
     {
       "type": "cloze",
       "prompt": "Can I ___ your pen for a minute?",
-      "options": ["borrow", "lend", "take out", "rent"],
-      "correct": 0,
-      "srs": ["vp.borrow"],
-      "tags": ["borrow-lend"],
-      "explain": "borrow = взять взаймы (у вас), lend = дать взаймы (вам)."
+      "options": [
+        "rent",
+        "lend",
+        "take out",
+        "borrow"
+      ],
+      "correct": 3,
+      "srs": [
+        "vp.borrow"
+      ],
+      "tags": [
+        "borrow-lend"
+      ],
+      "explain": "borrow = взять взаймы (у вас), lend = дать взаймы (вам).",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я видел Анну вчера.",
+      "answer": "I saw Anna yesterday.",
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "skill": "grammar",
+      "explain": "Завершённое событие вчера: saw, а не have seen."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Он всегда занят. Нейтральный порядок слов.",
+      "answer": "He is always busy.",
+      "srs": [
+        "gd.word-order"
+      ],
+      "tags": [
+        "word-order"
+      ],
+      "skill": "grammar",
+      "explain": "Always после is."
+    }
+  ],
+  "objective": "Различать прошлое событие и результат сейчас.",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Различать прошлое событие и результат сейчас.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
     }
   ]
 }

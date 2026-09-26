@@ -3,6 +3,11 @@
 .piolibdeps/
 __pycache__/
 *.o
+*.obj
 *.bin
 !data/**/*.bin
 .vscode/
+out/
+backup/
+.video_agent/
+.zcode/

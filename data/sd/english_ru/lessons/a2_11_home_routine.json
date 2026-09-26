@@ -1,0 +1,277 @@
+{
+  "format": 1,
+  "id": "a2_11",
+  "title": "Home & daily routine",
+  "level": "A2",
+  "kind": "vocab",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Рассказать о своём обычном дне.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "ДОМА",
+      "lines": [
+        "a kitchen — кухня  |  a bathroom — ванная",
+        "a bedroom — спальня  |  a living room — гостиная",
+        "to wash up — мыть посуду",
+        "to tidy up — убираться",
+        "to do the laundry — стирать",
+        "have breakfast / lunch / dinner —",
+        "завтракать / обедать / ужинать",
+        "Обычно без артикля; но a big breakfast — нормально."
+      ]
+    },
+    {
+      "title": "МОЙ ДЕНЬ",
+      "lines": [
+        "I wake up — просыпаюсь",
+        "I get up — встаю с кровати",
+        "I take a shower — принимаю душ",
+        "I get dressed — одеваюсь",
+        "I go to work / come home",
+        "I go to bed — ложусь спать",
+        "I fall asleep — засыпаю",
+        "always > usually > often > sometimes",
+        "> rarely > never; обычно перед обычным глаголом, после be."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "to tidy up",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "убираться",
+        "подстричься",
+        "одеться",
+        "накрыть на стол"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.tidy-up"
+      ],
+      "tags": [
+        "vocab",
+        "home"
+      ],
+      "explain": "tidy up — навести порядок. My room is a mess, I need to tidy up.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I wake up at seven and ___ up ten minutes later. (= встаю с кровати)",
+      "options": [
+        "get",
+        "wake",
+        "take",
+        "do"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.get-up"
+      ],
+      "tags": [
+        "home",
+        "present-simple"
+      ],
+      "explain": "wake up — проснуться, get up — встать с кровати. Здесь нужен второй шаг: get up.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Выберите обычное сочетание «ужинать» без дополнительных определений.",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "to have dinner",
+        "to do dinner up",
+        "to dinner have",
+        "to have dine"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.have-dinner"
+      ],
+      "tags": [
+        "vocab",
+        "home"
+      ],
+      "explain": "Обычно: have dinner. С определением артикль возможен: have a wonderful dinner.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "She ___ drinks coffee at night. (= никогда)",
+      "options": [
+        "never",
+        "usually",
+        "always",
+        "often"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.never"
+      ],
+      "tags": [
+        "home",
+        "frequency"
+      ],
+      "explain": "Never — никогда. В обычном порядке стоит перед drinks.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Я ложусь спать поздно.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I go to sleep to bed late.",
+        "I go to bed late.",
+        "I fall to bed late.",
+        "I go bed late."
+      ],
+      "correct": 1,
+      "srs": [
+        "vp.go-to-bed"
+      ],
+      "tags": [
+        "ru2en",
+        "home"
+      ],
+      "explain": "go to bed — ложиться спать. Fall asleep — уже заснуть.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "mistake",
+      "prompt": "Выберите нейтральный порядок слов: He always is late for dinner.",
+      "options": [
+        "always is → is always",
+        "for → to",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.word-order"
+      ],
+      "tags": [
+        "word-order",
+        "home"
+      ],
+      "explain": "Нейтрально: He is always late. Always is возможно с особым ударением; здесь перестраиваем в обычный порядок.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "After dinner I ___ the dishes. (= мою посуду)",
+      "options": [
+        "wash",
+        "watch",
+        "wear",
+        "wake"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.wash-up"
+      ],
+      "tags": [
+        "home",
+        "collocations"
+      ],
+      "explain": "Wash the dishes и do the dishes оба означают «мыть посуду». Среди этих вариантов подходит wash.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Where do you ___ your breakfast?",
+      "promptSmall": "Что подходит по смыслу?",
+      "options": [
+        "have",
+        "do",
+        "take up",
+        "carry"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.have-breakfast"
+      ],
+      "tags": [
+        "home",
+        "collocations"
+      ],
+      "explain": "Едят — have: have breakfast / have lunch. Where do you have breakfast? — On the balcony.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Как сказать «принимать душ»?",
+      "options": [
+        "take a shower",
+        "make a shower",
+        "receive a shower",
+        "carry a shower"
+      ],
+      "correct": 0,
+      "srs": [
+        "vp.take-shower"
+      ],
+      "tags": [
+        "vocab",
+        "home"
+      ],
+      "explain": "take a shower / have a shower. Make — не про душ.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Выберите обычный нейтральный порядок слов.",
+      "options": [
+        "I often read in bed.",
+        "I read often in bed.",
+        "Often I read in the bed.",
+        "I in bed often read."
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.word-order"
+      ],
+      "tags": [
+        "word-order",
+        "home"
+      ],
+      "explain": "Обычно: I often read in bed. Другие позиции often возможны в определённых контекстах; здесь нужен нейтральный порядок.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я обычно встаю в семь.",
+      "answer": "I usually get up at seven.",
+      "srs": [
+        "vp.get-up"
+      ],
+      "tags": [
+        "home"
+      ],
+      "skill": "vocabulary",
+      "explain": "Get up — встать с кровати; usually перед get."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: После ужина я мою посуду.",
+      "answer": "After dinner I wash the dishes.",
+      "srs": [
+        "vp.wash-up"
+      ],
+      "tags": [
+        "collocations"
+      ],
+      "skill": "vocabulary",
+      "explain": "Также верно: After dinner I do the dishes / I wash up."
+    }
+  ],
+  "objective": "Рассказать о своём обычном дне."
+}

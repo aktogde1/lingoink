@@ -1,0 +1,321 @@
+{
+  "format": 1,
+  "id": "b1_19",
+  "title": "Present Perfect vs Past Simple",
+  "level": "B1",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Выбрать время по смыслу, а не по одному слову.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "ГЛАВНОЕ РАЗЛИЧИЕ",
+      "lines": [
+        "Момент в прошлом назван (yesterday,",
+        "in 2010, ago, last week) → PAST SIMPLE:",
+        "I saw him yesterday.",
+        "",
+        "Часто с опытом или результатом сейчас: just, already, yet, ever,",
+        "never, this week, today — но учитываем контекст:",
+        "I have just seen him."
+      ]
+    },
+    {
+      "title": "ОТРЕЗКИ ВРЕМЕНИ",
+      "lines": [
+        "Итог до сейчас в незавершённом периоде → PP:",
+        "I have read two books this week.",
+        "(неделя ещё идёт)",
+        "",
+        "Отрезок кончился → PS:",
+        "I read two books last week.",
+        "(та неделя — закрыта)"
+      ]
+    },
+    {
+      "title": "ВОПРОСЫ: РАЗНЫЙ СМЫСЛ",
+      "lines": [
+        "Have you seen «Titanic»? — вообще,",
+        "в жизни (опыт).",
+        "Did you see «Titanic»? — конкретно",
+        "когда-то, например вчера или в кино.",
+        "",
+        "✗ I have seen him yesterday —",
+        "время названо → I saw him yesterday."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "I ___ him yesterday at the station.",
+      "options": [
+        "have seen",
+        "saw",
+        "see",
+        "had seen"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "yesterday — время названо → Past Simple: saw. Present Perfect с yesterday — ошибка.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I ___ my keys. I can't open the door. (уже сейчас)",
+      "options": [
+        "lost",
+        "have lost",
+        "was losing",
+        "lose"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.form",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "present-perfect",
+        "pp-vs-past"
+      ],
+      "explain": "Результат важен сейчас (дверь не открыть) → Present Perfect.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "She ___ to Japan three times in her life.",
+      "options": [
+        "went",
+        "has been",
+        "was being",
+        "had gone"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.experience"
+      ],
+      "tags": [
+        "present-perfect",
+        "pp-vs-past"
+      ],
+      "explain": "Опыт за всю жизнь (three times ever) → has been.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "___ you ever ___ sushi? (есть)",
+      "options": [
+        "Did / eat",
+        "Have / eaten",
+        "Do / eat",
+        "Have / ate"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.ever"
+      ],
+      "tags": [
+        "present-perfect",
+        "questions"
+      ],
+      "explain": "Здесь спрашиваем об опыте до настоящего момента → Have you ever eaten...?",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "We have visited Rome last spring.",
+      "options": [
+        "have visited → visited",
+        "last → the last",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.pp-yesterday"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "last spring — закрытый момент → Past Simple: We visited Rome last spring.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I ___ three cups of coffee this morning. (утро ещё идёт)",
+      "options": [
+        "drank",
+        "have drunk",
+        "was drinking",
+        "drink"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.this-week"
+      ],
+      "tags": [
+        "pp-vs-past",
+        "present-perfect"
+      ],
+      "explain": "this morning ещё не кончилось → Present Perfect: have drunk.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I ___ three cups of coffee this morning. (теперь уже вечер)",
+      "options": [
+        "have drunk",
+        "drank",
+        "had drunk",
+        "am drinking"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "Утро закончилось → отрезок закрыт → Past Simple: drank. Одна фраза — два времени!",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Where is the mistake?",
+      "options": [
+        "She has finished her homework two hours ago.",
+        "She has just finished her homework.",
+        "She finished it before dinner."
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.pp-yesterday"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "two hours ago → Past Simple: She finished her homework two hours ago.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Don't worry, I ___ already ___ the tickets. (buy)",
+      "options": [
+        "have / bought",
+        "did / bought",
+        "have / buyed",
+        "was / buying"
+      ],
+      "correct": 0,
+      "srs": [
+        "pp.already"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "explain": "В этом упражнении «уже» выражаем через Present Perfect: have already bought.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Have you seen my phone anywhere?",
+      "promptSmall": "Что спрашивают на самом деле?",
+      "options": [
+        "Где он сейчас — мне нужен он, а не история.",
+        "Когда я его купил?",
+        "Красивый ли он?"
+      ],
+      "correct": 0,
+      "srs": [
+        "pp.result-now"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "Present Perfect в вопросе часто про результат сейчас, а не про «когда».",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "В каком предложении НЕТ ошибки?",
+      "options": [
+        "I have never been to Paris.",
+        "I have never been to Paris last year.",
+        "I never was to Paris.",
+        "I was never been to Paris."
+      ],
+      "correct": 0,
+      "srs": [
+        "pp.never"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "never — маркер опыта → PP без указания времени: I have never been to Paris.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "He ___ in this company since 2019. (работает до сих пор)",
+      "options": [
+        "worked",
+        "has worked",
+        "was working",
+        "works since"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.since-for"
+      ],
+      "tags": [
+        "present-perfect",
+        "since-for"
+      ],
+      "explain": "since 2019 — с того момента до СЕЙЧАС → has worked.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Я уже купил билеты.",
+      "answer": "I have already bought the tickets.",
+      "srs": [
+        "pp.form"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "skill": "grammar",
+      "explain": "Have + bought; already обычно между ними. Допустимо I’ve."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Я купил билеты вчера.",
+      "answer": "I bought the tickets yesterday.",
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "skill": "grammar",
+      "explain": "Конкретное завершённое событие: bought."
+    }
+  ],
+  "objective": "Выбрать время по смыслу, а не по одному слову."
+}

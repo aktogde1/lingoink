@@ -44,7 +44,7 @@ struct Stat {
 };
 
 struct TagStat {
-  char tag[20];
+  char tag[32];
   Stat stat;
   bool used = false;
 };
@@ -54,7 +54,7 @@ class Mastery {
   Stat skills[(size_t)Skill::Count];
 
   // Fixed-size tag table (no hash map on this device).
-  static constexpr int MAX_TAGS = 24;
+  static constexpr int MAX_TAGS = 64;
   TagStat tags[MAX_TAGS];
 
   void record(Skill skill, const char* const* exTags, uint8_t tagCount, bool correct) {
@@ -75,7 +75,7 @@ class Mastery {
       int best = -1;
       for (int i = 0; i < MAX_TAGS; i++) {
         if (!tags[i].used || taken[i]) continue;
-        if (tags[i].stat.count < 5) continue; // not enough evidence yet
+        if (tags[i].stat.count < 3 || tags[i].stat.ema >= 0.8f) continue; // not enough evidence yet
         if (best < 0 || tags[i].stat.ema < tags[best].stat.ema) best = i;
       }
       if (best < 0) break;

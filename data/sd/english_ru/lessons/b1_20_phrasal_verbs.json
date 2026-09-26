@@ -1,0 +1,268 @@
+{
+  "format": 1,
+  "id": "b1_20",
+  "title": "Phrasal verbs",
+  "level": "B1",
+  "kind": "vocab",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Использовать фразовые глаголы в своей реплике.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "ФРАЗОВЫЕ ГЛАГОЛЫ",
+      "lines": [
+        "Глагол + частица = новый смысл:",
+        "get up — вставать",
+        "look for — искать  |  look after — заботиться",
+        "give up — сдаваться, бросать (привычку)",
+        "turn on / turn off — включить / выключить",
+        "put on / take off — надеть / снять (одежду)",
+        "come back — вернуться",
+        "find out — узнать (выяснить)"
+      ]
+    },
+    {
+      "title": "КАК ЗАПОМИНАТЬ",
+      "lines": [
+        "Частица — это смысловой ключ:",
+        "up часто = «до конца/завершить»:",
+        "eat up (съесть всё), grow up (вырасти)",
+        "",
+        "on/off = «вкл/выкл» (не только техника):",
+        "put on clothes — надеть одежду; не переводим частицу буквально.",
+        "Разделение: turn it off (не turn off it)"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "give up",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "сдаться, бросить (пытаться)",
+        "подняться",
+        "отдать навсегда",
+        "простить"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.give-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "Don't give up! — не сдавайся! give up smoking — бросить курить.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Заботиться о ком-то (о коте, о бабушке).",
+      "promptSmall": "Выберите фразовый глагол",
+      "options": [
+        "look after",
+        "look for",
+        "look at",
+        "look up"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.look-after"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "look after = заботиться. look for = искать. look up = найти в словаре.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "I can't find my glasses. Can you help me ___ for them?",
+      "options": [
+        "look",
+        "take",
+        "put",
+        "give"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.look-for"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "look for — искать: I'm looking for my glasses.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "It's cold outside — ___ your coat on.",
+      "options": [
+        "put",
+        "take",
+        "turn",
+        "get"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.put-on"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "put on — надеть. take off — снять: Take your coat off, we're inside.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "Turn off it, please — I'm sleeping.",
+      "options": [
+        "Turn off it → Turn it off",
+        "please → Please",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.phrasal-it"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "word-order"
+      ],
+      "explain": "Местоимение (it/them) — В СЕРЕДИНЕ: turn it off, turn them on.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "find out",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "выяснить, узнать",
+        "выйти наружу",
+        "найти пропажу",
+        "выгнать"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.find-out"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "find out the truth — выяснить правду. Просто find — найти предмет.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "My brother and I don't ___ on well. (ладить)",
+      "options": [
+        "get",
+        "go",
+        "take",
+        "make"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.get-on"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "get on (well) with somebody — ладить с кем-то.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Вырасти (стать взрослым).",
+      "promptSmall": "Выберите правильный перевод",
+      "options": [
+        "grow up",
+        "grow on",
+        "raise up",
+        "get grown"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.grow-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "grow up — взрослеть: When I grow up, I want to be a pilot.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "choice",
+      "prompt": "Он бросил курить в прошлом году.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "He gave up smoking last year.",
+        "He gave smoking up to last year.",
+        "He gave up to smoke last year.",
+        "He gave off smoking last year."
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.give-up"
+      ],
+      "tags": [
+        "ru2en",
+        "phrasal-verbs"
+      ],
+      "explain": "give up + gerund: gave up smoking. last year → Past Simple.",
+      "skill": "vocabulary"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Come ___ soon — we miss you!",
+      "options": [
+        "back",
+        "off",
+        "up",
+        "on"
+      ],
+      "correct": 0,
+      "srs": [
+        "pv.come-back"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "explain": "come back — возвращаться: Come back soon!",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Попросите выключить свет. Используйте it и turn off.",
+      "answer": "Please turn it off.",
+      "srs": [
+        "gd.turn-off-it"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Местоимение между turn и off. Также верно: Turn it off, please."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Не сдавайся!",
+      "answer": "Do not give up!",
+      "srs": [
+        "pv.give-up"
+      ],
+      "tags": [
+        "phrasal-verbs"
+      ],
+      "skill": "vocabulary",
+      "explain": "Допустимо Don’t give up!"
+    }
+  ],
+  "objective": "Использовать фразовые глаголы в своей реплике."
+}

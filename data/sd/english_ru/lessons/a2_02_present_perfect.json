@@ -6,18 +6,26 @@
   "kind": "grammar",
   "theory": [
     {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Рассказать об опыте и результате до сейчас.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
       "title": "PRESENT PERFECT",
       "lines": [
-        "have / has + past participle",
-        "",
-        "Used when:",
-        "• the result matters now",
-        "• life experience (ever, never)",
-        "• unfinished time (today, this week)",
-        "",
-        "I have lost my keys.  (they are still lost)",
-        "She has never been to London.",
-        "We have finished three lessons today."
+        "have / has + причастие (V3):",
+        "I have lost my keys. She has been to London.",
+        "Результат сейчас; опыт до настоящего момента.",
+        "Have you ever been to London? — бывали когда-нибудь?",
+        "I have never been there. — никогда не бывал.",
+        "Незаконченный период: I have worked a lot today.",
+        "С yesterday / last year обычно нужен Past Simple.",
+        "Сегодня — не автоматический выбор времени. Важно, как говорящий рассматривает событие.",
+        "Здесь тренируем Present Perfect; в американской речи в ряде ситуаций возможен Past Simple."
       ]
     }
   ],
@@ -25,56 +33,153 @@
     {
       "type": "cloze",
       "prompt": "I ___ my keys. I can't open the door.",
-      "options": ["have lost", "lost", "am losing", "lose"],
-      "correct": 0,
-      "srs": ["pp.form", "pp-vs-past"],
-      "tags": ["present-perfect", "pp-vs-past"],
-      "explain": "Результат важен сейчас: ключи до сих пор потеряны → Present Perfect."
+      "options": [
+        "am losing",
+        "lost",
+        "have lost",
+        "lose"
+      ],
+      "correct": 2,
+      "srs": [
+        "pp.form",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "present-perfect",
+        "pp-vs-past"
+      ],
+      "explain": "Результат важен сейчас: ключи до сих пор потеряны → Present Perfect.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
     },
     {
       "type": "cloze",
       "prompt": "Yesterday I ___ to the store.",
-      "options": ["went", "have gone", "go", "was going"],
-      "correct": 0,
-      "srs": ["ps.went", "pp-vs-past"],
-      "tags": ["past-simple", "pp-vs-past"],
-      "explain": "Yesterday — законченное время в прошлом → Past Simple, несмотря ни на что."
+      "options": [
+        "have gone",
+        "went",
+        "go",
+        "going"
+      ],
+      "correct": 1,
+      "srs": [
+        "ps.went",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "past-simple",
+        "pp-vs-past"
+      ],
+      "explain": "Здесь говорим о завершённом походе вчера: went. Yesterday совместимо и с другими прошедшими временами, если меняется смысл.",
+      "skill": "grammar"
     },
     {
       "type": "mistake",
       "prompt": "She don't like coffee.",
-      "options": ["don't → doesn't", "like → likes", "coffee → coffees", "no mistake"],
-      "correct": 0,
-      "srs": ["gd.does"],
-      "tags": ["do-does"],
-      "explain": "She/he/it + doesn't. Вторая ошибка (like → likes) не нужна: после doesn't глагол в исходной форме."
+      "options": [
+        "no mistake",
+        "like → likes",
+        "coffee → coffees",
+        "don't → doesn't"
+      ],
+      "correct": 3,
+      "srs": [
+        "gd.does"
+      ],
+      "tags": [
+        "do-does"
+      ],
+      "explain": "She/he/it + doesn't. Вторая ошибка (like → likes) не нужна: после doesn't глагол в исходной форме.",
+      "skill": "grammar"
     },
     {
       "type": "cloze",
       "prompt": "___ you ever ___ to London? — в правильном порядке",
-      "options": ["Have / been", "Did / go", "Are / going", "Do / be"],
-      "correct": 0,
-      "srs": ["pp.questions", "pp.form"],
-      "tags": ["present-perfect"],
-      "explain": "Опыт за жизнь (ever) → Have you ever been..."
+      "options": [
+        "Are / going",
+        "Did / go",
+        "Have / been",
+        "Do / be"
+      ],
+      "correct": 2,
+      "srs": [
+        "pp.questions",
+        "pp.form"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "explain": "Опыт за жизнь (ever) → Have you ever been...",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
     },
     {
       "type": "cloze",
       "prompt": "We ___ three lessons today.",
-      "options": ["have finished", "finished", "finish", "are finishing"],
-      "correct": 0,
-      "srs": ["pp.form", "pp-vs-past"],
-      "tags": ["present-perfect", "pp-vs-past"],
-      "explain": "Today ещё не закончился → Present Perfect."
+      "options": [
+        "finished",
+        "have finished",
+        "finish",
+        "are finishing"
+      ],
+      "correct": 1,
+      "srs": [
+        "pp.form",
+        "pp-vs-past"
+      ],
+      "tags": [
+        "present-perfect",
+        "pp-vs-past"
+      ],
+      "explain": "Здесь подводим итог за today до настоящего момента: have finished. Само слово today не запрещает Past Simple.",
+      "promptSmall": "Используйте Present Perfect в этом упражнении",
+      "skill": "grammar"
     },
     {
       "type": "mistake",
       "prompt": "I have seen him yesterday.",
-      "options": ["have seen → saw", "him → he", "yesterday → tomorrow", "no mistake"],
-      "correct": 0,
-      "srs": ["pp-vs-past"],
-      "tags": ["pp-vs-past"],
-      "explain": "yesterday требует Past Simple: I saw him yesterday."
+      "options": [
+        "no mistake",
+        "him → he",
+        "yesterday → tomorrow",
+        "have seen → saw"
+      ],
+      "correct": 3,
+      "srs": [
+        "pp-vs-past"
+      ],
+      "tags": [
+        "pp-vs-past"
+      ],
+      "explain": "yesterday требует Past Simple: I saw him yesterday.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Она никогда не видела снег.",
+      "answer": "She has never seen snow.",
+      "srs": [
+        "pp.form"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "skill": "grammar",
+      "explain": "She + has + seen; never перед смысловым глаголом."
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите в Present Perfect: Ты когда-нибудь ел манго?",
+      "answer": "Have you ever eaten a mango?",
+      "srs": [
+        "pp.questions"
+      ],
+      "tags": [
+        "present-perfect"
+      ],
+      "skill": "grammar",
+      "explain": "Have + you + ever + eaten. Допустимо: Have you ever eaten mango?"
     }
-  ]
+  ],
+  "objective": "Рассказать об опыте и результате до сейчас."
 }

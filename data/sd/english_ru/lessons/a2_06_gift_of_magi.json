@@ -1,0 +1,185 @@
+{
+  "format": 1,
+  "id": "a2_06",
+  "title": "O. Henry: The Gift of the Magi",
+  "level": "A2",
+  "kind": "reading",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять мотивы героев и рассказать о подарке.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "to count — считать",
+        "hair — волосы",
+        "a watch — часы (наручные)",
+        "a chain — цепочка",
+        "a comb — гребень",
+        "to sell — продавать (sold)",
+        "to buy — покупать (bought)",
+        "a present / a gift — подарок",
+        "Christmas — Рождество",
+        "proud of — гордиться"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Делла и Джим очень бедны, но любят",
+        "друг друга. У каждого — одна драгоценная",
+        "вещь: у неё — волосы, у него — часы.",
+        "Завтра Рождество, а денег нет...",
+        "Что они подарят друг другу?",
+        "Рассказ О. Генри, 1905 год — адаптировано."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "THE GIFT OF THE MAGI",
+      "pages": [
+        "Della counted her money. One dollar and eighty-seven cents. That was all. And tomorrow was Christmas. She sat down on the sofa and cried. Then she got up and looked in the mirror. Her beautiful long hair fell around her like a waterfall.",
+        "There were two things the James Dillingham Youngs were proud of: Jim's gold watch, which was his father's, and Della's hair. Della ran out into the street. «Will you buy my hair?» she asked a woman in a shop. The woman looked at the hair. «Twenty dollars.» «Give it to me quickly!» Della took the money and ran to another shop. There she bought a platinum chain for Jim's beautiful watch.",
+        "At seven o'clock Jim came home. He looked at Della and could not speak. His eyes were full of... something. «Jim, don't look at me like that! I sold my hair because I wanted to buy you a present. Merry Christmas!» Jim took something from his pocket. They were beautiful combs for Della's hair — the combs she saw long ago in a shop window. «Della,» he said, «I sold the watch to buy your combs.»"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "How much money did Della have?",
+      "options": [
+        "One dollar and eighty-seven cents.",
+        "Twenty dollars.",
+        "Twenty-one dollars and eight cents."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Начало текста называет сумму: one dollar and eighty-seven cents — 1 доллар 87 центов.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Della sell?",
+      "options": [
+        "Her hair.",
+        "Her watch.",
+        "Jim's chain."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading",
+        "vocab"
+      ],
+      "explain": "Делла предлагает купить её волосы. За них женщина даёт двадцать долларов.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Della buy for Jim?",
+      "options": [
+        "A chain for his watch.",
+        "Combs for her hair.",
+        "A new watch."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "Во втором фрагменте она покупает platinum chain — цепочку для часов Джима.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Jim buy for Della?",
+      "options": [
+        "Beautiful combs.",
+        "A platinum chain.",
+        "A bottle of perfume."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "Джим достаёт combs — гребни для волос Деллы.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Jim sell to buy the present?",
+      "options": [
+        "His gold watch.",
+        "His father's books.",
+        "His coat."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "В последней реплике Джим говорит, что продал часы, чтобы купить гребни.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What do Jim and Della’s actions show?",
+      "options": [
+        "They value each other more than their possessions.",
+        "They want to sell gifts for a profit.",
+        "They do not know what the other likes."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Оба продают самое дорогое ради подарка другому. Этот вывод следует из поступков героев.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Она продала часы, чтобы купить подарок.",
+      "answer": "She sold the watch to buy a gift.",
+      "srs": [
+        "ps.sold"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "skill": "grammar",
+      "explain": "Sell → sold. To buy выражает цель. Допустимо a present."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Я горжусь тобой.",
+      "answer": "I am proud of you.",
+      "srs": [
+        "vp.proud-of"
+      ],
+      "tags": [
+        "collocations"
+      ],
+      "skill": "vocabulary",
+      "explain": "Proud of + человек или достижение. Допустимо I’m."
+    }
+  ],
+  "objective": "Понять мотивы героев и рассказать о подарке."
+}

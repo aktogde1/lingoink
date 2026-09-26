@@ -1,0 +1,167 @@
+{
+  "format": 1,
+  "id": "a2_09",
+  "title": "Mark Twain: Tom Sawyer",
+  "level": "A2",
+  "kind": "reading",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Понять поступки героя и описать их.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СЛОВАРЬ К ТЕКСТУ",
+      "lines": [
+        "a fence — забор",
+        "to paint — красить",
+        "to laugh — смеяться",
+        "a bucket — ведро",
+        "to pretend — притворяться",
+        "a neighbour — сосед",
+        "an apple — яблоко",
+        "to seem — казаться",
+        "fun — веселье, развлечение",
+        "to allow — позволять"
+      ]
+    },
+    {
+      "title": "ПЕРЕД ЧТЕНИЕМ",
+      "lines": [
+        "Суббота. Том Сойер должен красить забор,",
+        "а все мальчишки идут играть.",
+        "Забор длинный — почти тридцать метров.",
+        "Том придумывает нечто гениальное.",
+        "Марк Твен, 1876 — адаптировано."
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "TOM SAWYER: THE FENCE",
+      "pages": [
+        "On Saturday morning the summer world was bright and warm, and every boy in the town was free. Tom came to the fence with a bucket of white paint. The fence was long and high. His aunt Polly said: «Paint the fence, and do not leave until you finish.»",
+        "Tom painted a little, then sat down. It was terrible. Soon Ben came by, eating a big red apple. «Ha-ha! You have to WORK today!» he laughed. Tom did not answer. He painted slowly, like an artist, and looked at the fence like a museum painting. «What is so interesting?» asked Ben. «Interesting? Do boys paint fences every day?»",
+        "Ben watched. It began to seem fun. «Tom, let me paint a little.» «No. Aunt Polly is very careful about this fence.» «I'll give you the apple!» Tom allowed him to paint and ate the apple. Other boys came to laugh — and stayed to work. Each of them paid Tom something: a marble, a kite, a dead rat on a string. By afternoon the fence had three coats of paint, and Tom was rich. He had learned a great law of human nature: in order to make a person want a thing, it is only necessary to make the thing difficult to get."
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Why did Tom have to paint the fence?",
+      "options": [
+        "His aunt Polly told him to.",
+        "He lost a game.",
+        "He wanted to earn money."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Тётя Полли велит Тому покрасить забор и не уходить до конца работы.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "How did Tom paint?",
+      "options": [
+        "Slowly and carefully, like an artist.",
+        "Quickly and badly.",
+        "He did not paint at all."
+      ],
+      "correct": 0,
+      "tags": [
+        "reading"
+      ],
+      "explain": "Том красит slowly, like an artist — медленно, как художник.",
+      "reviewable": false,
+      "srs": [],
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What did Ben give Tom for the chance to paint?",
+      "options": [
+        "An apple.",
+        "A marble.",
+        "A kite."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading",
+        "vocab"
+      ],
+      "explain": "Бен предлагает яблоко: I’ll give you the apple!",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "Why did the boys want to paint?",
+      "options": [
+        "Tom made the work look difficult and interesting.",
+        "They loved work very much.",
+        "The fence was a museum."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Том изображает покраску редкой привилегией; Бен начинает считать её интересной.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "choice",
+      "prompt": "What is Tom's «great law of human nature»?",
+      "options": [
+        "People want what is difficult to get.",
+        "Work is always fun.",
+        "Boys love white fences."
+      ],
+      "correct": 0,
+      "srs": [],
+      "tags": [
+        "reading"
+      ],
+      "explain": "Финальная мысль текста: недоступная вещь кажется желаннее.",
+      "reviewable": false,
+      "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Он притворялся занятым.",
+      "answer": "He pretended to be busy.",
+      "srs": [
+        "vp.pretend"
+      ],
+      "tags": [
+        "vocab"
+      ],
+      "skill": "vocabulary",
+      "explain": "Pretend to be + состояние; pretended — прошедшее."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Бен дал Тому яблоко.",
+      "answer": "Ben gave Tom an apple.",
+      "srs": [
+        "ps.gave"
+      ],
+      "tags": [
+        "past-simple"
+      ],
+      "skill": "grammar",
+      "explain": "Give → gave; кому + что. Допустимо gave an apple to Tom."
+    }
+  ],
+  "objective": "Понять поступки героя и описать их."
+}

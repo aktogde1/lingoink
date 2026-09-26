@@ -1,0 +1,297 @@
+{
+  "format": 1,
+  "id": "a2_13",
+  "title": "Comparatives & superlatives",
+  "level": "A2",
+  "kind": "grammar",
+  "theory": [
+    {
+      "title": "ЦЕЛЬ И ПРАКТИКА",
+      "lines": [
+        "Сравнить предметы и выбрать лучший.",
+        "Сначала примеры, затем задания и ответ без вариантов.",
+        "Вспомните ответ до нажатия OK. Ошибки вернутся в этом занятии.",
+        "Повторите материал в другой день через «Повторить»."
+      ]
+    },
+    {
+      "title": "СРАВНЕНИЕ: -ER / MORE",
+      "lines": [
+        "Короткие прилагательные:",
+        "tall → taller → the tallest",
+        "big → bigger (удвоение согласной)",
+        "easy → easier (-y → -ier)",
+        "",
+        "Длинные (3+ слога):",
+        "more expensive → the most expensive",
+        "than — «чем»: cheaper than mine"
+      ]
+    },
+    {
+      "title": "ИСКЛЮЧЕНИЯ",
+      "lines": [
+        "good → better → the best",
+        "bad → worse → the worst",
+        "many / much → more → the most",
+        "little → less → the least",
+        "far → further → the furthest"
+      ]
+    },
+    {
+      "title": "ТИПИЧНЫЕ ОШИБКИ",
+      "lines": [
+        "✗ more bigger → ✓ bigger",
+        "(-er И more сразу — нельзя)",
+        "✗ the most easy → ✓ the easiest",
+        "✗ more good → ✓ better",
+        "",
+        "the + превосходная степень:",
+        "the best day, the tallest boy"
+      ]
+    }
+  ],
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "An elephant is ___ than a horse. (big)",
+      "options": [
+        "biger",
+        "bigger",
+        "more big",
+        "the biggest"
+      ],
+      "correct": 1,
+      "srs": [
+        "cp.big"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "explain": "big — короткое прилагательное → удвоение + -er: bigger.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "This book is ___ than that one. (interesting)",
+      "options": [
+        "interestinger",
+        "more interesting",
+        "most interesting",
+        "the most interesting"
+      ],
+      "correct": 1,
+      "srs": [
+        "cp.more"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "explain": "Длинное слово → more + прилагательное. «Interestinger» не существует.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "good → превосходная степень:",
+      "promptSmall": "Какая форма верна?",
+      "options": [
+        "the best",
+        "the most good",
+        "the goodest",
+        "the better"
+      ],
+      "correct": 0,
+      "srs": [
+        "cp.good"
+      ],
+      "tags": [
+        "comparatives",
+        "irregular"
+      ],
+      "explain": "good → better → the best.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Город стал хуже.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "The city became more bad.",
+        "The city became worse.",
+        "The city became badder.",
+        "The city became the worst."
+      ],
+      "correct": 1,
+      "srs": [
+        "cp.worse"
+      ],
+      "tags": [
+        "ru2en",
+        "comparatives"
+      ],
+      "explain": "bad → worse (не badder!). The worst — «самый плохой».",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "This road is more shorter than that one.",
+      "options": [
+        "more shorter → shorter",
+        "that → this",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.more-er"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "explain": "Нельзя ставить more и -er вместе: This road is shorter.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Today is ___ day of my life! (happy)",
+      "options": [
+        "happier",
+        "the happiest",
+        "the happier",
+        "more happy"
+      ],
+      "correct": 1,
+      "srs": [
+        "cp.happy"
+      ],
+      "tags": [
+        "comparatives",
+        "superlatives"
+      ],
+      "explain": "day of my life — один из всех дней → превосходная: the happiest.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "My flat is ___ than yours, but yours is ___ from the office. (near / far)",
+      "options": [
+        "nearer / more far",
+        "nearer / farther",
+        "more near / farther",
+        "near / more far"
+      ],
+      "correct": 1,
+      "srs": [
+        "cp.far"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "explain": "near → nearer; far → farther/further. «More far» не существует.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "Winter is ___ season of the year. (cold)",
+      "options": [
+        "the coldest",
+        "colder",
+        "the colder",
+        "most cold"
+      ],
+      "correct": 0,
+      "srs": [
+        "cp.cold"
+      ],
+      "tags": [
+        "comparatives",
+        "superlatives"
+      ],
+      "explain": "the coldest season — превосходная степень: the + -est.",
+      "skill": "grammar"
+    },
+    {
+      "type": "mistake",
+      "prompt": "She is the most tall girl in our class.",
+      "options": [
+        "the most tall → the tallest",
+        "in → of",
+        "no mistake"
+      ],
+      "correct": 0,
+      "srs": [
+        "gd.most-est"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "explain": "В обычном сравнении tall → taller → the tallest. Формы с more/most учим для других прилагательных, например useful → more useful.",
+      "skill": "grammar"
+    },
+    {
+      "type": "choice",
+      "prompt": "less = comparative от...",
+      "options": [
+        "little",
+        "least",
+        "more",
+        "small"
+      ],
+      "correct": 0,
+      "srs": [
+        "cp.less"
+      ],
+      "tags": [
+        "comparatives",
+        "irregular"
+      ],
+      "explain": "little → less → the least. Less money — меньше денег.",
+      "skill": "grammar"
+    },
+    {
+      "type": "cloze",
+      "prompt": "Nothing is ___ than a hot bath after a long day. (good)",
+      "options": [
+        "gooder",
+        "more good",
+        "better",
+        "the best"
+      ],
+      "correct": 2,
+      "srs": [
+        "cp.good"
+      ],
+      "tags": [
+        "comparatives",
+        "irregular"
+      ],
+      "explain": "than → сравнительная степень: better.",
+      "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Этот билет дешевле того.",
+      "answer": "This ticket is cheaper than that one.",
+      "srs": [
+        "cp.more"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "skill": "grammar",
+      "explain": "Cheap → cheaper; сравниваем через than."
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите: Это лучший день моей жизни.",
+      "answer": "This is the best day of my life.",
+      "srs": [
+        "cp.good"
+      ],
+      "tags": [
+        "comparatives"
+      ],
+      "skill": "grammar",
+      "explain": "Good → better → the best. Допустимо It is / It’s."
+    }
+  ],
+  "objective": "Сравнить предметы и выбрать лучший."
+}
