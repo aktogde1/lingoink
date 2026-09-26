@@ -7,6 +7,7 @@
 
 #include "Screen.h"
 #include "../ui/FontRegistry.h"
+#include "../ui/Log.h"
 #include "../course/LessonLoader.h"
 #include "../progress/ProgressStore.h"
 
@@ -34,6 +35,8 @@ class LessonScreen : public Screen {
   bool finished() const { return phase_ == Phase::Summary || phase_ == Phase::Error; }
   bool wasError() const { return phase_ == Phase::Error; }
   const char* lessonId() const { return lesson_.id; }
+  uint8_t theoryCount() const { return lesson_.theoryCount; }
+  uint16_t exerciseCount() const { return lesson_.exerciseCount; }
   const char* errorText() const { return errText_; }
   uint8_t accuracyPct() const {
     if (answerCount_ == 0) return 0;
@@ -173,6 +176,7 @@ class LessonScreen : public Screen {
       case Phase::Exercise: {
         if (k == Key::OkLong) {
           explainShown_ = !explainShown_;
+          LOGI("KEY", "long OK: explain %s", explainShown_ ? "shown" : "hidden");
           return Nav::RedrawFull;
         }
         const Exercise& E = cur();
@@ -192,6 +196,9 @@ class LessonScreen : public Screen {
               const bool correct = (sel_ == E.correct);
               if (correct) correctCount_++;
               answerCount_++;
+              LOGI("EX", "answer ex=%u type=%u chosen=%u correct=%u -> %s",
+                   (unsigned)exIdx_, (unsigned)E.type, (unsigned)chosen_, (unsigned)E.correct,
+                   correct ? "RIGHT" : "WRONG");
               recordResult(E, correct);
               return Nav::RedrawFull;
             }

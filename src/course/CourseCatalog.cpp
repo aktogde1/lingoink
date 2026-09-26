@@ -35,7 +35,9 @@ bool CourseCatalog::loadManifest(const char* manifestPath) {
         LessonMeta& m = course.lessons[course.lessonCount];
         strlcpy(m.id, l["id"] | "", sizeof(m.id));
         const char* file = l["file"] | "";
-        snprintf(m.file, sizeof(m.file), "%s/%s", course.dir, file);
+        char path[100];
+        snprintf(path, sizeof(path), "%s/%s", course.dir, file);
+        strlcpy(m.file, path, sizeof(m.file));
         strlcpy(m.title, l["title"] | "", sizeof(m.title));
         strlcpy(m.level, l["level"] | "", sizeof(m.level));
         const char* kind = l["kind"] | "mixed";

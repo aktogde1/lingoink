@@ -12,6 +12,9 @@ constexpr const char* DATA_DIR     = "/lingoink";
 constexpr const char* PROGRESS_FILE = "/lingoink/progress.json";
 constexpr const char* PROGRESS_TMP = "/lingoink/progress.tmp";
 
+// X4 SD chip-select (bus itself: SCLK=8, MISO=7, MOSI=10 — see main.cpp).
+constexpr int SD_CS_PIN = 12;
+
 // Lesson loading caps — a lesson larger than this is rejected with a clear
 // error instead of fragmenting the heap.
 constexpr int LESSON_POOL_BYTES  = 24576; // interned strings (prompts/options/text)

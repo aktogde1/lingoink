@@ -14,6 +14,8 @@ LingoInk превращает XTEINK X4 (ESP32-C3, 4.3" e-ink 800×480) в ав�
 ## Сборка и прошивка
 
 Требуется PlatformIO (Python 3.10–3.13 — ограничение платформы pioarduino).
+**esptool не работает из Git Bash (MSys) — выполняйте прошивку из cmd или
+PowerShell.**
 
 ```bash
 pio run -e esp32c3              # сборка
@@ -21,28 +23,80 @@ pio run -e esp32c3 -t upload    # прошивка (USB-C)
 pio device monitor              # логи 115200
 ```
 
-Прошивка занимает только слот **app0 @ 0x10000** (bootloader и NVS не
-трогаются), поэтому её можно ставить поверх стоковой прошивки или
-CrossPoint и так же возвращать их обратно:
+### Что именно записывает прошивка (safety)
 
-```bash
-esptool.py --chip esp32c3 --port <PORT> --baud 921600 \
-    write_flash 0x10000 .pio/build/esp32c3/firmware.bin
+Проверено по коду платформы pioarduino 55.03.37 (Arduino framework не задаёт
+`FLASH_EXTRA_IMAGES`): `pio upload` и ручная команда ниже пишут **только
+слот app0 @ 0x10000**. Не затрагиваются: bootloader @ 0x0, partition table @
+0x8000, **NVS @ 0x9000 (там калибровка панели)**, otadata @ 0xE000, вся
+остальная flash. `erase_flash` не используется.
+
+Ручная прошивка тем же единственным offset:
+
+```bat
+esptool --chip esp32c3 --port COMx --baud 921600 ^
+    write-flash 0x10000 .pio\build\esp32c3\firmware.bin
 ```
 
 ⚠️ Устройства с AliExpress могут быть USB-locked — см. раздел Risks в
-`docs/TECHNICAL_PLAN.md`.
+`docs/TECHNICAL_PLAN.md`. Если на устройстве стоял CrossPoint и оно
+загружалось из слота app1, после прошивки LingoInk в app0 старая прошивка
+может продолжить грузиться (otadata указывает на app1) — см. «otadata» в
+`docs/HARDWARE_VALIDATION.md`.
+
+### Backup перед первой прошивкой (обязательно)
+
+Из cmd/PowerShell (esptool из venv: `%USERPROFILE%\lingoink-venv\Scripts\`):
+
+```bat
+:: полный образ flash (16 MB) — ~3–5 минут, полная обратимость
+esptool --chip esp32c3 --port COMx --baud 921600 read-flash 0 0x1000000 lingoink-x4-backup-full.bin
+
+:: отдельно критические разделы
+esptool --chip esp32c3 --port COMx read-flash 0x0    0x10000 lingoink-bootloader-region.bin
+esptool --chip esp32c3 --port COMx read-flash 0x8000 0x1000  lingoink-partitions.bin
+esptool --chip esp32c3 --port COMx read-flash 0x9000 0x5000  lingoink-nvs.bin
+esptool --chip esp32c3 --port COMx read-flash 0xE000 0x2000  lingoink-otadata.bin
+```
+
+Восстановление любой предыдущей прошивки — запись полного бэкапа назад
+(или web flasher CrossPoint / стока, они пишут полный образ с 0x0):
+
+```bat
+esptool --chip esp32c3 --port COMx --baud 921600 write-flash 0 lingoink-x4-backup-full.bin
+```
+
+### otadata (только если после прошивки грузится старая прошивка)
+
+Прочитать и посмотреть: все `FF` в первых секторах — ок, LingoInk загрузится.
+Если там валидная запись об app1 (стоял CrossPoint) — затереть otadata
+(backup уже снят; write-flash стирает только записываемые секторы):
+
+```bat
+:: подготовить файл 0xFF размером 0x2000 и записать его в otadata
+python -c "open('blank_otadata.bin','wb').write(b'\xFF'*0x2000)"
+esptool --chip esp32c3 --port COMx write-flash 0xE000 blank_otadata.bin
+```
 
 ## Подготовка SD-карты
 
-Скопируйте `data/sd/english_ru/` на карту как `/courses/english_ru/`:
+Карта FAT32. Из `data/sd/english_ru/` сделать на карте корневой каталог
+`courses` (Windows: карта — это диск `X:`):
 
 ```
-/courses/english_ru/course.json
-/courses/english_ru/lessons/*.json
+X:\courses\english_ru\course.json
+X:\courses\english_ru\lessons\a2_01_vocab_everyday.json
+X:\courses\english_ru\lessons\a2_02_present_perfect.json
+X:\courses\english_ru\lessons\a2_03_reading_london.json
+X:\courses\english_ru\lessons\a2_04_mixed_review.json
 ```
 
-Прогресс появится в `/lingoink/progress.json` после первого урока.
+То есть: скопировать папку `english_ru` в созданную папку `courses` в
+корне карты. Вставить карту **до включения** устройства (монтирование —
+при старте). Прогресс появится в `X:\lingoink\progress.json` после первого
+урока.
+
+Чек-лист проверки на железе: `docs/HARDWARE_VALIDATION.md`.
 
 ## Управление
 
