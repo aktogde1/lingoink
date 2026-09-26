@@ -66,8 +66,9 @@ esptool --chip esp32c3 --port COMx --baud 921600 --before default_reset --after 
 LingoInk не содержит app1 (ota_1), поэтому веб-флешеры CrossPoint /
 CrossInk / InkPointX поверх LingoInk не ставятся. Сначала верните сток
 (`write-flash 0 <полный бэкап>`), затем пользуйтесь любым штатным
-флешером. Проверено на железе 2026-09-26: сток → CrossInk v1.6.0
-ставится штатно. План полной совместимости — `docs/ROADMAP.md`.
+флешером. Проверено на железе 2026-09-26: сток → CrossInk v1.6.0 и
+InkPointX v2.3.6 ставятся штатно. План полной совместимости —
+`docs/ROADMAP.md`.
 
 ### Backup перед первой прошивкой (обязательно)
 
