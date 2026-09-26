@@ -128,8 +128,9 @@ void App::run() {
   }
   home_.bind(&progress_, &catalog_);
   progressScreen_.bind(&progress_);
-  // Single full refresh at boot clears what the panel held through sleep.
-  presenter_.fullNext();
+  // No full refresh at boot (user decision): the power-off card doubles as a
+  // lock screen and fast-swaps straight into the menu. The only full clean is
+  // the one before power-off.
   goHome();
 
   while (true) {
