@@ -5,6 +5,8 @@
 
 #include "Types.h"
 
+#include <stddef.h>
+
 // Reads `path` (Arduino FS File API) and fills `lesson`. On failure returns
 // a result with a human-readable error.
 LessonParseResult lessonLoadFile(Lesson& lesson, const char* path);

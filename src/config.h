@@ -2,6 +2,8 @@
 // Central tuning constants. Everything a product decision might change lives
 // here so the domain code stays free of magic numbers.
 
+#include <stdint.h>
+
 namespace cfg {
 
 // SD card layout (all user content + state lives on the card).

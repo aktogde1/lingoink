@@ -1,9 +1,9 @@
 #include "FontRegistry.h"
 
-extern const LgFont title36;
-extern const LgFont ui20;
-extern const LgFont body28;
-extern const LgFont body28b;
+#include "fonts/title36.h"
+#include "fonts/ui20.h"
+#include "fonts/body28.h"
+#include "fonts/body28b.h"
 
 const LgFont* fontByRole(FontRole role) {
   switch (role) {

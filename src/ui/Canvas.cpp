@@ -160,6 +160,11 @@ int Canvas::drawText(int x, int y, const LgFont* f, const char* utf8, bool black
   return drawTextN(x, y, f, utf8, (int)strlen(utf8), black);
 }
 
+int Canvas::drawTextInv(int x, int y, const LgFont* f, const char* utf8, int len) {
+  const int n = (len < 0) ? (int)strlen(utf8) : len;
+  return drawTextN(x, y, f, utf8, n, false); // white glyphs on caller's black row
+}
+
 int Canvas::textWidthN(const LgFont* f, const char* utf8, int len) const {
   int x = 0;
   const char* p = utf8;

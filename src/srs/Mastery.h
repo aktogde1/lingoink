@@ -10,6 +10,7 @@
 
 #include "../config.h"
 #include <stdint.h>
+#include <string.h>
 
 enum class Skill : uint8_t { Vocabulary = 0, Grammar, Reading, Production, Count };
 

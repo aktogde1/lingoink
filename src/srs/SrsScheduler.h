@@ -10,6 +10,7 @@
 
 #include "../config.h"
 #include <stdint.h>
+#include <string.h>
 
 struct SrsItem {
   char id[28];        // e.g. "vp.actually", "pp.form"

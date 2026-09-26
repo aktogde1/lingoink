@@ -34,6 +34,8 @@ class Canvas {
   int drawText(int x, int y, const LgFont* f, const char* utf8, bool black = true);
   // Draws at most len bytes (for wrapped lines that are not NUL-terminated).
   int drawTextN(int x, int y, const LgFont* f, const char* utf8, int len, bool black = true);
+  // White-on-black text for selected rows: caller paints a black rect first.
+  int drawTextInv(int x, int y, const LgFont* f, const char* utf8, int len = -1);
   int textWidth(const LgFont* f, const char* utf8) const;
   int textWidthN(const LgFont* f, const char* utf8, int len) const;
 
