@@ -53,7 +53,7 @@ class ProgressScreen : public Screen {
              (unsigned)progress_->dueCount(), (unsigned)progress_->streakDays);
     c.drawText(M, y, body, foot);
 
-    c.hline(M, c.height() - 34, c.width() - M, true);
+    c.hline(M, c.width() - M, c.height() - 34, true);
     c.drawText(M, c.height() - 28, ui, "OK \xE2\x80\x94 back");
   }
 

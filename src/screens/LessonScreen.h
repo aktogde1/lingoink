@@ -358,13 +358,13 @@ class LessonScreen : public Screen {
 
   void drawFooterHint(Canvas& c, const char* s) {
     const LgFont* ui = fontByRole(FontRole::UI);
-    c.hline(cfg::MARGIN, c.height() - 34, c.width() - cfg::MARGIN, true);
+    c.hline(cfg::MARGIN, c.width() - cfg::MARGIN, c.height() - 34, true);
     c.drawText(cfg::MARGIN, c.height() - 28, ui, s);
   }
 
   void drawPageFoot(Canvas& c, const char* left, const char* right) {
     const LgFont* ui = fontByRole(FontRole::UI);
-    c.hline(cfg::MARGIN, c.height() - 34, c.width() - cfg::MARGIN, true);
+    c.hline(cfg::MARGIN, c.width() - cfg::MARGIN, c.height() - 34, true);
     c.drawText(cfg::MARGIN, c.height() - 28, ui, left);
     int w = c.textWidth(ui, right);
     c.drawText(c.width() - cfg::MARGIN - w, c.height() - 28, ui, right);

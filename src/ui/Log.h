@@ -25,3 +25,16 @@
 #define LOGI(tag, fmt, ...) LI_LOG(tag, fmt, ##__VA_ARGS__)
 #define LOGW(tag, fmt, ...) LI_LOG(tag, "WARN: " fmt, ##__VA_ARGS__)
 #define LOGE(tag, fmt, ...) LI_LOG(tag, "ERROR: " fmt, ##__VA_ARGS__)
+
+#ifdef ARDUINO
+#include <esp_heap_caps.h>
+// Heap fragmentation diagnostics: total free vs largest contiguous block.
+inline void lgHeapDiag(const char* where) {
+  Serial.printf("[%lus][MEM ] %s: free=%u largest=%u\n",
+                (unsigned long)(millis() / 1000), where,
+                (unsigned)ESP.getFreeHeap(),
+                (unsigned)heap_caps_get_largest_free_block(MALLOC_CAP_8BIT));
+}
+#else
+inline void lgHeapDiag(const char*) {}
+#endif

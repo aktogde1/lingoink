@@ -29,8 +29,10 @@
 
 class App {
  public:
-  App(EInkDisplay& display)
-      : canvas_(), presenter_(display), home_(), lesson_(), progressScreen_() {}
+  App(EInkDisplay& display, bool sdMounted)
+      : canvas_(), presenter_(display), home_(), lesson_(), progressScreen_() {
+    sdOk_ = sdMounted;
+  }
 
   void run();
 
@@ -55,7 +57,7 @@ class App {
   }
 
   void showSplash();
-  void goHome(bool full);
+  void goHome();
   bool startLesson(const LessonMeta& meta);
   void finishLesson();
   void powerDown();
@@ -86,18 +88,24 @@ class App {
 };
 
 void App::run() {
-  presenter_.begin();
+  // Display and its framebuffer were brought up in main() BEFORE this App
+  // was allocated — the framebuffer needs the cleanest heap. Only input and
+  // the validation smoke test remain here.
   input_.begin();
+  presenter_.smokeTest();
   lastMinutesTick_ = millis();
   LOGI("APP", "display+input initialized, free heap=%u", (unsigned)ESP.getFreeHeap());
 
   // Splash: logo + boot diagnostics for 1.2s.
   canvas_.init(cfg::SCREEN_W, cfg::SCREEN_H);
   showSplash();
-  delay(1200);
+  delay(900);
 
-  // SD: course + progress.
-  sdOk_ = SD.begin(cfg::SD_CS_PIN, SPI, 25000000, "/sd", 8);
+  // SD was mounted in main() BEFORE the display claimed the SPI pins.
+  // Retry once here in case the pre-display mount raced a slow card.
+  if (!sdOk_) {
+    sdOk_ = SD.begin(cfg::SD_CS_PIN, SPI, 25000000, "/sd", 8);
+  }
   if (!sdOk_) {
     LOGE("SD", "SD init failed (no card?) — continuing without progress");
   } else {
@@ -120,7 +128,9 @@ void App::run() {
   }
   home_.bind(&progress_, &catalog_);
   progressScreen_.bind(&progress_);
-  goHome(true);
+  // Single full refresh at boot clears what the panel held through sleep.
+  presenter_.fullNext();
+  goHome();
 
   while (true) {
     const uint32_t now = millis();
@@ -164,13 +174,15 @@ void App::run() {
           }
         } else if (a == HomeScreen::Action::Progress) {
           goTo(Where::Progress);
+          canvas_.fillWhite();
           progressScreen_.render(canvas_);
           presenter_.present(canvas_, Refresh::Full);
         } else if (nav == Nav::RedrawFast) {
+          canvas_.fillWhite();
           home_.render(canvas_);
           presenter_.present(canvas_, Refresh::Fast);
         } else if (nav == Nav::RedrawFull) {
-          goHome(true);
+          goHome();
         }
         break;
       }
@@ -180,9 +192,11 @@ void App::run() {
         if (lesson_.finished() && (nav == Nav::Done || k == Key::Back)) {
           finishLesson();
         } else if (nav == Nav::RedrawFast) {
+          canvas_.fillWhite();
           lesson_.render(canvas_);
           presenter_.present(canvas_, Refresh::Fast);
         } else if (nav == Nav::RedrawFull) {
+          canvas_.fillWhite();
           lesson_.render(canvas_);
           presenter_.present(canvas_, Refresh::Balanced);
         }
@@ -192,13 +206,13 @@ void App::run() {
       case Where::Progress: {
         Nav nav = progressScreen_.handleKey(k);
         if (nav == Nav::Done) {
-          goHome(true);
+          goHome();
         }
         break;
       }
 
       default:
-        goHome(true);
+        goHome();
         break;
     }
   }
@@ -217,20 +231,22 @@ void App::showSplash() {
   const char* tag = "One device. One purpose.";
   w = canvas_.textWidth(ui, tag);
   canvas_.drawText((canvas_.width() - w) / 2, canvas_.height() / 2 + 44, ui, tag);
-  presenter_.present(canvas_, Refresh::Full);
-  LOGI("APP", "splash drawn (full refresh)");
+  presenter_.present(canvas_, Refresh::Fast);
+  LOGI("APP", "splash drawn");
 }
 
-void App::goHome(bool full) {
+void App::goHome() {
   goTo(Where::Home);
+  canvas_.fillWhite();
   home_.render(canvas_);
-  presenter_.present(canvas_, full ? Refresh::Full : Refresh::Balanced);
+  presenter_.present(canvas_, Refresh::Full);
 }
 
 bool App::startLesson(const LessonMeta& meta) {
   LOGI("CRS", "loading lesson '%s' (%s)", meta.id, meta.file);
   if (!lesson_.start(meta, &progress_)) {
     LOGE("CRS", "lesson '%s' failed: %s", meta.id, lesson_.errorText());
+    canvas_.fillWhite();
     lesson_.render(canvas_);
     presenter_.present(canvas_, Refresh::Full);
     goTo(Where::Lesson);
@@ -238,6 +254,7 @@ bool App::startLesson(const LessonMeta& meta) {
   }
   LOGI("CRS", "lesson '%s' parsed: %u theory, %u exercises", meta.id,
        (unsigned)lesson_.theoryCount(), (unsigned)lesson_.exerciseCount());
+  canvas_.fillWhite();
   lesson_.render(canvas_);
   presenter_.present(canvas_, Refresh::Full);
   goTo(Where::Lesson);
@@ -257,7 +274,7 @@ void App::finishLesson() {
     LOGI(ok ? "PRG" : "ERR", "progress %s (%u srs items)", ok ? "saved" : "SAVE FAILED",
          (unsigned)progress_.itemCount);
   }
-  goHome(true);
+  goHome();
 }
 
 void App::powerDown() {

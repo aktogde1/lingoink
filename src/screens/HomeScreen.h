@@ -73,7 +73,7 @@ class HomeScreen : public Screen {
       snprintf(foot, sizeof(foot), "%u due \xC2\xB7 streak %u \xC2\xB7 %s",
                (unsigned)due, (unsigned)progress_->streakDays, courseTitle());
     }
-    c.hline(M, c.height() - 34, c.width() - M, true);
+    c.hline(M, c.width() - M, c.height() - 34, true);
     c.drawText(M, c.height() - 28, f, foot);
   }
 

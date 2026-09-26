@@ -216,7 +216,7 @@ LessonParseResult lessonParse(Lesson& L, const char* json, size_t len) {
 #ifdef PLATFORM_ESP32
 // Static scratch buffer for the raw JSON (the Lesson pool is rebuilt during
 // parsing, so it cannot double as the read target).
-static char s_jsonBuf[cfg::LESSON_POOL_BYTES * 3];
+static char s_jsonBuf[cfg::JSON_BUF_BYTES];
 
 LessonParseResult lessonLoadFile(Lesson& L, const char* path) {
   LessonParseResult res;

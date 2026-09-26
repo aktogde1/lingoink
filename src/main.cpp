@@ -29,7 +29,6 @@ static constexpr int8_t EPD_BUSY = 6;
 static constexpr int8_t SD_MISO = 7;
 
 static EInkDisplay* display = nullptr;
-static App* app = nullptr;
 
 void setup() {
   Serial.begin(115200);
@@ -52,17 +51,50 @@ void setup() {
   LOGI("HW", "panel controller probe: %s",
        promoted ? "UltraChip variant promoted" : "default controller kept");
 
-  // 3. Bus + display.
+  // 3. Bus + SD FIRST, display after: on the X4 the e-ink driver claims the
+  //    shared SPI pins, and an SD.begin() after display init fails on real
+  //    hardware (verified: eenk mounts the card before constructing the
+  //    display; the reversed order was LingoInk bug #1 on device).
   SPI.begin(EPD_SCLK, SD_MISO, EPD_MOSI, EPD_CS);
+  bool sdOk = SD.begin(cfg::SD_CS_PIN, SPI, 25000000, "/sd", 8);
+  if (sdOk) {
+    LOGI("SD", "SD mounted (type=%u size=%llu MB, pre-display)",
+         (unsigned)SD.cardType(), (unsigned long long)(SD.cardSize() / (1000ull * 1000ull)));
+  } else {
+    LOGW("SD", "SD init failed before display init (card seated?)");
+  }
+
   display = new EInkDisplay(EPD_SCLK, EPD_MOSI, EPD_CS, EPD_DC, EPD_RST, EPD_BUSY);
   if (isX3) {
     display->setDisplayX3();
   }
-  LOGI("HW", "display constructed (%ux%u)", (unsigned)BoardConfig::ACTIVE.displayWidth,
-       (unsigned)BoardConfig::ACTIVE.displayHeight);
+  LOGI("HW", "display constructed (%ux%u), free heap=%u",
+       (unsigned)BoardConfig::ACTIVE.displayWidth,
+       (unsigned)BoardConfig::ACTIVE.displayHeight, (unsigned)ESP.getFreeHeap());
 
-  // 4. App (never returns).
-  app = new App(*display);
+  // 4. Display begin BEFORE the App exists: begin() heap-allocates the panel
+  //    framebuffer (~53 KB contiguous) and MUST get the cleanest pool of the
+  //    boot. App (~90 KB) is placed after it. Verified crash on the X4: the
+  //    reverse order left the framebuffer NULL and panicked in SPI write.
+  const uint32_t freeBefore = ESP.getFreeHeap();
+  display->begin();
+  const uint32_t freeAfter = ESP.getFreeHeap();
+  lgHeapDiag("post-display-begin");
+  // begin() must consume ~49 KB (48K framebuffer + allocator overhead) from
+  // the free pool. Note: largest-block delta is NOT a valid signal — the
+  // allocation may carve from a different hole than the largest one.
+  const uint32_t consumed = freeBefore - freeAfter;
+  if (consumed < 45 * 1024) {
+    LOGE("HW", "framebuffer not allocated (begin consumed only %u bytes)",
+         (unsigned)consumed);
+    while (true) {
+      delay(1000); // park with a diagnostic instead of a panic later
+    }
+  }
+  LOGI("HW", "framebuffer allocated OK (begin consumed %u bytes)", (unsigned)consumed);
+
+  // 5. App on the heap, after the framebuffer (never returns).
+  App* app = new App(*display, sdOk);
   app->run();
   LOGE("BOOT", "app loop returned");
 }

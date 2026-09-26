@@ -32,7 +32,7 @@ class ProgressStore {
   DayTime time;
   Mastery mastery;
 
-  static constexpr int MAX_SRS = 400;
+  static constexpr int MAX_SRS = 250;
   SrsItem items[MAX_SRS];
   uint16_t itemCount = 0;
 
