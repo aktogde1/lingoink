@@ -1,0 +1,61 @@
+{
+  "format": 1,
+  "id": "a2_03",
+  "title": "A day in London",
+  "level": "A2",
+  "kind": "reading",
+  "exercises": [
+    {
+      "type": "reading",
+      "title": "A DAY IN LONDON",
+      "pages": [
+        "Tom arrived in London early in the morning. He had never visited the city before, so everything was new and exciting. The sky was grey, but Tom didn't mind. He put on his jacket, took the map and left his small hotel in King's Cross.",
+        "First, he walked to the British Museum. It was free to enter, and Tom spent two hours looking at old statues and Egyptian mummies. A friendly guard told him: «You must also see the reading room. It is very beautiful.» Tom thanked him and went inside.",
+        "In the afternoon, Tom was hungry. He bought fish and chips and sat on a bench in Trafalgar Square. Pigeons tried to steal his lunch. «I have never eaten fish and chips before,» Tom thought, «and now I am eating it with pigeons. London is strange and wonderful.»"
+      ]
+    },
+    {
+      "type": "choice",
+      "prompt": "Why did everything feel new to Tom?",
+      "options": [
+        "He had never visited London before.",
+        "The city changed a lot.",
+        "He forgot his glasses.",
+        "It was his birthday."
+      ],
+      "correct": 0,
+      "srs": ["rd.london-1"],
+      "tags": ["reading"]
+    },
+    {
+      "type": "choice",
+      "prompt": "«It was free to enter» means:",
+      "options": ["the museum cost nothing", "the museum was closed", "the guard gave him a gift", "Tom entered first"],
+      "correct": 0,
+      "srs": ["vp.free"],
+      "tags": ["reading", "vocab"]
+    },
+    {
+      "type": "cloze",
+      "prompt": "A friendly guard ___ him about the reading room.",
+      "options": ["told", "said", "spoke", "talked"],
+      "correct": 0,
+      "srs": ["vp.tell-say"],
+      "tags": ["reading", "say-tell"],
+      "explain": "tell somebody about something (сразу есть объект), say something (без объекта)."
+    },
+    {
+      "type": "choice",
+      "prompt": "What were the pigeons doing?",
+      "options": [
+        "trying to steal his lunch",
+        "singing on the bench",
+        "eating fish and chips politely",
+        "sleeping in the square"
+      ],
+      "correct": 0,
+      "srs": ["rd.london-2"],
+      "tags": ["reading"]
+    }
+  ]
+}

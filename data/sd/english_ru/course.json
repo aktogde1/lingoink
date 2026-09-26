@@ -1,0 +1,38 @@
+{
+  "format": 1,
+  "id": "english_ru",
+  "title": "English A2 → B1",
+  "from": "ru",
+  "to": "en",
+  "levels": ["A2", "B1"],
+  "lessons": [
+    {
+      "id": "a2_01",
+      "file": "lessons/a2_01_vocab_everyday.json",
+      "level": "A2",
+      "kind": "vocab",
+      "title": "Everyday words"
+    },
+    {
+      "id": "a2_02",
+      "file": "lessons/a2_02_present_perfect.json",
+      "level": "A2",
+      "kind": "grammar",
+      "title": "Present Perfect"
+    },
+    {
+      "id": "a2_03",
+      "file": "lessons/a2_03_reading_london.json",
+      "level": "A2",
+      "kind": "reading",
+      "title": "A day in London"
+    },
+    {
+      "id": "a2_04",
+      "file": "lessons/a2_04_mixed_review.json",
+      "level": "A2",
+      "kind": "mixed",
+      "title": "Mixed review"
+    }
+  ]
+}

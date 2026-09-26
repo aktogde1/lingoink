@@ -1,0 +1,69 @@
+{
+  "format": 1,
+  "id": "a2_04",
+  "title": "Mixed review",
+  "level": "A2",
+  "kind": "mixed",
+  "exercises": [
+    {
+      "type": "cloze",
+      "prompt": "I ___ in London for three years. I still live there.",
+      "options": ["have lived", "lived", "live", "was living"],
+      "correct": 0,
+      "srs": ["pp.form", "pp-vs-past"],
+      "tags": ["present-perfect", "pp-vs-past"],
+      "explain": "«до сих пор живу» — незаконченный период → Present Perfect."
+    },
+    {
+      "type": "cloze",
+      "prompt": "I ___ in London for three years. Then I moved to Leeds.",
+      "options": ["lived", "have lived", "am living", "live"],
+      "correct": 0,
+      "srs": ["ps.lived", "pp-vs-past"],
+      "tags": ["past-simple", "pp-vs-past"],
+      "explain": "Период закрыт (then I moved) → Past Simple."
+    },
+    {
+      "type": "choice",
+      "prompt": "Его телефон всегда разряжен.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "His phone is always dead.",
+        "His phone always is dead.",
+        "His phone dead always is.",
+        "His phone is dead always."
+      ],
+      "correct": 0,
+      "srs": ["vp.always-late"],
+      "tags": ["ru2en", "word-order"],
+      "explain": "always между подлежащим и связкой: His phone is always dead."
+    },
+    {
+      "type": "mistake",
+      "prompt": "I have never been to Paris last year.",
+      "options": ["have been → went", "never → ever", "to → in", "no mistake"],
+      "correct": 0,
+      "srs": ["pp-vs-past"],
+      "tags": ["pp-vs-past"],
+      "explain": "last year — указание на законченное время → Past Simple: I never went to Paris last year."
+    },
+    {
+      "type": "choice",
+      "prompt": "actually",
+      "promptSmall": "Выберите правильный перевод",
+      "options": ["на самом деле", "сейчас", "актуально", "действительно быстро"],
+      "correct": 0,
+      "srs": ["vp.actually"],
+      "tags": ["vocab"]
+    },
+    {
+      "type": "cloze",
+      "prompt": "Can I ___ your pen for a minute?",
+      "options": ["borrow", "lend", "take out", "rent"],
+      "correct": 0,
+      "srs": ["vp.borrow"],
+      "tags": ["borrow-lend"],
+      "explain": "borrow = взять взаймы (у вас), lend = дать взаймы (вам)."
+    }
+  ]
+}

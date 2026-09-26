@@ -1,0 +1,84 @@
+{
+  "format": 1,
+  "id": "a2_01",
+  "title": "Everyday words",
+  "level": "A2",
+  "kind": "vocab",
+  "exercises": [
+    {
+      "type": "choice",
+      "prompt": "actually",
+      "promptSmall": "Выберите правильный перевод",
+      "options": ["на самом деле", "актуально", "случайно", "обычно"],
+      "correct": 0,
+      "srs": ["vp.actually"],
+      "tags": ["vocab"],
+      "explain": "actually = на самом деле. «актуально» — это currently / up to date, классическая ложь друга переводчика."
+    },
+    {
+      "type": "choice",
+      "prompt": "Я забыл ключи дома.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I left my keys at home.",
+        "I forgot my keys from home.",
+        "I lost my keys to home.",
+        "I leave keys at my home."
+      ],
+      "correct": 0,
+      "srs": ["vp.leave-keys", "pp.past-simple"],
+      "tags": ["ru2en", "past-simple"],
+      "explain": "«оставил» = left (leave). Forget — про память, а не про место: I forgot my keys звучит как «я забыл, что у меня есть ключи»."
+    },
+    {
+      "type": "choice",
+      "prompt": "pretend",
+      "promptSmall": "Выберите правильный перевод",
+      "options": ["притворяться", "претендовать", "предлагать", "подготавливать"],
+      "correct": 0,
+      "srs": ["vp.pretend"],
+      "tags": ["vocab"],
+      "explain": "pretend = притворяться. «претендовать» — claim / apply for."
+    },
+    {
+      "type": "choice",
+      "prompt": "Он всегда опаздывает.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "He is always late.",
+        "He always is late.",
+        "He always late.",
+        "He is late always he."
+      ],
+      "correct": 0,
+      "srs": ["vp.always-late"],
+      "tags": ["ru2en", "word-order"],
+      "explain": "always стоит между подлежащим и глаголом-связкой: He is always late."
+    },
+    {
+      "type": "choice",
+      "prompt": "borrow",
+      "promptSmall": "Выберите правильный перевод",
+      "options": ["брать взаймы", "одалживать (кому-то)", "покупать", "приносить"],
+      "correct": 0,
+      "srs": ["vp.borrow"],
+      "tags": ["vocab", "borrow-lend"],
+      "explain": "borrow = брать взаймы (у кого-то), lend = давать взаймы (кому-то). I borrow from you = you lend to me."
+    },
+    {
+      "type": "choice",
+      "prompt": "Мне это надоело.",
+      "promptSmall": "Переведите предложение",
+      "options": [
+        "I'm tired of it.",
+        "I'm tired from it.",
+        "I am boring of it.",
+        "It is tired of me."
+      ],
+      "correct": 0,
+      "srs": ["vp.tired-of"],
+      "tags": ["ru2en", "adjective-prepositions"],
+      "explain": "tired OF something = устать от чего-то. bored/tired — про того, кто чувствует; boring/tiring — про то, что вызывает чувство."
+    }
+  ]
+}

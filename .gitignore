@@ -1,0 +1,8 @@
+.pio/
+.pioenvs/
+.piolibdeps/
+__pycache__/
+*.o
+*.bin
+!data/**/*.bin
+.vscode/
