@@ -176,7 +176,7 @@ void App::run() {
     }
   }
   applySettings();
-  home_.bind(&progress_, &catalog_, &battery_);
+  home_.bind(&progress_, &catalog_);
   lessonsScreen_.bind(&progress_, &catalog_, &canvas_);
   progressScreen_.bind(&progress_);
   settingsScreen_.bind(&progress_, &canvas_, &presenter_);
@@ -399,11 +399,18 @@ void App::powerDown() {
   saveProgress();
   // The power-off card doubles as the session-end deep clean: the panel
   // sleeps showing the same identity picture as the boot splash (user
-  // request 2026-09-26), and the full waveform wipes everything the session
-  // accumulated. This plus user-triggered Clean Screen Now are the only full
-  // cleans.
+  // request 2026-09-26) with a charge line, and the full waveform wipes
+  // everything the session accumulated. This plus user-triggered Clean
+  // Screen Now are the only full cleans. Order matters: progress is saved
+  // first, the battery is measured fresh here (not the menu's cached value;
+  // unavailable telemetry simply omits the line), then the single FULL
+  // refresh carries the card to the panel before the rails drop — nothing
+  // refreshes during sleep.
+  uint16_t charge = 0;
+  const int chargePct =
+      battery_.readPercentageChecked(charge) ? (int)charge : -1;
   canvas_.fillWhite();
-  bootcards::drawSplash(canvas_);
+  bootcards::drawPowerOff(canvas_, chargePct);
   presenter_.fullNext();
   presenter_.present(canvas_, Refresh::Full);
   freeink::PowerManager::powerDownRailsForSleep();

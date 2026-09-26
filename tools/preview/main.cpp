@@ -70,7 +70,7 @@ static void buildDemoState() {
          (unsigned)catalog.course.lessonCount);
 
   strncpy(progress.courseId, "english_ru", sizeof(progress.courseId) - 1);
-  strncpy(progress.lastLessonId, "a2_02", sizeof(progress.lastLessonId) - 1);
+  strncpy(progress.lastLessonId, "a2_05", sizeof(progress.lastLessonId) - 1);
   strncpy(progress.currentLevel, "A2", sizeof(progress.currentLevel) - 1);
   progress.uiLang = 1;
   progress.orient = 0;
@@ -117,7 +117,7 @@ int main() {
   setvbuf(stdout, nullptr, _IONBF, 0);
   buildDemoState();
 
-  home.bind(&progress, &catalog, nullptr);  // no battery -> widget hidden
+  home.bind(&progress, &catalog);
   lessons.bind(&progress, &catalog, &canvas);
   progressScreen.bind(&progress);
   settings.bind(&progress, &canvas, &presenter);
@@ -126,20 +126,22 @@ int main() {
 
   // ---- Boot cards -------------------------------------------------------
   scene("splash", [] { bootcards::drawSplash(canvas); });
-  // What the panel shows at power-off/auto-sleep — same artwork as the splash.
-  scene("poweroff", [] { bootcards::drawSplash(canvas); });
+  // Power-off / auto-sleep card: same artwork + charge line measured fresh
+  // at shutdown; -1 = telemetry unavailable (line omitted, never faked).
+  scene("poweroff_b5", [] { bootcards::drawPowerOff(canvas, 5); });
+  scene("poweroff_b76", [] { bootcards::drawPowerOff(canvas, 76); });
+  scene("poweroff_b100", [] { bootcards::drawPowerOff(canvas, 100); });
+  scene("poweroff_bna", [] { bootcards::drawPowerOff(canvas, -1); });
 
   // ---- Home -------------------------------------------------------------
-  scene("home", [&] { home.render(canvas); });
-  home.handleKey(Key::Down);  // second entry selected
+  home.bind(&progress, &catalog);
+  scene("home", [&] { home.render(canvas); });  // LEARN selected: long subtitle
+  home.handleKey(Key::Down);                    // second entry selected
   scene("home_sel1", [&] { home.render(canvas); });
-  home.handleKey(Key::Up);
-
-  // Battery variant (shim reports 76%).
-  BatteryMonitor battery;
-  home.bind(&progress, &catalog, &battery);
-  scene("home_battery", [&] { home.render(canvas); });
-  home.bind(&progress, &catalog, nullptr);
+  home.handleKey(Key::Down);
+  home.handleKey(Key::Down);
+  home.handleKey(Key::Down);                    // last entry selected
+  scene("home_sel4", [&] { home.render(canvas); });
 
   // No-course variant.
   const uint8_t realCount = catalog.course.lessonCount;

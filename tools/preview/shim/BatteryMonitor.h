@@ -1,6 +1,7 @@
 #pragma once
 // Host shim of the freeink BatteryMonitor (preview only). Reports a fixed
-// healthy percentage so the Home footer shows the battery widget.
+// healthy percentage; power-off card previews pass explicit values instead,
+// so Home no longer needs a battery instance at all.
 
 #include <cstdint>
 

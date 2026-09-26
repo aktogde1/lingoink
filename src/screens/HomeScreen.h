@@ -1,10 +1,13 @@
 #pragma once
-// Home screen — the main menu: four labelled entries, each with a one-line
+// Home screen — the main menu: five labelled entries, each with a one-line
 // subtitle explaining what it does. LEARN jumps straight into the next
-// lesson; LESSONS opens the course table of contents. Honest info only:
-// due count (hidden while zero), course, battery. The header language /
-// level track comes from the course manifest; chrome:: provides the shared
-// visual language. The list scrolls cyclically (last -> first).
+// lesson; REVIEW runs the due queue; LESSONS opens the course table of
+// contents. Honest info only: the due count lives in the REVIEW subtitle,
+// the header carries the language / level track from the course manifest.
+// All five rows are on screen at once — no scroll window; the inter-row
+// gap is computed from the height left under the header (chrome:: provides
+// the shared visual language). The selection moves cyclically (last ->
+// first). The battery lives on the power-off card; the footer is gone.
 
 #include "Screen.h"
 #include "../ui/Chrome.h"
@@ -14,17 +17,14 @@
 #include "../course/CourseCatalog.h"
 
 #include <Arduino.h>
-#include <BatteryMonitor.h>
 
 class HomeScreen : public Screen {
  public:
   enum class Action : uint8_t { None, Learn, Review, Lessons, Progress, Settings };
 
-  void bind(ProgressStore* progress, const CourseCatalog* catalog,
-            BatteryMonitor* battery) {
+  void bind(ProgressStore* progress, const CourseCatalog* catalog) {
     progress_ = progress;
     catalog_ = catalog;
-    battery_ = battery;
   }
 
   Action takeAction() { Action a = action_; action_ = Action::None; return a; }
@@ -45,40 +45,48 @@ class HomeScreen : public Screen {
     }
     chrome::header(c, mt, head, track);
 
-    // Menu: four two-line cards with rounded selection, breathing room.
-    const int gap = 10;
-    const int rowH = mt.menuRowH;
-    const int block = rowH + gap;
-    int y = mt.top + 8;
-    for (int i = top_; i < ITEM_COUNT && i < top_+4; i++) {
-      char sub[96];
-      itemSubtitle(i, sub, sizeof(sub));
-      chrome::menuRow(c, mt, y, itemLabel(i), sub, i == selected_);
-      y += block;
+    // Subtitles are fixed per row; the selected one may wrap to two lines.
+    char subs[ITEM_COUNT][96];
+    for (int i = 0; i < ITEM_COUNT; i++) {
+      itemSubtitle(i, subs[i], sizeof(subs[i]));
     }
 
-    // Bottom-left: honest info. Due count only when it is non-zero (the
-    // day counter grows with usage — showing a permanent 0 reads broken).
-    // The title yields (ellipsis) when the battery widget needs the corner.
-    char foot[96];
-    const uint16_t due = progress_->dueCount();
-    if (!catalog_->course.lessonCount) {
-      snprintf(foot, sizeof(foot), "%s", S(NoCourse));
-    } else if (due > 0) {
-      snprintf(foot, sizeof(foot), S(DueCourseFmt), (unsigned)due,
-               courseTitle());
-    } else {
-      snprintf(foot, sizeof(foot), "%s", courseTitle());
-    }
-    const bool showBat = refreshBattery();
+    // Layout: five rows must land between top and bottom in every
+    // orientation. Prefer the default in-row gap and a two-line selected
+    // subtitle; when the height runs out, drop the expansion first, then
+    // shrink the in-row gap. Rows never overlap either way — the selected
+    // card hugs its text block and every row advances by its own height.
     const LgFont* ui = fontByRole(FontRole::UI);
-    char fit[96];
-    chrome::fitText(c, ui, foot, mt.w - 2 * mt.m - (showBat ? 120 : 0), fit,
-                    sizeof(fit));
-    c.drawText(mt.m, mt.widgetY, ui, fit);
+    const char* sl[2];
+    int slens[2];
+    int selLines =
+        c.wrapText(ui, subs[selected_], mt.w - 2 * mt.m, sl, slens, 2) > 1 ? 2
+                                                                          : 1;
+    const int avail = mt.bottom - mt.top;
+    // The selection card pads the text block by SEL_PAD_Y above and below,
+    // so every inter-row gap must clear the card, not just the text.
+    const int minGap = cfg::SEL_PAD_Y + cfg::MENU_GAP_MIN;
+    int subGap = cfg::MENU_SUB_GAP;
+    int rowGap = rowGapFor(selLines, subGap, avail);
+    if (rowGap < minGap && selLines == 2) {
+      selLines = 1;
+      rowGap = rowGapFor(selLines, subGap, avail);
+    }
+    if (rowGap < minGap) {
+      const int base = chrome::menuRowHeight(1, 0);
+      subGap = (avail - base * ITEM_COUNT -
+                (ITEM_COUNT - 1) * minGap) / ITEM_COUNT;
+      if (subGap < 0) subGap = 0;
+      rowGap = rowGapFor(selLines, subGap, avail);
+      if (rowGap < minGap) rowGap = minGap;
+    }
+    if (rowGap > cfg::MENU_GAP_MAX) rowGap = cfg::MENU_GAP_MAX;
 
-    if (showBat) {
-      chrome::batteryWidget(c, mt.w - mt.m, mt.widgetY - 2, batPct_);
+    int y = mt.top;
+    for (int i = 0; i < ITEM_COUNT; i++) {
+      const int lines = (i == selected_) ? selLines : 1;
+      chrome::menuRow(c, mt, y, itemLabel(i), subs[i], i == selected_, subGap);
+      y += chrome::menuRowHeight(lines, subGap) + rowGap;
     }
   }
 
@@ -87,12 +95,10 @@ class HomeScreen : public Screen {
       case Key::Up:
       case Key::Left:
         selected_ = (selected_ + ITEM_COUNT - 1) % ITEM_COUNT;  // cyclic
-        top_=selected_>=4?1:0;
         return Nav::RedrawFast;
       case Key::Down:
       case Key::Right:
         selected_ = (selected_ + 1) % ITEM_COUNT;  // cyclic
-        top_=selected_>=4?1:0;
         return Nav::RedrawFast;
       case Key::Ok:
         switch (selected_) {
@@ -110,7 +116,16 @@ class HomeScreen : public Screen {
   }
 
  private:
-  static const int ITEM_COUNT = 5;  // LEARN / LESSONS / PROGRESS / SETTINGS
+  static const int ITEM_COUNT = 5;  // LEARN / REVIEW / LESSONS / PROGRESS / SETTINGS
+
+  // Inter-row gap left when the menu draws ITEM_COUNT rows with `selLines`
+  // subtitle lines on the selected one and the given in-row sub gap.
+  // Negative means the combination does not fit the content area.
+  int rowGapFor(int selLines, int subGap, int avail) const {
+    const int rows = chrome::menuRowHeight(1, subGap) * (ITEM_COUNT - 1) +
+                     chrome::menuRowHeight(selLines, subGap);
+    return (avail - rows) / (ITEM_COUNT - 1);
+  }
 
   // First word of the course title, uppercased ("English A2 → B1" ->
   // "ENGLISH"); falls back to the localized generic label.
@@ -168,32 +183,8 @@ class HomeScreen : public Screen {
     return progress_->nextLesson(*catalog_);
   }
 
-  const char* courseTitle() const {
-    if (catalog_->course.title[0]) return catalog_->course.title;
-    if (catalog_->course.id[0]) return catalog_->course.id;
-    return S(FallbackCourse);
-  }
-
-  // Reads the battery at most once per 5 s (ADC reads are cheap but the
-  // displayed value should not flicker between cursor moves). Returns false
-  // when the board has no usable telemetry.
-  bool refreshBattery() {
-    if (!battery_) return false;
-    const uint32_t now = millis();
-    if (batValid_ && now - batLastMs_ < 5000) return batValid_;
-    batLastMs_ = now;
-    uint16_t pct = 0;
-    batValid_ = battery_->readPercentageChecked(pct);
-    if (batValid_) batPct_ = pct;
-    return batValid_;
-  }
-
   ProgressStore* progress_ = nullptr;
   const CourseCatalog* catalog_ = nullptr;
-  BatteryMonitor* battery_ = nullptr;
-  int selected_ = 0, top_=0;
+  int selected_ = 0;
   Action action_ = Action::None;
-  bool batValid_ = false;
-  uint16_t batPct_ = 0;
-  uint32_t batLastMs_ = 0;
 };

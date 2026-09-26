@@ -145,28 +145,39 @@ inline void separator(Canvas& c, const Metrics& mt, int y) {
   c.hlineDash(mt.m, mt.w - mt.m, y, true, cfg::DASH_PERIOD, cfg::DASH_FILL);
 }
 
+// Height of a two-line menu row: label + subGap + `subLines` subtitle lines.
+// menuRow() draws exactly this tall a block, so callers can lay rows out
+// from measured heights instead of fixed pitches.
+inline int menuRowHeight(int subLines, int subGap = cfg::MENU_SUB_GAP) {
+  const LgFont* body = fontByRole(FontRole::Body);
+  const LgFont* ui = fontByRole(FontRole::UI);
+  return body->advanceY + subGap + subLines * ui->advanceY - 4;
+}
+
 // Two-line menu row (Home): label + explanatory subtitle. Unselected rows
 // shorten the subtitle with an ellipsis; the SELECTED row expands it to two
 // wrapped lines so long lesson names stay readable without any animation
 // (e-ink has no partial updates — no marquee possible). Both variants fit
-// the same row card.
-inline void menuRow(Canvas& c, const Metrics& mt, int y, const char* label,
-                    const char* sub, bool selected) {
+// the same row card. Returns the drawn block height (menuRowHeight).
+inline int menuRow(Canvas& c, const Metrics& mt, int y, const char* label,
+                   const char* sub, bool selected,
+                   int subGap = cfg::MENU_SUB_GAP) {
   const LgFont* body = fontByRole(FontRole::Body);
   const LgFont* ui = fontByRole(FontRole::UI);
   char lb[96];
   fitText(c, body, label, mt.w - 2 * mt.m, lb, sizeof(lb));
-  const int subY = y + body->advanceY + 8;
+  const int subY = y + body->advanceY + subGap;
   const int subW = mt.w - 2 * mt.m;
+  int lines = 1;
   if (selected) {
     const char* sl[2];
     int slens[2];
-    const int n = c.wrapText(ui, sub, subW, sl, slens, 2);
+    lines = c.wrapText(ui, sub, subW, sl, slens, 2);
     // Card hugs the whole text block (label + gap + subtitle lines).
-    const int blockH = body->advanceY + 8 + n * ui->advanceY - 4;
+    const int blockH = body->advanceY + subGap + lines * ui->advanceY - 4;
     selection(c, mt, y, blockH);
     c.drawTextInv(mt.m, y, body, lb);
-    for (int i = 0; i < n; i++) {
+    for (int i = 0; i < lines; i++) {
       c.drawTextInv(mt.m, subY + i * ui->advanceY, ui, sl[i], slens[i]);
     }
   } else {
@@ -175,6 +186,7 @@ inline void menuRow(Canvas& c, const Metrics& mt, int y, const char* label,
     c.drawText(mt.m, y, body, lb);
     c.drawText(mt.m, subY, ui, sb);
   }
+  return menuRowHeight(lines, subGap);
 }
 
 // One-line settings row: label left, optional value right-aligned; the

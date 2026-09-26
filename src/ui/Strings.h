@@ -29,7 +29,7 @@ enum StrId : uint8_t {
   LevelFmt, SkVocabulary, SkGrammar, SkReading,
   WeakAreas, DueItemsFmt,
   // Boot card (splash; the sleeping panel shows the same artwork)
-  AppName, SplashSub, SplashTag,
+  AppName, SplashSub, SplashTag, ChargeFmt,
   IdCount
 };
 
@@ -68,6 +68,7 @@ class Strings {
       "LEVEL %s", "Vocabulary", "Grammar", "Reading",
       "Weak areas", "%u items due",
       "LingoInk", "English \xC2\xB7 Russian", "One device. One purpose.",
+      "Charge %u%%",
   };
   static inline const char* const kRu[IdCount] = {
       "УЧИТЬСЯ",
@@ -96,6 +97,7 @@ class Strings {
       "УРОВЕНЬ %s", "Словарь", "Грамматика", "Чтение",
       "Слабые места", "%u к повторению",
       "LingoInk", "Английский \xC2\xB7 Русский", "Один экран. Одна цель.",
+      "Заряд %u%%",
   };
 };
 
