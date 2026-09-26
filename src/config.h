@@ -43,7 +43,10 @@ constexpr float MASTERY_ALPHA = 0.2f;
 constexpr int SCREEN_W = 800;
 constexpr int SCREEN_H = 480;
 constexpr int MARGIN = 40;
-constexpr int FAST_REFRESH_BETWEEN_FULL = 24;
+// 0 = never force a full refresh mid-session. Full cleans happen at
+// session boundaries only (power-off card + boot). This is the future
+// settings-screen knob ("deep clean frequency").
+constexpr int FAST_REFRESH_BETWEEN_FULL = 0;
 
 // Input.
 constexpr uint32_t OK_LONG_PRESS_MS = 600;

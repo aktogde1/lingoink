@@ -281,6 +281,19 @@ void App::powerDown() {
   if (sdOk_ && progress_.itemCount + progress_.todayMinutes > 0) {
     progress_.save();
   }
+  // The power-off card doubles as the session-end deep clean: the panel
+  // sleeps showing a deliberate image instead of a frozen random frame, and
+  // the full waveform wipes everything the session accumulated. This plus the
+  // boot refresh are the ONLY full cleans — nothing random mid-session.
+  const LgFont* title = fontByRole(FontRole::Title);
+  const LgFont* ui = fontByRole(FontRole::UI);
+  canvas_.fillWhite();
+  int w = canvas_.textWidth(title, "LingoInk");
+  canvas_.drawText((canvas_.width() - w) / 2, canvas_.height() / 2 - 44, title, "LingoInk");
+  w = canvas_.textWidth(ui, "До завтра");
+  canvas_.drawText((canvas_.width() - w) / 2, canvas_.height() / 2 + 12, ui, "До завтра");
+  presenter_.fullNext();
+  presenter_.present(canvas_, Refresh::Full);
   freeink::PowerManager::powerDownRailsForSleep();
   freeink::PowerManager::deepSleepUntilPowerButton();
 }

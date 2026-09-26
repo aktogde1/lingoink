@@ -40,7 +40,9 @@ class Presenter {
     // Product rule (user-validated on hardware): NEVER a multi-second wipe
     // during interaction. Every update is a fast DU refresh; FULL appears only
     // once at boot (fullNext) and periodically to clear e-ink residue.
-    if (forceFullOnce_ || fastStreak_ >= cfg::FAST_REFRESH_BETWEEN_FULL) {
+    if (forceFullOnce_ ||
+        (cfg::FAST_REFRESH_BETWEEN_FULL != 0 &&
+         fastStreak_ >= cfg::FAST_REFRESH_BETWEEN_FULL)) {
       display_.displayBuffer(EInkDisplay::FULL_REFRESH);
       fastStreak_ = 0;
       forceFullOnce_ = false;
