@@ -1,6 +1,38 @@
 # Learning update — 2026-09-26
 
-## Implemented
+## Quality update (same day, branch `learning8`)
+
+- **Date once per power-on.** The date screen appears before the first study
+  action after boot; later lessons and reviews in the same session start
+  immediately. The manual editor stays in Settings, a reboot asks again, and
+  backwards dates stay rejected.
+- **One review queue across lessons.** «Повторить» builds a single queue of up
+  to 12 due exercises from ALL studied lessons (due items only, free recall
+  preferred, SRS ids deduped, scan order rotated by day). Lessons are loaded
+  one at a time; slices chain without menus; one combined summary at the end;
+  power-off mid-queue restores the bookmark (additive progress v2 fields).
+  Weak-area practice from Progress keeps the single-lesson path.
+- **Three-way honest recall grading** (`SrsScheduler::gradeRecall`):
+  *Recalled* — success (grade 5, retention tracking), only without opened help
+  (help downgrades it); *With hint* — partial knowledge: never grows the
+  interval (retry tomorrow), half the ease penalty of a fail, not counted as a
+  lapse; early/same-day hints are practice; *Not recalled* — full lapse.
+  The menu cursor starts on the conservative option. Grades are unit-tested
+  for all three outcomes and their same-day guards.
+- **Course expanded to 40%+ active recall.** 65 new author-written recall
+  tasks in new contexts across all 21 lessons, placed after their related
+  recognition blocks. Repeatable-exercise recall share: 42/181 (23%) →
+  107/266 (40.2%); SRS ids covered by recall: 35/116 (30%) → 93/117 (79%).
+  The remaining 24 ids are minor or derivative; no filler was written for
+  them. `tools/course_check.py` validates limits and prints these numbers.
+- **«Already know» check.** A never-viewed lesson offers a short probe (up to
+  5 key tasks, recall-first, no theory). Pass (≥80% independent) marks the
+  lesson mastered; a weak result falls back to the full lesson. SRS items are
+  created either way; resumes and reviews skip the gate.
+- **Honest positioning kept.** Levels remain content labels («English:
+  A2 / B1 practice»); no interface text promises a level jump or a deadline.
+
+## Implemented (earlier the same day)
 
 - Home → Review builds a batch of up to 12 due exercises from the first eligible
   lesson. Repeated taps process the remaining lessons. Known items only; free

@@ -240,6 +240,44 @@ struct StudyTests {
     assert(ls.phase()!=LessonScreen::Phase::Gate);
     std::cout<<"Gate: already-know check, pass marks mastered, weak check falls back, resume skips gate OK\n";
   }
+  // Seven consecutive calendar days: mistakes on day 1, relearn on day 2,
+  // stable schedule through day 7 (no inflated intervals, retention confirmed).
+  static void sevenDays() {
+    p.reset();p.bindCourse(catalog);p.setDate(20261001);   // day 1
+    assert(ls.start(*catalog.findLesson("a2_02"),&p,&c));
+    assert(ls.phase()==LessonScreen::Phase::Gate);
+    tick(Key::Ok);  // TAKE THE LESSON (gateSel_ defaults to 0)
+    for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<900;++guard) {
+      if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer(false);else ls.handleKey(Key::Ok);
+      ls.checkpoint();
+    }
+    // Every touched item is due tomorrow (lapse interval = 1 day).
+    {
+      bool allTomorrow = p.itemCount > 0;
+      for(uint16_t i=0;i<p.itemCount;++i) if(p.items[i].nextDay!=p.time.day+1) allTomorrow=false;
+      assert(allTomorrow);
+    }
+    for(int day=2;day<=7;++day) {
+      static const int dates[7]={20261001,20261002,20261003,20261004,20261005,20261006,20261007};
+      p.session=StudySession{};p.setDate((uint32_t)dates[day-1]);
+      const uint16_t dueBefore=p.dueCount();
+      if(!dueBefore) continue;                              // nothing due — honest schedule
+      assert(ls.startReview(*catalog.findLesson("a2_02"),&p,&c));
+      for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<900;++guard) {
+        if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer();else ls.handleKey(Key::Ok);
+        ls.checkpoint();
+      }
+      uint8_t cc=0;while(ls.takeChain(&catalog,&cc)) {       // chained slices, if any
+        for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<900;++guard) {
+          if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer();else ls.handleKey(Key::Ok);
+          ls.checkpoint();
+        }
+      }
+      assert(p.dueCount()<dueBefore);                        // successful reviews clear the queue
+    }
+    assert(p.confirmedCount()>0);                           // retention confirmed by day 7
+    std::cout<<"Seven days: lapse on day 1, relearn on day 2, confirmed retention, honest due queue OK\n";
+  }
   static void storage() {
     SD.allowWrites=true;SD.mkdir(cfg::DATA_DIR);
     assert(p.save());ProgressStore restored;assert(restored.load());
@@ -255,7 +293,7 @@ struct StudyTests {
   }
   static void run() {
     c.init(3);Strings::setLang(1);assert(catalog.begin());assert(catalog.course.lessonCount==21);
-    scheduler();calendarAndMigration();contentAndReading();lessonFlow();reviewQueue();gateCheck();storage();
+    scheduler();calendarAndMigration();contentAndReading();lessonFlow();reviewQueue();gateCheck();sevenDays();storage();
     DateScreen date;date.start(&p);c.fillWhite();date.render(c);
     for(uint8_t o=0;o<4;++o) {
       c.setOrientation(o);char name[96];
