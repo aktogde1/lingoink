@@ -203,6 +203,40 @@ struct StudyTests {
     SD.allowWrites=false;
     std::cout<<"Review queue: cross-lesson build, recall-first, chaining, queue bookmark OK\n";
   }
+  static void gateCheck() {
+    p.reset();p.bindCourse(catalog);p.setDate(20260926);
+    // A never-viewed lesson opens the gate instead of the theory.
+    assert(ls.start(*catalog.findLesson("a2_01"),&p,&c));
+    assert(ls.phase()==LessonScreen::Phase::Gate);
+    tick(Key::Down);tick(Key::Ok);          // ALREADY KNOW: CHECK
+    assert(ls.phase()==LessonScreen::Phase::Exercise && ls.study_.gate);
+    assert(ls.study_.length==5);            // up to five key tasks, recall first
+    assert(ls.cur().type==ExType::Recall);
+    // Answer everything correctly: >=80% independent -> mastered at finish.
+    for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<600;++guard) {
+      if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer();else ls.handleKey(Key::Ok);
+      ls.checkpoint();
+    }
+    assert(ls.phase()==LessonScreen::Phase::Summary && ls.gatePassed_);
+    ls.checkpoint();ls.handleKey(Key::Ok);  // Done: finishLesson would mark it
+    // A weak check offers the full lesson instead.
+    p.reset();p.bindCourse(catalog);p.setDate(20260926);
+    assert(ls.start(*catalog.findLesson("a2_01"),&p,&c));
+    assert(ls.phase()==LessonScreen::Phase::Gate);
+    tick(Key::Down);tick(Key::Ok);
+    for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<600;++guard) {
+      if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer(false);else ls.handleKey(Key::Ok);
+      ls.checkpoint();
+    }
+    assert(ls.phase()==LessonScreen::Phase::Summary && !ls.gatePassed_);
+    tick(Key::Ok);                          // take the full lesson
+    assert(ls.phase()==LessonScreen::Phase::Theory && !ls.gateMode_ && ls.study_.length==ls.lesson_.exerciseCount);
+    // Resumed lesson bookmarks skip the gate.
+    ls.checkpoint();
+    assert(ls.start(*catalog.findLesson("a2_01"),&p,&c));
+    assert(ls.phase()!=LessonScreen::Phase::Gate);
+    std::cout<<"Gate: already-know check, pass marks mastered, weak check falls back, resume skips gate OK\n";
+  }
   static void storage() {
     SD.allowWrites=true;SD.mkdir(cfg::DATA_DIR);
     assert(p.save());ProgressStore restored;assert(restored.load());
@@ -218,7 +252,7 @@ struct StudyTests {
   }
   static void run() {
     c.init(3);Strings::setLang(1);assert(catalog.begin());assert(catalog.course.lessonCount==21);
-    scheduler();calendarAndMigration();contentAndReading();lessonFlow();reviewQueue();storage();
+    scheduler();calendarAndMigration();contentAndReading();lessonFlow();reviewQueue();gateCheck();storage();
     DateScreen date;date.start(&p);c.fillWhite();date.render(c);
     for(uint8_t o=0;o<4;++o) {
       c.setOrientation(o);char name[96];

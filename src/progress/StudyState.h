@@ -23,6 +23,7 @@ struct StudySession {
   uint16_t answers = 0, correct = 0;
   uint64_t first = 0, unresolved = 0;
   bool answered = false, helped = false, revealed = false, review = false;
+  bool gate = false;  // session is an "already know" probe, not a full lesson
   uint8_t chosen = 0;
   uint8_t qLesson[12] = {}, qEx[12] = {};
   uint8_t qLen = 0, qPos = 0, qBase = 0;

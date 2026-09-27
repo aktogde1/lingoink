@@ -36,7 +36,7 @@
 
 class LessonScreen : public Screen {
  public:
-  enum class Phase : uint8_t { Load, Error, Theory, Reading, Exercise, Summary };
+  enum class Phase : uint8_t { Load, Error, Theory, Reading, Exercise, Summary, Gate };
 
   // Loads the lesson from SD. Returns false with a readable error.
   // `canvas` is the shared screen canvas — needed by key handling for
@@ -65,10 +65,18 @@ class LessonScreen : public Screen {
     exIdx_ = 0;
     correctCount_ = 0;
     answerCount_ = 0;
+    gateMode_=false; gatePassed_=false; restored_=false; chainNeeded_=false;
+    gateSel_=0;
+    rAnswer_=0; rCorrect_=0;
+    // A brand-new, never-viewed lesson offers a short "already know" check
+    // before the full lesson (skipped for reviews, resumed bookmarks and
+    // lessons without exercises).
     enterExercise(lesson_.theoryCount > 0 ? Phase::Theory : firstContentPhase());
     if(!lesson_.exerciseCount && !lesson_.theoryCount) phase_=Phase::Summary;
     if(progress_ && strcmp(progress_->session.lesson, lesson_.id)==0 &&
         progress_->session.fingerprint==study_.fingerprint) restore(progress_->session);
+    if(!restored_ && phase_!=Phase::Summary && progress_ &&
+        progress_->stage(lesson_.id)==0 && lesson_.exerciseCount) phase_=Phase::Gate;
     return true;
   }
 
@@ -227,6 +235,7 @@ class LessonScreen : public Screen {
     study_.answers=answerCount_;study_.correct=correctCount_;
     study_.answered=answered_;study_.chosen=chosen_;
     study_.helped=helped_;study_.revealed=revealed_;
+    study_.gate=gateMode_;
     study_.qAnswers=rAnswer_;study_.qCorrect=rCorrect_;
     progress_->session=study_;
   }
@@ -254,6 +263,7 @@ class LessonScreen : public Screen {
       case Phase::Reading: renderReading(c); break;
       case Phase::Exercise: renderExercise(c, cur()); break;
       case Phase::Summary: renderSummary(c); break;
+      case Phase::Gate: renderGate(c); break;
       case Phase::Load: break;
     }
     if (explainView_ && phase_ == Phase::Exercise) {
@@ -272,6 +282,13 @@ class LessonScreen : public Screen {
         return Nav::Done;
 
       case Phase::Summary:
+        if (gateMode_) {
+          if (k == Key::Ok) {
+            if (gatePassed_) return Nav::Done;   // finishLesson marks mastery
+            return startFullLesson();            // weak check: take the lesson
+          }
+          return Nav::Stay;
+        }
         if (k == Key::Ok || k == Key::Back) return Nav::Done;
         return Nav::Stay;
 
@@ -283,6 +300,9 @@ class LessonScreen : public Screen {
 
       case Phase::Exercise:
         return handleExerciseKey(k);
+
+      case Phase::Gate:
+        return handleGateKey(k);
 
       default:
         return Nav::Stay;
@@ -327,6 +347,7 @@ class LessonScreen : public Screen {
   void advanceToNextExercise() {
     ++study_.cursor;
     if(study_.cursor>=study_.length) {
+      if(gateMode_) gatePassed_ = answerCount_>0 && accuracyPct()>=80;
       // A chained review continues straight into the next lesson's slice;
       // App picks it up via takeChain() before the next render.
       if(study_.review && study_.qPos<study_.qLen) chainNeeded_=true;
@@ -755,6 +776,76 @@ class LessonScreen : public Screen {
   // ------------------------------------------------------------------
   // Rendering
   // ------------------------------------------------------------------
+  // ------------------------------------------------------------------
+  // "Already know" gate: a brand-new lesson offers a short self-check
+  // (recall-first, up to 5 key exercises) before the full lesson. The probe
+  // is graded like a normal lesson, so SRS items are created either way;
+  // a passed check finishes the lesson as mastered (>=80% independent).
+  // ------------------------------------------------------------------
+  void renderGate(Canvas& c) {
+    const chrome::Metrics mt = chrome::metrics(c);
+    chrome::header(c, mt, U("ALREADY KNOW?","УЖЕ ЗНАЕТЕ?"));
+    int y = mt.top;
+    y = paragraph(c, U("Take the full lesson, or check yourself with a few key tasks first. If the check goes well, the lesson is marked as mastered.",
+      "Пройдите урок целиком или сначала проверьте себя на нескольких ключевых заданиях. Если проверка пройдена, урок отмечается освоенным."), y, fontByRole(FontRole::UI), 6) + 12;
+    chrome::menuRow(c, mt, y, U("TAKE THE LESSON","ПРОЙТИ УРОК"),
+                    U("Theory and all exercises","Теория и все задания"), gateSel_==0);
+    y += chrome::menuRowHeight(1) + 10;
+    chrome::menuRow(c, mt, y, U("ALREADY KNOW: CHECK","УЖЕ ЗНАЮ: ПРОВЕРИТЬ"),
+                    U("A few key tasks, no theory","Несколько ключевых заданий без теории"), gateSel_==1);
+    c.drawText(mt.m, mt.widgetY, fontByRole(FontRole::UI), U("Back: exit","Назад: выход"));
+  }
+
+  Nav handleGateKey(Key k) {
+    if (exitPrompt_) return handleExitPromptKey(k);
+    if (k == Key::Up || k == Key::Left || k == Key::Down || k == Key::Right) {
+      gateSel_=(uint8_t)(gateSel_+1)%2;  // two rows — one key flips the choice
+      return Nav::RedrawFast;
+    }
+    if (k == Key::Ok) {
+      if (gateSel_==0) return startFullLesson();
+      startGateCheck();
+      return Nav::RedrawFull;
+    }
+    if (k == Key::Back) {exitPrompt_=true;return Nav::RedrawFull;}
+    return Nav::Stay;
+  }
+
+  Nav startFullLesson() {
+    study_=StudySession{};
+    strncpy(study_.lesson,lesson_.id,sizeof(study_.lesson)-1);
+    study_.fingerprint=fingerprint();
+    for(uint8_t i=0;i<lesson_.exerciseCount;++i) study_.plan[study_.length++]=i;
+    gateMode_=false;gatePassed_=false;helped_=false;revealed_=false;
+    theoryIdx_=0;theoryLine_=0;exIdx_=0;correctCount_=0;answerCount_=0;
+    rAnswer_=0;rCorrect_=0;referenceMode_=0;readingOffset_=0;
+    enterExercise(Phase::Theory);
+    return Nav::RedrawFull;
+  }
+
+  void startGateCheck() {
+    StudySession fresh;
+    strncpy(fresh.lesson,lesson_.id,sizeof(fresh.lesson)-1);
+    fresh.fingerprint=fingerprint();
+    for(int pass=0;pass<2 && fresh.length<5;++pass)
+      for(uint16_t n=0;n<lesson_.exerciseCount && fresh.length<5;++n) {
+        const uint8_t i=(uint8_t)((n+progress_->time.day)%lesson_.exerciseCount);
+        const auto& e=lesson_.exercises[i];
+        if(e.type==ExType::Reading) continue;
+        if((pass==0)!=(e.type==ExType::Recall)) continue;
+        bool dup=false;
+        for(uint8_t j=0;j<fresh.length;++j) if(fresh.plan[j]==i) dup=true;
+        if(!dup) fresh.plan[fresh.length++]=i;
+      }
+    if(!fresh.length) {startFullLesson();return;}  // nothing to probe
+    study_=fresh;
+    gateMode_=true;gatePassed_=false;
+    theoryIdx_=0;theoryLine_=0;exIdx_=study_.plan[0];
+    correctCount_=0;answerCount_=0;rAnswer_=0;rCorrect_=0;
+    referenceMode_=0;readingOffset_=0;helped_=false;revealed_=false;
+    enterExercise(Phase::Exercise);
+  }
+
   void renderError(Canvas& c) {
     const chrome::Metrics mt = chrome::metrics(c);
     const LgFont* body = fontByRole(FontRole::Body);
@@ -1004,6 +1095,13 @@ class LessonScreen : public Screen {
     w = c.textWidth(body, line);
     c.drawText((mt.w - w) / 2, y, body, line);
     y+=body->advanceY+16;
+    if (gateMode_) {
+      paragraph(c, gatePassed_ ? U("Check passed — the lesson is marked as mastered. OK: continue.",
+                                  "Проверка пройдена — урок отмечен освоенным. OK: дальше.")
+                               : U("Check not passed. OK: take the full lesson.",
+                                  "Проверка не пройдена. OK: пройти урок целиком."), y, body, 4);
+      return;
+    }
     snprintf(line,sizeof(line),U("Still to practise: %u","Ещё потренировать: %u"),unresolvedCount());
     c.drawText(mt.m,y,fontByRole(FontRole::UI),line);
     y+=body->advanceY;
@@ -1037,6 +1135,7 @@ class LessonScreen : public Screen {
   void restore(const StudySession& s) {
     if(!s.length || s.cursor>s.length || (s.cursor==s.length && s.phase!=5) || s.phase<2 || s.phase>5) return;
     for(uint8_t i=0;i<s.length;++i) if(s.plan[i]>=lesson_.exerciseCount) return;
+    restored_=true;
     if(s.phase==(uint8_t)Phase::Theory && s.theory>=lesson_.theoryCount) return;
     study_=s; exIdx_=s.plan[s.cursor<s.length?s.cursor:s.length-1]; enterExercise((Phase)s.phase);
     theoryIdx_=s.theory;theoryLine_=s.line;pageIdx_=s.page;readingOffset_=s.offset;
@@ -1046,6 +1145,9 @@ class LessonScreen : public Screen {
     correctCount_=s.correct;answerCount_=s.answers;
     answered_=s.answered;chosen_=s.chosen;helped_=s.helped;revealed_=s.revealed;
     rAnswer_=s.qAnswers;rCorrect_=s.qCorrect;
+    gateMode_=s.gate;
+    gatePassed_ = s.gate && s.phase==(uint8_t)Phase::Summary && s.answers>0 &&
+                  (uint8_t)((s.correct*100+s.answers/2)/s.answers)>=80;
     if(s.review) {
       // Rebuild the plan-slot -> queue-entry map: retries duplicate an
       // exercise index and share their first occurrence's entry.
@@ -1258,6 +1360,9 @@ class LessonScreen : public Screen {
   bool explainView_ = false;
   uint8_t explainPage_ = 0;
   bool aborted_ = false;
+  bool restored_ = false;
+  bool gateMode_ = false, gatePassed_ = false;
+  uint8_t gateSel_ = 0;
   uint16_t correctCount_ = 0;
   uint16_t answerCount_ = 0;
 };

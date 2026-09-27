@@ -163,6 +163,13 @@ int main() {
   const LessonMeta& reading = catalog.course.lessons[5];  // a2_06 book
 
   {
+    // "Already know" gate on a never-viewed lesson (a2_06).
+    LessonScreen gls;
+    gls.start(reading, &progress, &canvas);
+    scene("lesson_gate", [&] { gls.render(canvas); });
+  }
+
+  {
     LessonScreen ls;
     ls.start(psTheory, &progress, &canvas);
     scene("lesson_theory", [&] { ls.render(canvas); });

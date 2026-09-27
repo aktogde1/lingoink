@@ -19,7 +19,7 @@ bool ProgressStore::write(File& f) {
   b["firstLo"]=(uint32_t)s.first; b["firstHi"]=(uint32_t)(s.first>>32);
   b["wrongLo"]=(uint32_t)s.unresolved; b["wrongHi"]=(uint32_t)(s.unresolved>>32);
   b["answered"]=s.answered; b["helped"]=s.helped; b["revealed"]=s.revealed;
-  b["review"]=s.review; b["chosen"]=s.chosen;
+  b["review"]=s.review; b["chosen"]=s.chosen; b["gate"]=s.gate;
   b["qLen"]=s.qLen; b["qPos"]=s.qPos; b["qBase"]=s.qBase;
   b["qA"]=s.qAnswers; b["qC"]=s.qCorrect;
   b["qUnresLo"]=(uint32_t)s.qUnresolved; b["qUnresHi"]=(uint32_t)(s.qUnresolved>>32);
@@ -118,6 +118,7 @@ bool ProgressStore::parse(const char* json, size_t len) {
   s.unresolved=(uint64_t)(b["wrongLo"] | 0u) | ((uint64_t)(b["wrongHi"] | 0u)<<32);
   s.answered=b["answered"] | false; s.helped=b["helped"] | false;
   s.revealed=b["revealed"] | false; s.review=b["review"] | false;
+  s.gate=b["gate"] | false;
   s.chosen=b["chosen"] | 0;
   for(auto v:b["plan"].as<JsonArrayConst>()) { if(s.length>=96) break; s.plan[s.length++]=v.as<uint8_t>(); }
   uint8_t ai=0; for(auto v:b["attempts"].as<JsonArrayConst>()) { if(ai>=cfg::MAX_EXERCISES) break; s.attempts[ai++]=v.as<uint8_t>(); }
