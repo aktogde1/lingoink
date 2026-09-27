@@ -80,7 +80,14 @@ class App {
   void beginStudy(uint8_t action, const LessonMeta* m=nullptr, const char* tag=nullptr) {
     pending_=action; pendingLesson_=m;
     snprintf(practiceTag_,sizeof(practiceTag_),"%s",tag?tag:"");
-    dateScreen_.start(&progress_);goTo(Where::Date);renderCurrent(Refresh::Fast);
+    // The date is confirmed once per power-on; after that every study
+    // action in this session starts straight away. The manual editor from
+    // Settings (action 3) always opens. A reboot clears the flag.
+    if(!dateOk_ || action==3) {
+      dateScreen_.start(&progress_);goTo(Where::Date);renderCurrent(Refresh::Fast);
+      return;
+    }
+    runStudy();
   }
   void runStudy() {
     if(pending_==3) {goHome();return;}
@@ -126,6 +133,7 @@ class App {
   uint8_t pending_=0;
   const LessonMeta* pendingLesson_=nullptr;
   char practiceTag_[32]="";
+  bool dateOk_=false;  // date confirmed once per power-on (RAM only)
 
   CourseCatalog catalog_;
   ProgressStore progress_;
@@ -297,7 +305,7 @@ void App::run() {
       case Where::Date: {
         Nav nav=dateScreen_.handleKey(k);
         if(nav==Nav::Done) {
-          if(dateScreen_.accepted()) {saveProgress();runStudy();} else goHome();
+          if(dateScreen_.accepted()) {dateOk_=true;saveProgress();runStudy();} else goHome();
         } else renderCurrent(Refresh::Fast);
         break;
       }
