@@ -169,8 +169,8 @@
     },
     {
       "type": "recall",
-      "prompt": "Переведите (вчера, прошедшее время): Я видел Анну вчера.",
-      "answer": "I saw Anna yesterday.",
+      "prompt": "Переведите: Вчера шёл дождь.",
+      "answer": "It rained yesterday.",
       "srs": [
         "pp-vs-past",
         "past-simple"
@@ -179,7 +179,7 @@
         "pp-vs-past",
         "ru2en"
       ],
-      "explain": "С yesterday используется Past Simple: saw, а не have seen."
+      "explain": "С yesterday используется Past Simple: rained, а не has rained. rain — правильный глагол."
     },
     {
       "type": "recall",

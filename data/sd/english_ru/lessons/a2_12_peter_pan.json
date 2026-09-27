@@ -117,18 +117,17 @@
     },
     {
       "type": "recall",
-      "prompt": "Переведите: Неверленд — это место, где дети никогда не растут.",
-      "answer": "Neverland is a place where children never grow up.",
+      "prompt": "Переведите: Мой брат вырос в деревне.",
+      "answer": "My brother grew up in a village.",
       "srs": [
-        "pv.grow-up",
-        "vp.never"
+        "pv.grow-up"
       ],
       "tags": [
         "phrasal-verbs",
         "reading",
         "ru2en"
       ],
-      "explain": "grow up — расти, взрослеть. never стоит перед глаголом."
+      "explain": "grow up in a place — вырасти где-то. grew — вторая форма от grow."
     },
     {
       "type": "choice",
