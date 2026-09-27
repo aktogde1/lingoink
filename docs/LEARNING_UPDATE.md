@@ -1,6 +1,6 @@
 # Learning update — 2026-09-26
 
-## Quality update (same day, branch `learning8`)
+## Quality update — 2026-09-27, released as v0.3.2-beta (branch `learning8`)
 
 - **Date once per power-on.** The date screen appears before the first study
   action after boot; later lessons and reviews in the same session start
