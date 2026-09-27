@@ -20,6 +20,13 @@ bool ProgressStore::write(File& f) {
   b["wrongLo"]=(uint32_t)s.unresolved; b["wrongHi"]=(uint32_t)(s.unresolved>>32);
   b["answered"]=s.answered; b["helped"]=s.helped; b["revealed"]=s.revealed;
   b["review"]=s.review; b["chosen"]=s.chosen;
+  b["qLen"]=s.qLen; b["qPos"]=s.qPos; b["qBase"]=s.qBase;
+  b["qA"]=s.qAnswers; b["qC"]=s.qCorrect;
+  b["qUnresLo"]=(uint32_t)s.qUnresolved; b["qUnresHi"]=(uint32_t)(s.qUnresolved>>32);
+  JsonArray ql=b["qLessons"].to<JsonArray>();
+  for(uint8_t i=0;i<s.qLen;++i) ql.add(s.qLesson[i]);
+  JsonArray qx=b["qEx"].to<JsonArray>();
+  for(uint8_t i=0;i<s.qLen;++i) qx.add(s.qEx[i]);
   auto plan=b["plan"].to<JsonArray>(); for(uint8_t i=0;i<s.length;++i) plan.add(s.plan[i]);
   auto attempts=b["attempts"].to<JsonArray>(); for(auto a:s.attempts) attempts.add(a);
   doc["course"] = courseId;
@@ -114,6 +121,13 @@ bool ProgressStore::parse(const char* json, size_t len) {
   s.chosen=b["chosen"] | 0;
   for(auto v:b["plan"].as<JsonArrayConst>()) { if(s.length>=96) break; s.plan[s.length++]=v.as<uint8_t>(); }
   uint8_t ai=0; for(auto v:b["attempts"].as<JsonArrayConst>()) { if(ai>=cfg::MAX_EXERCISES) break; s.attempts[ai++]=v.as<uint8_t>(); }
+  s.qLen=(uint8_t)(b["qLen"] | 0); if(s.qLen>12) s.qLen=12;
+  s.qPos=(uint8_t)(b["qPos"] | 0); if(s.qPos>s.qLen) s.qPos=s.qLen;
+  s.qBase=(uint8_t)(b["qBase"] | 0);
+  s.qAnswers=b["qA"] | 0; s.qCorrect=b["qC"] | 0;
+  s.qUnresolved=(uint64_t)(b["qUnresLo"] | 0u) | ((uint64_t)(b["qUnresHi"] | 0u)<<32);
+  uint8_t qi=0; for(auto v:b["qLessons"].as<JsonArrayConst>()) { if(qi>=s.qLen) break; s.qLesson[qi++]=v.as<uint8_t>(); }
+  qi=0; for(auto v:b["qEx"].as<JsonArrayConst>()) { if(qi>=s.qLen) break; s.qEx[qi++]=v.as<uint8_t>(); }
   if(s.cursor>s.length || (s.cursor==s.length && s.phase!=5) || s.phase<2 || s.phase>5) session=StudySession{};
 
   itemCount = 0;

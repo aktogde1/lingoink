@@ -103,8 +103,103 @@ class LessonScreen : public Screen {
     }
     if(!fresh.length) return false;
     study_=fresh; exIdx_=study_.plan[0]; correctCount_=answerCount_=0;
+    rAnswer_=0; rCorrect_=0; chainNeeded_=false;
     enterExercise(Phase::Exercise);
     return true;
+  }
+
+  // Build a cross-lesson review queue: scan the course lesson by lesson (one
+  // Lesson in RAM — the shared buffer), collect up to `cap` exercises whose
+  // SRS ids are due and not already queued; free recall is preferred over
+  // recognition and the scan start rotates by day. Writes course lesson
+  // indices into qLesson and exercise indices into qEx; returns the count.
+  uint8_t buildReviewQueue(const CourseCatalog& c, ProgressStore* p,
+                           uint8_t* qLesson, uint8_t* qEx, uint8_t cap) {
+    if(!p || !c.course.lessonCount || !cap) return 0;
+    char selected[48][28]={}; uint8_t selectedCount=0;
+    uint8_t n=0;
+    const uint8_t total=c.course.lessonCount;
+    const uint8_t first=(uint8_t)(p->time.day%total);
+    for(int pass=0;pass<2 && n<cap;++pass)
+      for(uint8_t off=0;off<total && n<cap;++off) {
+        const uint8_t li=(uint8_t)((first+off)%total);
+        if(!lessonLoadFile(lesson_,c.course.lessons[li].file).ok) continue;
+        for(uint16_t k=0;k<lesson_.exerciseCount && n<cap;++k) {
+          const uint8_t i=(uint16_t)((k+p->time.day)%lesson_.exerciseCount);
+          const auto& e=lesson_.exercises[i];
+          if(e.type==ExType::Reading || !e.reviewable) continue;
+          if((pass==0)!=(e.type==ExType::Recall)) continue;
+          bool eligible=false;
+          for(uint8_t s=0;s<e.srsCount;++s) {
+            auto it=p->find(e.srsIds[s]);
+            if(!it || !SrsScheduler::isDue(*it,p->time.day)) continue;
+            bool seen=false;
+            for(uint8_t z=0;z<selectedCount;++z) if(strcmp(selected[z],e.srsIds[s])==0) seen=true;
+            if(!seen) eligible=true;
+          }
+          if(!eligible) continue;
+          qLesson[n]=li; qEx[n]=i; ++n;
+          for(uint8_t s=0;s<e.srsCount && selectedCount<48;++s)
+            strncpy(selected[selectedCount++],e.srsIds[s],27);
+        }
+      }
+    return n;
+  }
+
+  // Start one slice of the cross-lesson review queue stored in
+  // progress_->session: the next `count` entries (they must belong to
+  // `meta`). firstSlice starts fresh totals; otherwise the queue-wide
+  // counters carried in the bookmark continue. The queue position advances
+  // with checkpoint().
+  bool startReviewSlice(const LessonMeta& meta, uint8_t count,
+                        ProgressStore* progress, Canvas* canvas, bool firstSlice) {
+    if(!start(meta,progress,canvas)) return false;
+    if(firstSlice && progress->session.lesson[0]) return false;  // stale bookmark guard
+    StudySession fresh;
+    strncpy(fresh.lesson,lesson_.id,sizeof(fresh.lesson)-1);
+    fresh.fingerprint=fingerprint(); fresh.review=true;
+    fresh.qLen=progress->session.qLen;
+    fresh.qPos=firstSlice?0:progress->session.qPos;
+    fresh.qBase=fresh.qPos;
+    fresh.qAnswers=firstSlice?0:progress->session.qAnswers;
+    fresh.qCorrect=firstSlice?0:progress->session.qCorrect;
+    fresh.qUnresolved=firstSlice?0:progress->session.qUnresolved;
+    for(uint8_t i=0;i<fresh.qLen;++i) {
+      fresh.qLesson[i]=progress->session.qLesson[i];
+      fresh.qEx[i]=progress->session.qEx[i];
+    }
+    const uint8_t base=fresh.qPos;
+    for(uint8_t j=0;j<count && base+j<fresh.qLen;++j) {
+      const uint8_t ex=fresh.qEx[base+j];
+      if(ex>=lesson_.exerciseCount) return false;  // course changed under us
+      fresh.plan[fresh.length++]=ex;
+      qEntry_[fresh.length-1]=base+j;
+    }
+    if(!fresh.length) return false;
+    fresh.qPos=(uint8_t)(base+fresh.length);
+    study_=fresh;
+    rAnswer_=fresh.qAnswers; rCorrect_=fresh.qCorrect;
+    exIdx_=study_.plan[0]; correctCount_=answerCount_=0;
+    chainNeeded_=false;
+    enterExercise(Phase::Exercise);
+    return true;
+  }
+
+  // When the finished slice has queue entries left, returns the next slice's
+  // lesson and writes how many entries belong to it; nullptr otherwise.
+  const LessonMeta* takeChain(const CourseCatalog* c, uint8_t* count) {
+    if(!chainNeeded_ || !progress_ || !c) return nullptr;
+    chainNeeded_=false;
+    if(!study_.review || study_.qPos>=study_.qLen) return nullptr;
+    const uint8_t li=study_.qLesson[study_.qPos];
+    if(li>=c->course.lessonCount) return nullptr;
+    uint8_t n=0;
+    for(uint8_t i=study_.qPos;i<study_.qLen;++i) {
+      if(study_.qLesson[i]!=li) break;
+      ++n;
+    }
+    *count=n;
+    return &c->course.lessons[li];
   }
   void reconcileReviewItems(const CourseCatalog& c,ProgressStore& p) {
     bool active[ProgressStore::MAX_SRS]={};
@@ -120,9 +215,9 @@ class LessonScreen : public Screen {
     p.itemCount=count;
   }
   bool isReview() const {return study_.review;}
-  uint16_t independentAnswers() const {return answerCount_;}
+  uint16_t independentAnswers() const {return study_.review ? rAnswer_ : answerCount_;}
   uint8_t unresolvedCount() const {
-    uint8_t n=0; uint64_t bits=study_.unresolved;
+    uint8_t n=0; uint64_t bits=study_.review ? study_.qUnresolved : study_.unresolved;
     while(bits) {n+=bits&1;bits>>=1;} return n;
   }
   void checkpoint() {
@@ -132,6 +227,7 @@ class LessonScreen : public Screen {
     study_.answers=answerCount_;study_.correct=correctCount_;
     study_.answered=answered_;study_.chosen=chosen_;
     study_.helped=helped_;study_.revealed=revealed_;
+    study_.qAnswers=rAnswer_;study_.qCorrect=rCorrect_;
     progress_->session=study_;
   }
 
@@ -144,8 +240,10 @@ class LessonScreen : public Screen {
   uint16_t exerciseCount() const { return lesson_.exerciseCount; }
   const char* errorText() const { return errText_; }
   uint8_t accuracyPct() const {
-    if (answerCount_ == 0) return 0;
-    return (uint8_t)((correctCount_ * 100 + answerCount_ / 2) / answerCount_);
+    const uint16_t a = study_.review ? rAnswer_ : answerCount_;
+    const uint16_t c = study_.review ? rCorrect_ : correctCount_;
+    if (a == 0) return 0;
+    return (uint8_t)((c * 100 + a / 2) / a);
   }
 
   void render(Canvas& c) override {
@@ -228,7 +326,13 @@ class LessonScreen : public Screen {
 
   void advanceToNextExercise() {
     ++study_.cursor;
-    if(study_.cursor>=study_.length) {phase_=Phase::Summary;return;}
+    if(study_.cursor>=study_.length) {
+      // A chained review continues straight into the next lesson's slice;
+      // App picks it up via takeChain() before the next render.
+      if(study_.review && study_.qPos<study_.qLen) chainNeeded_=true;
+      phase_=Phase::Summary;
+      return;
+    }
     exIdx_=study_.plan[study_.cursor];
     enterExercise(Phase::Exercise);
   }
@@ -697,9 +801,11 @@ class LessonScreen : public Screen {
 
     // The instruction sits in the standard header slot (UI font), with the
     // exercise counter on the right — same geometry as every other screen.
+    // A chained review counts across the whole queue.
     char ex[24];
-    snprintf(ex, sizeof(ex), S(ExOfFmt), (unsigned)(study_.cursor + 1),
-             (unsigned)study_.length);
+    snprintf(ex, sizeof(ex), S(ExOfFmt),
+             (unsigned)((study_.review ? rAnswer_ : answerCount_) + 1),
+             (unsigned)(study_.review ? study_.qLen : study_.length));
     c.drawText(mt.m, mt.headerTextY, ui, S(instructionFor(E)));
     chrome::drawRight(c, mt.w - mt.m, mt.headerTextY, ui, ex);
     c.hline(mt.m, mt.w - mt.m, mt.ruleY);
@@ -893,8 +999,8 @@ class LessonScreen : public Screen {
     c.drawText((mt.w - w) / 2, y, title, S(SumLabel));
     y += title->advanceY + 14;
     char line[64];
-    snprintf(line, sizeof(line), S(SumCountFmt), (unsigned)correctCount_,
-             (unsigned)answerCount_);
+    snprintf(line, sizeof(line), S(SumCountFmt), (unsigned)(study_.review ? rCorrect_ : correctCount_),
+             (unsigned)(study_.review ? rAnswer_ : answerCount_));
     w = c.textWidth(body, line);
     c.drawText((mt.w - w) / 2, y, body, line);
     y+=body->advanceY+16;
@@ -939,26 +1045,49 @@ class LessonScreen : public Screen {
     }
     correctCount_=s.correct;answerCount_=s.answers;
     answered_=s.answered;chosen_=s.chosen;helped_=s.helped;revealed_=s.revealed;
+    rAnswer_=s.qAnswers;rCorrect_=s.qCorrect;
+    if(s.review) {
+      // Rebuild the plan-slot -> queue-entry map: retries duplicate an
+      // exercise index and share their first occurrence's entry.
+      uint8_t next=s.qBase;
+      for(uint8_t i=0;i<s.length;++i) {
+        qEntry_[i]=next;
+        for(uint8_t j=0;j<i;++j) if(s.plan[j]==s.plan[i]) {qEntry_[i]=qEntry_[j];break;}
+        if(qEntry_[i]==next) next++;
+      }
+    }
     if(phase_==Phase::Exercise) {
       // Recall self-assessment results are 0..2; quizzes are option indices.
       const bool rc = cur().type==ExType::Recall;
       if(rc ? chosen_>2 : chosen_>=cur().optionCount) {answered_=false;chosen_=0;}
     }
     if(phase_==Phase::Exercise && answered_) ensureAnsweredVisible(cur());
+    // A summary restored with queue entries left still chains on OK.
+    chainNeeded_ = s.review && (s.qPos<s.qLen) && s.phase==(uint8_t)Phase::Summary;
   }
   void recordAttempt(bool independent) {
-    const uint64_t bit=1ULL<<exIdx_;
-    if(!(study_.first&bit)) {study_.first|=bit;++answerCount_;if(independent)++correctCount_;}
+    // Review batches key first-attempt bits by queue entry (they survive the
+    // lesson switch); plain lessons key them by exercise index.
+    const uint64_t bit = study_.review ? (1ULL<<qEntry_[study_.cursor]) : (1ULL<<exIdx_);
+    if(!(study_.first&bit)) {
+      study_.first|=bit;++answerCount_;if(independent)++correctCount_;
+      if(study_.review){++rAnswer_;if(independent)++rCorrect_;}
+    }
     ++study_.attempts[exIdx_];
-    if(independent) study_.unresolved &= ~bit;
-    else {
+    if(independent) {
+      study_.unresolved &= ~bit;
+      if(study_.review) study_.qUnresolved &= ~bit;
+    } else {
       study_.unresolved |= bit;
+      if(study_.review) study_.qUnresolved |= bit;
       // At most two retries; intervening questions before seeing it again.
       if(study_.attempts[exIdx_]<3 && study_.length<96) {
         uint8_t at=study_.cursor+4;
         if(at>study_.length) at=study_.length;
-        for(int j=study_.length;j>at;--j) study_.plan[j]=study_.plan[j-1];
-        study_.plan[at]=(uint8_t)exIdx_;++study_.length;
+        for(int j=study_.length;j>at;--j) {study_.plan[j]=study_.plan[j-1];qEntry_[j]=qEntry_[j-1];}
+        study_.plan[at]=(uint8_t)exIdx_;
+        qEntry_[at]=qEntry_[study_.cursor];
+        ++study_.length;
       }
     }
   }
@@ -1103,6 +1232,9 @@ class LessonScreen : public Screen {
 
   StudySession study_;
   uint16_t readingOffset_=0,refOffset_=0;
+  uint16_t rAnswer_=0,rCorrect_=0;   // whole-queue review totals
+  uint8_t qEntry_[96]={};            // plan slot -> queue entry (review)
+  bool chainNeeded_=false;
   uint8_t referenceMode_=0,referenceSel_=0,refPage_=0;
   bool helped_=false,revealed_=false;
   Lesson lesson_;  // ~26KB — LessonScreen is statically allocated inside App

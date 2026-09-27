@@ -158,6 +158,51 @@ struct StudyTests {
     // Reading lookup does not change a comprehension answer into a memory quiz.
     std::cout<<"Learning flow: retries, assisted answers, feedback/summary/reading resume, review, text and dictionary return OK\n";
   }
+  static void reviewQueue() {
+    p.reset();p.bindCourse(catalog);p.setDate(20260926);
+    // Seed due items from three different lessons, as studied lessons would.
+    p.findOrCreate("vp.borrow");    // a2_01: recall + quiz -> dedupe keeps the recall
+    p.findOrCreate("vp.actually");  // a2_01: recall + quiz
+    p.findOrCreate("ps.went");      // a2_05 quizzes
+    p.findOrCreate("pv.look-for");  // b1_20 quiz
+    p.session=StudySession{};
+    uint8_t qL[12],qE[12];
+    const uint8_t n=ls.buildReviewQueue(catalog,&p,qL,qE,12);
+    assert(n==4);
+    uint8_t distinct=0;bool seenL[24]={};
+    for(uint8_t i=0;i<n;++i) if(!seenL[qL[i]]){seenL[qL[i]]=true;++distinct;}
+    assert(distinct==3 && qL[0]==catalog.indexOf("a2_01"));
+    StudySession fresh;fresh.review=true;fresh.qLen=n;
+    for(uint8_t i=0;i<n;++i){fresh.qLesson[i]=qL[i];fresh.qEx[i]=qE[i];}
+    p.session=fresh;
+    uint8_t count=1;while(count<n && qL[count]==qL[0]) ++count;
+    assert(ls.startReviewSlice(*catalog.findLesson("a2_01"),count,&p,&c,true));
+    ls.checkpoint();
+    assert(ls.isReview() && ls.phase()==LessonScreen::Phase::Exercise);
+    assert(p.session.qPos==count);
+    // Run the queue to the end, chaining across lessons without the menu.
+    uint8_t slices=1;
+    for(;;) {
+      for(int guard=0;ls.phase()!=LessonScreen::Phase::Summary && guard<600;++guard) {
+        if(ls.phase()==LessonScreen::Phase::Exercise && !ls.answered_)answer();else ls.handleKey(Key::Ok);
+        ls.checkpoint();
+      }
+      assert(ls.phase()==LessonScreen::Phase::Summary);
+      uint8_t cc=0;
+      const LessonMeta* ch=ls.takeChain(&catalog,&cc);
+      if(!ch) break;
+      assert(ls.startReviewSlice(*ch,cc,&p,&c,false));++slices;
+    }
+    assert(slices==3 && ls.isReview() && p.session.qPos==n);
+    assert(p.session.qAnswers==n && p.session.qUnresolved==0);
+    // The bookmark round-trips (power-off mid-review restores the queue).
+    SD.allowWrites=true;
+    assert(p.save());
+    ProgressStore r2;assert(r2.load());
+    assert(r2.session.qLen==n && r2.session.qPos==n && r2.session.qAnswers==n);
+    SD.allowWrites=false;
+    std::cout<<"Review queue: cross-lesson build, recall-first, chaining, queue bookmark OK\n";
+  }
   static void storage() {
     SD.allowWrites=true;SD.mkdir(cfg::DATA_DIR);
     assert(p.save());ProgressStore restored;assert(restored.load());
@@ -173,7 +218,7 @@ struct StudyTests {
   }
   static void run() {
     c.init(3);Strings::setLang(1);assert(catalog.begin());assert(catalog.course.lessonCount==21);
-    scheduler();calendarAndMigration();contentAndReading();lessonFlow();storage();
+    scheduler();calendarAndMigration();contentAndReading();lessonFlow();reviewQueue();storage();
     DateScreen date;date.start(&p);c.fillWhite();date.render(c);
     for(uint8_t o=0;o<4;++o) {
       c.setOrientation(o);char name[96];

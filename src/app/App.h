@@ -94,6 +94,31 @@ class App {
     if(pending_==0) {
       auto m=pendingLesson_?pendingLesson_:pickNextLesson();
       if(m) {startLesson(*m);return;}
+    } else if(pending_==1) {
+      // Resume an interrupted cross-lesson review: the bookmark holds the
+      // queue and the slice in progress (start() restores it when the lesson
+      // id and fingerprint match).
+      const StudySession& s=progress_.session;
+      if(s.review && s.qLen>0) {
+        const LessonMeta* m=catalog_.findLesson(s.lesson);
+        if(m && lesson_.start(*m,&progress_,&canvas_) && lesson_.isReview()) {
+          lesson_.checkpoint();saveProgress();goTo(Where::Lesson);renderCurrent(Refresh::Fast);return;
+        }
+      }
+      // Build a fresh queue across all lessons (due items, recall first,
+      // one lesson in RAM at a time) and run its first slice.
+      uint8_t qL[12],qE[12];
+      const uint8_t n=lesson_.buildReviewQueue(catalog_,&progress_,qL,qE,12);
+      if(!n){goTo(Where::Notice);renderCurrent(Refresh::Fast);return;}
+      StudySession fresh;fresh.review=true;fresh.qLen=n;
+      for(uint8_t i=0;i<n;++i){fresh.qLesson[i]=qL[i];fresh.qEx[i]=qE[i];}
+      progress_.session=fresh;
+      uint8_t count=1;while(count<n && qL[count]==qL[0]) ++count;
+      if(lesson_.startReviewSlice(catalog_.course.lessons[qL[0]],count,&progress_,&canvas_,true)) {
+        lesson_.checkpoint();saveProgress();goTo(Where::Lesson);renderCurrent(Refresh::Fast);return;
+      }
+      progress_.session=StudySession{};
+      goTo(Where::Notice);renderCurrent(Refresh::Fast);return;
     } else {
       for(uint8_t i=0;i<catalog_.course.lessonCount;++i) {
         if(lesson_.startReview(catalog_.course.lessons[i],&progress_,&canvas_,pending_==2?practiceTag_:nullptr)) {
@@ -272,9 +297,27 @@ void App::run() {
         // "EXIT LESSON?" dialog — finishLesson() sorts out resume semantics
         // via wasError()/aborted().
         if (nav == Nav::Done) {
-          finishLesson();
-        } else if (nav == Nav::RedrawFast || nav == Nav::RedrawFull) {
-          renderCurrent(refreshFor(nav));
+          // A review summary with queue entries left (also after a resume)
+          // chains into the next slice instead of finishing.
+          uint8_t doneChainCount=0;
+          const LessonMeta* doneChain=lesson_.takeChain(&catalog_,&doneChainCount);
+          if(doneChain && lesson_.startReviewSlice(*doneChain,doneChainCount,&progress_,&canvas_,false)) {
+            lesson_.checkpoint();saveProgress();
+            renderCurrent(Refresh::Fast);
+          } else {
+            finishLesson();
+          }
+        } else if (nav==Nav::RedrawFast || nav==Nav::RedrawFull) {
+          // A finished review slice with queue entries left chains straight
+          // into the next lesson's slice — no summary, no menu round-trip.
+          uint8_t chainCount=0;
+          const LessonMeta* chain=lesson_.takeChain(&catalog_,&chainCount);
+          if(chain && lesson_.startReviewSlice(*chain,chainCount,&progress_,&canvas_,false)) {
+            lesson_.checkpoint();saveProgress();
+            renderCurrent(Refresh::Fast);
+          } else {
+            renderCurrent(refreshFor(nav));
+          }
         }
         break;
       }

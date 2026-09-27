@@ -5,6 +5,14 @@
 
 // Indices in a session refer to one immutable lesson. A content fingerprint
 // invalidates only the bookmark when that lesson changes, never learned items.
+//
+// Cross-lesson review queue (additive in progress v2; older firmware without
+// the fields loads the session exactly as before): qLesson/qEx hold up to 12
+// (course lesson index, exercise index) entries — one "Повторить" tap builds
+// the queue from due items across all studied lessons, and the session walks
+// it slice by slice (one lesson loaded at a time). qAnswers/qCorrect are the
+// whole-queue totals, qUnresolved a bit per queue entry, qBase the queue
+// index of the slice currently in plan[].
 struct StudySession {
   char lesson[32] = "";
   uint32_t fingerprint = 0;
@@ -16,6 +24,10 @@ struct StudySession {
   uint64_t first = 0, unresolved = 0;
   bool answered = false, helped = false, revealed = false, review = false;
   uint8_t chosen = 0;
+  uint8_t qLesson[12] = {}, qEx[12] = {};
+  uint8_t qLen = 0, qPos = 0, qBase = 0;
+  uint16_t qAnswers = 0, qCorrect = 0;
+  uint64_t qUnresolved = 0;
 };
 struct LessonState {
   char id[32] = "";
