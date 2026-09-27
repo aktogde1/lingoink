@@ -71,6 +71,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Этот дом больше нашего.",
+      "answer": "This house is bigger than ours.",
+      "srs": [
+        "cp.big"
+      ],
+      "tags": [
+        "comparatives",
+        "ru2en"
+      ],
+      "explain": "big — bigger (удвоение согласной). ours = our house."
+    },
+    {
       "type": "cloze",
       "prompt": "This book is ___ than that one. (interesting)",
       "options": [
@@ -130,6 +143,34 @@
       ],
       "explain": "bad → worse (не badder!). The worst — «самый плохой».",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Погода сегодня хуже, чем вчера.",
+      "answer": "The weather today is worse than yesterday.",
+      "srs": [
+        "cp.worse"
+      ],
+      "tags": [
+        "comparatives",
+        "irregular",
+        "ru2en"
+      ],
+      "explain": "bad — worse — the worst: неправильная форма."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Это был самый счастливый день в моей жизни.",
+      "answer": "It was the happiest day of my life.",
+      "srs": [
+        "cp.happy"
+      ],
+      "tags": [
+        "comparatives",
+        "superlatives",
+        "ru2en"
+      ],
+      "explain": "happy — happier — the happiest (y → i)."
     },
     {
       "type": "mistake",
@@ -245,6 +286,19 @@
       ],
       "explain": "little → less → the least. Less money — меньше денег.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: У меня меньше свободного времени, чем у тебя.",
+      "answer": "I have less free time than you.",
+      "srs": [
+        "cp.less"
+      ],
+      "tags": [
+        "comparatives",
+        "ru2en"
+      ],
+      "explain": "less — для неисчисляемого (time, money). Для исчисляемого — fewer."
     },
     {
       "type": "cloze",

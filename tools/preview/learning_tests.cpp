@@ -77,7 +77,7 @@ struct StudyTests {
       }
     }
     c.setOrientation(3);
-    assert(missing==0 && recall==42 && reading==7);
+    assert(missing==0 && recall==107 && reading==7);
     std::cout<<"Content: "<<questions<<" questions, "<<recall<<" recall, "<<reading<<" texts; all prose covered in 4 orientations\n";
   }
   static void scheduler() {
@@ -120,7 +120,7 @@ struct StudyTests {
     assert(ls.answered_ && ls.answerCount_==1 && ls.exIdx_==first);
     tick(Key::Ok);tick(Key::OkLong);assert(ls.helped_);tick(Key::Back);answer();
     assert(ls.correctCount_==0); // correct only after opening explanation
-    tick(Key::Ok);finish();assert(ls.answerCount_==8 && ls.correctCount_==6);
+    tick(Key::Ok);finish();assert(ls.answerCount_==12 && ls.correctCount_==10);
     assert(ls.unresolvedCount()==0);
     snap("learning_summary_o3");
     // Resume a completed summary rather than repeating the lesson.
@@ -130,19 +130,22 @@ struct StudyTests {
     assert(ls.startReview(*catalog.findLesson("a2_01"),&p,&c));assert(ls.isReview());
     assert(ls.cur().type==ExType::Recall);
     const char* recallId=ls.cur().srsIds[0];
+    auto* hinted=p.find(recallId);
+    const uint8_t lapsesBefore=hinted->lapses;
     snap("learning_recall_hidden_o3");tick(Key::Ok);snap("learning_recall_shown_o3");
     // An honest HINT outcome: not a success, not a lapse — the item retries
-    // tomorrow (nextDay = today+1) and stays out of today's due queue.
+    // tomorrow (nextDay = today+1) and keeps its earlier lapse count.
     tick(Key::Down);tick(Key::Ok);tick(Key::Ok);
-    auto* hinted=p.find(recallId);
     finish();
-    assert(hinted && hinted->nextDay==(uint16_t)(p.time.day+1) && hinted->lapses==0);
-    // Day two: the hinted item is due again; an independent recall confirms it.
+    assert(hinted && hinted->nextDay==(uint16_t)(p.time.day+1) && hinted->lapses==lapsesBefore);
+    // Day two: the hinted item is due again; two independent recalls confirm
+    // retention for items whose series was never broken.
     p.session=StudySession{};p.setDate(20260928);
     assert(ls.startReview(*catalog.findLesson("a2_01"),&p,&c));
     assert(ls.cur().type==ExType::Recall && ls.cur().srsIds[0]==std::string(recallId));
     tick(Key::Ok);tick(Key::Down);tick(Key::Down);tick(Key::Ok);tick(Key::Ok);
-    assert(p.find(recallId)->retained);
+    assert(p.find(recallId)->nextDay==(uint16_t)(p.time.day+1));  // still relearning
+    assert(p.find("vp.pretend")->retained);
     assert(p.confirmedCount()>0);
     p.session=StudySession{};
     assert(ls.start(*catalog.findLesson("b1_21"),&p,&c));

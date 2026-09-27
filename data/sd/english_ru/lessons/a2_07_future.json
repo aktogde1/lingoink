@@ -171,6 +171,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я не приду завтра. Используйте won't.",
+      "answer": "I won't come tomorrow.",
+      "srs": [
+        "fu.wont"
+      ],
+      "tags": [
+        "future",
+        "ru2en"
+      ],
+      "explain": "won't = will not. После won't — первая форма: won't come, не won't to come."
+    },
+    {
       "type": "cloze",
       "prompt": "We ___ to visit Rome next summer. (план уже есть)",
       "options": [
@@ -229,6 +242,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Исправьте и скажите правильно: She wills to come.",
+      "answer": "She will come.",
+      "srs": [
+        "gd.will-v1"
+      ],
+      "tags": [
+        "future",
+        "ru2en"
+      ],
+      "explain": "will не меняется и не требует to: will come."
+    },
+    {
       "type": "choice",
       "prompt": "План, решённый ДО разговора — это...",
       "options": [
@@ -246,6 +272,20 @@
       ],
       "explain": "Решено заранее → going to. Решено прямо сейчас → will.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "У вас уже есть план на субботу — пойти на пляж. Скажите это по-английски.",
+      "answer": "I'm going to go to the beach on Saturday.",
+      "srs": [
+        "fu.choice",
+        "fu.going-to"
+      ],
+      "tags": [
+        "future",
+        "ru2en"
+      ],
+      "explain": "Решённый заранее план — be going to. Или: I'm going to the beach on Saturday (Present Continuous)."
     },
     {
       "type": "cloze",

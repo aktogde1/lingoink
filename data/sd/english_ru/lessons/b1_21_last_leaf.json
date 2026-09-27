@@ -141,6 +141,20 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Мы провели неделю в Лондоне.",
+      "answer": "We spent a week in London.",
+      "srs": [
+        "ps.spend"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular",
+        "ru2en"
+      ],
+      "explain": "spend — spent — spent: проводить (время) или тратить (деньги)."
+    },
+    {
       "type": "cloze",
       "prompt": "ФИНАЛЬНЫЙ ТЕСТ: If it ___ tomorrow, we will paint indoors.",
       "options": [
@@ -177,6 +191,19 @@
       ],
       "explain": "must + V1 без to: The doctor must visit her.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я должен закончить картину до пятницы.",
+      "answer": "I must finish the painting before Friday.",
+      "srs": [
+        "md.must"
+      ],
+      "tags": [
+        "modals",
+        "ru2en"
+      ],
+      "explain": "must + первая форма. before Friday — до пятницы."
     },
     {
       "type": "choice",

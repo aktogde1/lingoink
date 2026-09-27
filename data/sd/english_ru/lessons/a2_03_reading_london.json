@@ -71,6 +71,20 @@
       "skill": "reading"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Мы приехали в Лондон ночью.",
+      "answer": "We arrived in London at night.",
+      "srs": [
+        "gd.arrive-in"
+      ],
+      "tags": [
+        "travel",
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "arrive IN городе/стране, AT месте: arrive in London, arrive at the station. Предлог to не используется."
+    },
+    {
       "type": "choice",
       "prompt": "What were the pigeons doing?",
       "options": [
@@ -113,6 +127,20 @@
       ],
       "skill": "grammar",
       "explain": "Have + been; never показывает отсутствие опыта до сейчас."
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите друга в Present Perfect: Ты когда-нибудь был в Британском музее?",
+      "answer": "Have you ever been to the British Museum?",
+      "srs": [
+        "pp.questions"
+      ],
+      "tags": [
+        "present-perfect",
+        "questions",
+        "ru2en"
+      ],
+      "explain": "Have you ever been to...? — вопрос об опыте. been — третья форма от be."
     }
   ],
   "objective": "Понять рассказ о поездке и назвать действия.",

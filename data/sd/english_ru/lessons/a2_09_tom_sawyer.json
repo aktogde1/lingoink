@@ -85,6 +85,20 @@
       "skill": "reading"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Он притворялся, что рисует с удовольствием.",
+      "answer": "He pretended to enjoy painting.",
+      "srs": [
+        "vp.pretend"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "pretend to do something. enjoy + -ing: enjoy painting."
+    },
+    {
       "type": "choice",
       "prompt": "What did Ben give Tom for the chance to paint?",
       "options": [
@@ -118,6 +132,19 @@
       "explain": "Том изображает покраску редкой привилегией; Бен начинает считать её интересной.",
       "reviewable": false,
       "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Том красил забор быстро, а не медленно.",
+      "answer": "Tom painted the fence quickly, not slowly.",
+      "srs": [
+        "gd.word-order"
+      ],
+      "tags": [
+        "word-order",
+        "ru2en"
+      ],
+      "explain": "Образ действия (quickly) обычно стоит после дополнения: painted the fence quickly."
     },
     {
       "type": "choice",

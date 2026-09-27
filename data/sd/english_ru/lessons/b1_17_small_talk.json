@@ -60,6 +60,19 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Ответьте на вопрос «How's it going?»: всё нормально, не жалуюсь. Используйте can't complain.",
+      "answer": "I can't complain.",
+      "srs": [
+        "vp.cant-complain"
+      ],
+      "tags": [
+        "smalltalk",
+        "ru2en"
+      ],
+      "explain": "I can't complain — «не жалуюсь, всё нормально». Разговорный ответ."
+    },
+    {
       "type": "choice",
       "prompt": "Long time no see!",
       "promptSmall": "Что это значит?",
@@ -78,6 +91,19 @@
       ],
       "explain": "Грамматически «неправильная», но живая фраза при встрече после долгой паузы.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Вы встретили друга, которого не видели год. Что вы скажете?",
+      "answer": "Long time no see!",
+      "srs": [
+        "vp.long-time-no-see"
+      ],
+      "tags": [
+        "smalltalk",
+        "ru2en"
+      ],
+      "explain": "Long time no see! — «сто лет не виделись!». Фиксированная разговорная фраза."
     },
     {
       "type": "cloze",
@@ -120,6 +146,20 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Спросите друга, чем он занимался в последнее время.",
+      "answer": "What have you been up to?",
+      "srs": [
+        "vp.been-up-to"
+      ],
+      "tags": [
+        "smalltalk",
+        "present-perfect",
+        "ru2en"
+      ],
+      "explain": "be up to — заниматься чем-то. Present Perfect — для «за последнее время»."
+    },
+    {
       "type": "choice",
       "prompt": "I bet he forgot again.",
       "promptSmall": "Что значит I bet?",
@@ -157,6 +197,19 @@
       ],
       "explain": "It depends (on...) — «зависит от...». Один из самых частых ответов англичанина.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Может быть, может и нет — как посмотреть.",
+      "answer": "Maybe yes, maybe no — it depends.",
+      "srs": [
+        "vp.depends"
+      ],
+      "tags": [
+        "smalltalk",
+        "ru2en"
+      ],
+      "explain": "it depends — «как посмотреть». depends on something — зависеть от чего-то."
     },
     {
       "type": "choice",

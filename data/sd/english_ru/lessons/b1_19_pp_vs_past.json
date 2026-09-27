@@ -115,6 +115,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Я читал эту книгу дважды.",
+      "answer": "I have read this book twice.",
+      "srs": [
+        "pp.experience"
+      ],
+      "tags": [
+        "present-perfect",
+        "ru2en"
+      ],
+      "explain": "read — read — read (пишется одинаково). Опыт без указания когда — Present Perfect."
+    },
+    {
       "type": "cloze",
       "prompt": "___ you ever ___ sushi? (есть)",
       "options": [
@@ -134,6 +147,20 @@
       "explain": "Здесь спрашиваем об опыте до настоящего момента → Have you ever eaten...?",
       "promptSmall": "Используйте Present Perfect в этом упражнении",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Спросите друга: Ты когда-нибудь летал на самолёте?",
+      "answer": "Have you ever flown on a plane?",
+      "srs": [
+        "pp.ever"
+      ],
+      "tags": [
+        "present-perfect",
+        "questions",
+        "ru2en"
+      ],
+      "explain": "fly — flew — flown. ever — «когда-нибудь» — в вопросах об опыте."
     },
     {
       "type": "mistake",
@@ -289,6 +316,20 @@
       "explain": "since 2019 — с того момента до СЕЙЧАС → has worked.",
       "promptSmall": "Используйте Present Perfect в этом упражнении",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я живу здесь с 2020 года.",
+      "answer": "I have lived here since 2020.",
+      "srs": [
+        "pp.since-for"
+      ],
+      "tags": [
+        "since-for",
+        "present-perfect",
+        "ru2en"
+      ],
+      "explain": "since + точка (since 2020), for + период (for five years). Действие длится до сих пор — Present Perfect."
     },
     {
       "type": "recall",

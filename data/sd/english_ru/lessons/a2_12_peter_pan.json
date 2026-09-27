@@ -86,6 +86,19 @@
       "skill": "reading"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Она не могла достать банку.",
+      "answer": "She couldn't reach the jar.",
+      "srs": [
+        "md.could"
+      ],
+      "tags": [
+        "modals",
+        "ru2en"
+      ],
+      "explain": "could/couldn't — умел/мог в прошлом. couldn't reach — не могла достать."
+    },
+    {
       "type": "choice",
       "prompt": "What is special about Neverland?",
       "options": [
@@ -101,6 +114,21 @@
       "explain": "Питер говорит: no one ever grows up — никто не взрослеет.",
       "reviewable": false,
       "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Неверленд — это место, где дети никогда не растут.",
+      "answer": "Neverland is a place where children never grow up.",
+      "srs": [
+        "pv.grow-up",
+        "vp.never"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "reading",
+        "ru2en"
+      ],
+      "explain": "grow up — расти, взрослеть. never стоит перед глаголом."
     },
     {
       "type": "choice",

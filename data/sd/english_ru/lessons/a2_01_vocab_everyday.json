@@ -48,6 +48,21 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я оставил ключи дома вчера.",
+      "answer": "I left my keys at home yesterday.",
+      "srs": [
+        "vp.leave-keys",
+        "pp.past-simple"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "Или: I've left my keys at home — если важен результат сейчас. leave — left — left (неправильный глагол)."
+    },
+    {
       "type": "choice",
       "prompt": "pretend",
       "promptSmall": "Выберите правильный перевод",
@@ -66,6 +81,20 @@
       ],
       "explain": "pretend = притворяться. «претендовать» — claim / apply for.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Он притворялся спящим.",
+      "answer": "He pretended to be asleep.",
+      "srs": [
+        "vp.pretend"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en",
+        "past-simple"
+      ],
+      "explain": "pretend to do something — притворяться, что делаешь. Или: He pretended he was asleep."
     },
     {
       "type": "choice",
@@ -87,6 +116,19 @@
       ],
       "explain": "С глаголом be наречие обычно идёт после него: He is always late. Перед обычным глаголом: He always arrives late. He always IS late возможно при особом ударении.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Мой автобус всегда опаздывает.",
+      "answer": "My bus is always late.",
+      "srs": [
+        "vp.always-late"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "be always late. Наречие always стоит перед сказуемым: is always late."
     },
     {
       "type": "choice",
@@ -129,6 +171,20 @@
       ],
       "explain": "tired OF something = устать от чего-то. bored/tired — про того, кто чувствует; boring/tiring — про то, что вызывает чувство.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я устал от этой песни.",
+      "answer": "I'm tired of this song.",
+      "srs": [
+        "vp.tired-of"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en",
+        "adjective-prepositions"
+      ],
+      "explain": "be tired of something — устать от чего-то. Предлог of."
     },
     {
       "type": "recall",

@@ -75,6 +75,33 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я навестил бабушку в воскресенье.",
+      "answer": "I visited my grandmother on Sunday.",
+      "srs": [
+        "ps.visit"
+      ],
+      "tags": [
+        "past-simple",
+        "ru2en"
+      ],
+      "explain": "visit — правильный глагол: visited. С конкретным прошлым днём (on Sunday) — Past Simple."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Вчера мы ходили в парк.",
+      "answer": "Yesterday we went to the park.",
+      "srs": [
+        "ps.went"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular",
+        "ru2en"
+      ],
+      "explain": "go — went — gone: вторая форма went. Yesterday — маркер Past Simple."
+    },
+    {
       "type": "cloze",
       "prompt": "We ___ to Turkey in 2023.",
       "options": [
@@ -179,6 +206,20 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я купил билеты на поезд.",
+      "answer": "I bought train tickets.",
+      "srs": [
+        "ps.bought"
+      ],
+      "tags": [
+        "past-simple",
+        "irregular",
+        "ru2en"
+      ],
+      "explain": "buy — bought — bought. Вторая форма без to."
+    },
+    {
       "type": "mistake",
       "prompt": "He didn't went to work.",
       "options": [
@@ -235,6 +276,20 @@
       ],
       "explain": "they → were. Was только после I / he / she / it.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Дети были в парке утром.",
+      "answer": "The children were in the park in the morning.",
+      "srs": [
+        "ps.were"
+      ],
+      "tags": [
+        "past-simple",
+        "verb-be",
+        "ru2en"
+      ],
+      "explain": "they → were. was — только для I/he/she/it."
     },
     {
       "type": "choice",

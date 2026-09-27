@@ -93,6 +93,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Она умеет играть на пианино.",
+      "answer": "She can play the piano.",
+      "srs": [
+        "md.can-v1"
+      ],
+      "tags": [
+        "modals",
+        "ru2en"
+      ],
+      "explain": "После can — первая форма без to: can play."
+    },
+    {
       "type": "cloze",
       "prompt": "It's late. I ___ go home now.",
       "options": [
@@ -110,6 +123,19 @@
       ],
       "explain": "must + V1 без to: I must go home.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Ты должен извиниться.",
+      "answer": "You must apologize.",
+      "srs": [
+        "md.must"
+      ],
+      "tags": [
+        "modals",
+        "ru2en"
+      ],
+      "explain": "must + первая форма. apologize (амер.) / apologise (брит.)."
     },
     {
       "type": "choice",
@@ -188,6 +214,20 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Вчера мне пришлось ждать час.",
+      "answer": "Yesterday I had to wait an hour.",
+      "srs": [
+        "md.had-to"
+      ],
+      "tags": [
+        "modals",
+        "past-simple",
+        "ru2en"
+      ],
+      "explain": "must не имеет прошедшего: вынуждение в прошлом — had to + первая форма."
+    },
+    {
       "type": "choice",
       "prompt": "Он умел читать с пяти лет.",
       "promptSmall": "Переведите предложение",
@@ -207,6 +247,21 @@
       ],
       "explain": "Умение в прошлом → could: He could read at five.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Мне приходится вставать рано.",
+      "answer": "I have to get up early.",
+      "srs": [
+        "md.have-to",
+        "vp.get-up"
+      ],
+      "tags": [
+        "modals",
+        "home",
+        "ru2en"
+      ],
+      "explain": "have to — приходится, вынужденная необходимость. get up — вставать."
     },
     {
       "type": "choice",

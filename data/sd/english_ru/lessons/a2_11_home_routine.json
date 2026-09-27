@@ -65,6 +65,20 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Мне нужно прибраться в комнате.",
+      "answer": "I need to tidy up my room.",
+      "srs": [
+        "vp.tidy-up"
+      ],
+      "tags": [
+        "home",
+        "phrasal-verbs",
+        "ru2en"
+      ],
+      "explain": "tidy up — прибираться. need to do something — нужно что-то сделать."
+    },
+    {
       "type": "cloze",
       "prompt": "I wake up at seven and ___ up ten minutes later. (= встаю с кровати)",
       "options": [
@@ -147,6 +161,20 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я обычно ложусь спать в одиннадцать.",
+      "answer": "I usually go to bed at eleven.",
+      "srs": [
+        "vp.go-to-bed"
+      ],
+      "tags": [
+        "home",
+        "ru2en",
+        "frequency"
+      ],
+      "explain": "go to bed — ложиться спать. usually — перед сказуемым."
+    },
+    {
       "type": "mistake",
       "prompt": "Выберите нейтральный порядок слов: He always is late for dinner.",
       "options": [
@@ -225,6 +253,20 @@
       ],
       "explain": "take a shower / have a shower. Make — не про душ.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я принимаю душ утром, а не вечером.",
+      "answer": "I take a shower in the morning, not in the evening.",
+      "srs": [
+        "vp.take-shower"
+      ],
+      "tags": [
+        "home",
+        "collocations",
+        "ru2en"
+      ],
+      "explain": "take/have a shower — принимать душ. not in the evening — противопоставление."
     },
     {
       "type": "choice",

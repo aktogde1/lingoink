@@ -136,6 +136,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Мы видели этот фильм три раза.",
+      "answer": "We have seen this film three times.",
+      "srs": [
+        "pp.form"
+      ],
+      "tags": [
+        "present-perfect",
+        "ru2en"
+      ],
+      "explain": "have/has + третья форма: have seen. Опыт без указания момента времени."
+    },
+    {
       "type": "mistake",
       "prompt": "I have seen him yesterday.",
       "options": [
@@ -153,6 +166,33 @@
       ],
       "explain": "yesterday требует Past Simple: I saw him yesterday.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите (вчера, прошедшее время): Я видел Анну вчера.",
+      "answer": "I saw Anna yesterday.",
+      "srs": [
+        "pp-vs-past",
+        "past-simple"
+      ],
+      "tags": [
+        "pp-vs-past",
+        "ru2en"
+      ],
+      "explain": "С yesterday используется Past Simple: saw, а не have seen."
+    },
+    {
+      "type": "recall",
+      "prompt": "Исправьте ошибку и скажите предложение правильно: She don't like coffee.",
+      "answer": "She doesn't like coffee.",
+      "srs": [
+        "gd.does"
+      ],
+      "tags": [
+        "do-does",
+        "ru2en"
+      ],
+      "explain": "Третье лицо (he/she/it) — doesn't. don't — для I/you/we/they."
     },
     {
       "type": "recall",

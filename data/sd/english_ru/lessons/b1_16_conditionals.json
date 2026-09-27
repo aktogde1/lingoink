@@ -115,6 +115,19 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Если завтра будет солнечно, мы пойдём в парк.",
+      "answer": "If it's sunny tomorrow, we'll go to the park.",
+      "srs": [
+        "cj.first"
+      ],
+      "tags": [
+        "conditionals",
+        "ru2en"
+      ],
+      "explain": "Тип 1: If + Present Simple, will + первая форма. После if будущее время не используется."
+    },
+    {
       "type": "mistake",
       "prompt": "If she will pass the exam, her parents will be happy.",
       "options": [
@@ -246,6 +259,21 @@
       ],
       "explain": "Главная часть первой — без запятой: We will stay home if it rains.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите без запятой: I'll call you, if I hear anything.",
+      "answer": "I'll call you if I hear anything.",
+      "srs": [
+        "cj.order",
+        "cj.if"
+      ],
+      "tags": [
+        "conditionals",
+        "word-order",
+        "ru2en"
+      ],
+      "explain": "Когда придаток с if стоит после главного предложения, запятая не нужна."
     },
     {
       "type": "cloze",

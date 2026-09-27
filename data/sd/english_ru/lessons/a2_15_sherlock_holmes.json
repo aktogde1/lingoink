@@ -85,6 +85,21 @@
       "skill": "reading"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Уотсону пришлось искать дешёвую квартиру.",
+      "answer": "Watson had to look for a cheap flat.",
+      "srs": [
+        "md.had-to",
+        "gd.look-for"
+      ],
+      "tags": [
+        "modals",
+        "phrasal-verbs",
+        "ru2en"
+      ],
+      "explain": "had to — пришлось. look for — искать (предлог for)."
+    },
+    {
       "type": "choice",
       "prompt": "Where did Holmes and Watson live?",
       "options": [
@@ -134,6 +149,20 @@
       "explain": "В финальной реплике после исключения невозможного остаётся истина: must be the truth.",
       "reviewable": false,
       "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Холмс уже нашёл убийцу.",
+      "answer": "Holmes has already found the murderer.",
+      "srs": [
+        "pp.form",
+        "pp.already"
+      ],
+      "tags": [
+        "present-perfect",
+        "ru2en"
+      ],
+      "explain": "already ставится между has и глаголом: has already found. find — found — found."
     },
     {
       "type": "recall",

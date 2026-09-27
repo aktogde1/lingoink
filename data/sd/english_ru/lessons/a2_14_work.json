@@ -62,6 +62,20 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Крайний срок — в пятницу.",
+      "answer": "The deadline is on Friday.",
+      "srs": [
+        "vp.deadline"
+      ],
+      "tags": [
+        "work",
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "deadline — срок сдачи работы. meet the deadline — уложиться в срок."
+    },
+    {
       "type": "cloze",
       "prompt": "I can't talk now, I'm ___ — let's speak after the meeting.",
       "options": [
@@ -79,6 +93,20 @@
       ],
       "explain": "busy = занят. I'm free = свободен.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Извини, я занят весь день.",
+      "answer": "Sorry, I'm busy all day.",
+      "srs": [
+        "vp.busy"
+      ],
+      "tags": [
+        "work",
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "be busy — быть занятым. all day — весь день."
     },
     {
       "type": "choice",
@@ -103,6 +131,33 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Она работает медсестрой.",
+      "answer": "She works as a nurse.",
+      "srs": [
+        "vp.work-as"
+      ],
+      "tags": [
+        "work",
+        "ru2en"
+      ],
+      "explain": "work as a + профессия: works as a nurse. Артикль a нужен."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Она хороша в математике.",
+      "answer": "She is good at maths.",
+      "srs": [
+        "vp.good-at"
+      ],
+      "tags": [
+        "work",
+        "prepositions",
+        "ru2en"
+      ],
+      "explain": "be good at something — хорошо разбираться в чём-то. Предлог at. maths (брит.) / math (амер.)."
+    },
+    {
       "type": "cloze",
       "prompt": "She ___ the report yesterday evening.",
       "options": [
@@ -122,6 +177,20 @@
       ],
       "explain": "send → sent (одна t!): She sent the report.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Давайте обсудим это на совещании.",
+      "answer": "Let's discuss it at the meeting.",
+      "srs": [
+        "vp.meeting"
+      ],
+      "tags": [
+        "work",
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "at the meeting — «на совещании» (предлог at). have a meeting — проводить совещание."
     },
     {
       "type": "choice",
@@ -220,6 +289,20 @@
       ],
       "explain": "a day off — выходной среди недели. Ask for — просить что-то.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: У меня завтра выходной.",
+      "answer": "I have a day off tomorrow.",
+      "srs": [
+        "vp.day-off"
+      ],
+      "tags": [
+        "work",
+        "collocations",
+        "ru2en"
+      ],
+      "explain": "a day off — выходной в рабочий день. take a day off — взять отгул."
     },
     {
       "type": "cloze",

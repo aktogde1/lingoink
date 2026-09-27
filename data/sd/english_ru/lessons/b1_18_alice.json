@@ -84,6 +84,20 @@
       "skill": "reading"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Она не могла достать банку с полки.",
+      "answer": "She couldn't reach the jar on the shelf.",
+      "srs": [
+        "md.could"
+      ],
+      "tags": [
+        "modals",
+        "reading",
+        "ru2en"
+      ],
+      "explain": "couldn't reach — не могла дотянуться."
+    },
+    {
       "type": "choice",
       "prompt": "Why was Alice disappointed about the jar?",
       "options": [
@@ -117,6 +131,21 @@
       "reviewable": false,
       "srs": [],
       "skill": "reading"
+    },
+    {
+      "type": "recall",
+      "prompt": "Скажите в Present Perfect: Алиса никогда не видела кролика с часами.",
+      "answer": "Alice has never seen a rabbit with a watch.",
+      "srs": [
+        "pp.form",
+        "pp.never"
+      ],
+      "tags": [
+        "present-perfect",
+        "reading",
+        "ru2en"
+      ],
+      "explain": "never ставится между have и глаголом: has never seen. see — saw — seen."
     },
     {
       "type": "choice",

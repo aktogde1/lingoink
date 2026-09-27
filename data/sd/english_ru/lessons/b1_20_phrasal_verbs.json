@@ -82,6 +82,32 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Она ухаживает за своей бабушкой.",
+      "answer": "She looks after her grandmother.",
+      "srs": [
+        "pv.look-after"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "ru2en"
+      ],
+      "explain": "look after someone — заботиться, ухаживать."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Я ищу свои очки.",
+      "answer": "I'm looking for my glasses.",
+      "srs": [
+        "pv.look-for"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "ru2en"
+      ],
+      "explain": "look for — искать. glasses — очки (всегда во множественном числе)."
+    },
+    {
       "type": "cloze",
       "prompt": "I can't find my glasses. Can you help me ___ for them?",
       "options": [
@@ -118,6 +144,21 @@
       ],
       "explain": "put on — надеть. take off — снять: Take your coat off, we're inside.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Надень шапку. А теперь скажите то же с it.",
+      "answer": "Put on a hat. — Put it on.",
+      "srs": [
+        "pv.put-on",
+        "gd.phrasal-it"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "word-order",
+        "ru2en"
+      ],
+      "explain": "С it местоимение встаёт в середину: put it on (не put on it)."
     },
     {
       "type": "mistake",
@@ -159,6 +200,20 @@
       "skill": "vocabulary"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Я узнал правду вчера.",
+      "answer": "I found out the truth yesterday.",
+      "srs": [
+        "pv.find-out"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "past-simple",
+        "ru2en"
+      ],
+      "explain": "find out — узнавать (информацию). find — found — found."
+    },
+    {
       "type": "cloze",
       "prompt": "My brother and I don't ___ on well. (ладить)",
       "options": [
@@ -176,6 +231,19 @@
       ],
       "explain": "get on (well) with somebody — ладить с кем-то.",
       "skill": "grammar"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Они хорошо ладят.",
+      "answer": "They get on well.",
+      "srs": [
+        "pv.get-on"
+      ],
+      "tags": [
+        "phrasal-verbs",
+        "ru2en"
+      ],
+      "explain": "get on (well) with someone — ладить с кем-то."
     },
     {
       "type": "choice",

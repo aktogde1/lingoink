@@ -48,6 +48,20 @@
       "skill": "grammar"
     },
     {
+      "type": "recall",
+      "prompt": "Переведите: Мы жили в Манчестере, когда я был ребёнком.",
+      "answer": "We lived in Manchester when I was a child.",
+      "srs": [
+        "ps.lived"
+      ],
+      "tags": [
+        "past-simple",
+        "pp-vs-past",
+        "ru2en"
+      ],
+      "explain": "Период в прошлом, который закончился, — Past Simple: lived."
+    },
+    {
       "type": "choice",
       "prompt": "Его телефон всегда разряжен.",
       "promptSmall": "Выберите обычный нейтральный порядок слов",
@@ -106,6 +120,19 @@
       ],
       "explain": "actually означает «на самом деле»: Actually, I live in Leeds — на самом деле я живу в Лидсе.",
       "skill": "vocabulary"
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: На самом деле это не так.",
+      "answer": "Actually, that's not true.",
+      "srs": [
+        "vp.actually"
+      ],
+      "tags": [
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "Actually — «на самом деле», часто для мягкого несогласия. Запятая после actually."
     },
     {
       "type": "cloze",

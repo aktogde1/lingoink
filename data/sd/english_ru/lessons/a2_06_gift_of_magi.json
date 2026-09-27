@@ -156,6 +156,20 @@
     },
     {
       "type": "recall",
+      "prompt": "Переведите: Это мой лучший подарок.",
+      "answer": "This is my best present.",
+      "srs": [
+        "cp.good"
+      ],
+      "tags": [
+        "superlatives",
+        "vocab",
+        "ru2en"
+      ],
+      "explain": "good — better — the best. Превосходная степень от good — the best."
+    },
+    {
+      "type": "recall",
       "prompt": "Переведите: Она продала часы, чтобы купить подарок.",
       "answer": "She sold the watch to buy a gift.",
       "srs": [
@@ -166,6 +180,20 @@
       ],
       "skill": "grammar",
       "explain": "Sell → sold. To buy выражает цель. Допустимо a present."
+    },
+    {
+      "type": "recall",
+      "prompt": "Переведите: Дела у Джима и Деллы были трудные.",
+      "answer": "Things were hard for Jim and Della.",
+      "srs": [
+        "ps.were"
+      ],
+      "tags": [
+        "past-simple",
+        "verb-be",
+        "ru2en"
+      ],
+      "explain": "they/things → were. for — «для кого» в таких фразах."
     },
     {
       "type": "recall",
