@@ -23,8 +23,9 @@ struct StudyTests {
   static void answer(bool correct=true) {
     auto& e=ls.cur();
     if(e.type==ExType::Recall) {
+      // Three outcomes: sel_ 0 = NOT YET, 1 = WITH HINT, 2 = RECALLED.
       if(!ls.revealed_)tick(Key::Ok);
-      if(correct)tick(Key::Down);
+      if(correct) {tick(Key::Down);tick(Key::Down);}
       tick(Key::Ok);
     } else {
       uint8_t target=correct?e.correct:(e.correct+1)%e.optionCount;
@@ -128,9 +129,20 @@ struct StudyTests {
     p.session=StudySession{};p.setDate(20260927);
     assert(ls.startReview(*catalog.findLesson("a2_01"),&p,&c));assert(ls.isReview());
     assert(ls.cur().type==ExType::Recall);
+    const char* recallId=ls.cur().srsIds[0];
     snap("learning_recall_hidden_o3");tick(Key::Ok);snap("learning_recall_shown_o3");
-    tick(Key::Down);tick(Key::Ok);tick(Key::Ok);finish();
-    // Failed items relearn on day two; the next due independent recall confirms them.
+    // An honest HINT outcome: not a success, not a lapse — the item retries
+    // tomorrow (nextDay = today+1) and stays out of today's due queue.
+    tick(Key::Down);tick(Key::Ok);tick(Key::Ok);
+    auto* hinted=p.find(recallId);
+    finish();
+    assert(hinted && hinted->nextDay==(uint16_t)(p.time.day+1) && hinted->lapses==0);
+    // Day two: the hinted item is due again; an independent recall confirms it.
+    p.session=StudySession{};p.setDate(20260928);
+    assert(ls.startReview(*catalog.findLesson("a2_01"),&p,&c));
+    assert(ls.cur().type==ExType::Recall && ls.cur().srsIds[0]==std::string(recallId));
+    tick(Key::Ok);tick(Key::Down);tick(Key::Down);tick(Key::Ok);tick(Key::Ok);
+    assert(p.find(recallId)->retained);
     assert(p.confirmedCount()>0);
     p.session=StudySession{};
     assert(ls.start(*catalog.findLesson("b1_21"),&p,&c));

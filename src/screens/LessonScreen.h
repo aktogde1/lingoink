@@ -393,30 +393,38 @@ class LessonScreen : public Screen {
   // ------------------------------------------------------------------
   // Grading
   // ------------------------------------------------------------------
+  static Skill skillOf(const Exercise& E) {
+    if (E.type == ExType::Cloze || E.type == ExType::Mistake) return Skill::Grammar;
+    if (E.type == ExType::Reading) return Skill::Reading;
+    for (uint8_t i = 0; i < E.tagCount; i++) {
+      if (E.tags[i] && strcmp(E.tags[i], "reading") == 0) return Skill::Reading;
+    }
+    return Skill::Vocabulary;
+  }
+
   void recordResult(const Exercise& E, bool correct) {
     if (!progress_) return;
+    if (E.type == ExType::Recall) {
+      // Honest three-way self-assessment (chosen_: 0 miss / 1 hint /
+      // 2 recalled). Assistance recorded earlier downgrades a recall to a
+      // hint: help can never earn a successful SRS grade.
+      uint8_t outcome = chosen_ <= 2 ? chosen_ : (uint8_t)0;
+      if (outcome == 2 && helped_) outcome = 1;
+      for (uint8_t i = 0; E.reviewable && i < E.srsCount && E.srsIds[i]; i++) {
+        SrsItem* it = study_.review ? progress_->find(E.srsIds[i]) : progress_->findOrCreate(E.srsIds[i]);
+        if (it) SrsScheduler::gradeRecall(*it, outcome, progress_->time.day);
+      }
+      if(study_.attempts[exIdx_]==1)
+        progress_->mastery.record(skillOf(E), E.tags, E.tagCount, outcome == 2);
+      return;
+    }
     const uint8_t q = correct && !helped_ ? 5 : 1;
     for (uint8_t i = 0; E.reviewable && i < E.srsCount && E.srsIds[i]; i++) {
       SrsItem* it = study_.review ? progress_->find(E.srsIds[i]) : progress_->findOrCreate(E.srsIds[i]);
-      if (it) SrsScheduler::grade(*it, q, progress_->time.day, E.type==ExType::Recall && !helped_);
+      if (it) SrsScheduler::grade(*it, q, progress_->time.day, false);
     }
-    Skill sk = Skill::Vocabulary;
-    if (E.type == ExType::Cloze || E.type == ExType::Mistake) sk = Skill::Grammar;
-    if (E.type == ExType::Reading) sk = Skill::Reading;
-    for (uint8_t i = 0; i < E.tagCount; i++) {
-      if (E.tags[i] && strcmp(E.tags[i], "reading") == 0) {
-        sk = Skill::Reading;
-        break;
-      }
-    }
-    if(E.skill) {
-      if(strcmp(E.skill,"grammar")==0) sk=Skill::Grammar;
-      if(strcmp(E.skill,"vocabulary")==0) sk=Skill::Vocabulary;
-      if(strcmp(E.skill,"reading")==0) sk=Skill::Reading;
-    }
-    // Immediate retries do not inflate accuracy statistics.
     if(study_.attempts[exIdx_]==1)
-      progress_->mastery.record(sk, E.tags, E.tagCount, correct && !helped_);
+      progress_->mastery.record(skillOf(E), E.tags, E.tagCount, correct && !helped_);
   }
 
   // ------------------------------------------------------------------
@@ -565,22 +573,27 @@ class LessonScreen : public Screen {
       return Nav::Stay;
     }
     if (!answered_) {
+      // Recall after reveal: three self-assessment rows (miss / hint /
+      // recalled). An accidental press lands on the conservative default —
+      // two deliberate presses are always needed, and a stray confirm marks
+      // the item for retry instead of faking a success.
+      const uint8_t rows = E.type==ExType::Recall ? 3 : E.optionCount;
       switch (k) {
         case Key::Left:
         case Key::Up:
-          sel_ = (sel_ + E.optionCount - 1) % E.optionCount;  // cyclic
+          sel_ = (sel_ + rows - 1) % rows;  // cyclic
           ensureVisible(E);
           return Nav::RedrawFast;
         case Key::Right:
         case Key::Down:
-          sel_ = (sel_ + 1) % E.optionCount;  // cyclic
+          sel_ = (sel_ + 1) % rows;  // cyclic
           ensureVisible(E);
           return Nav::RedrawFast;
         case Key::Ok: {
           answered_ = true;
           chosen_ = E.type==ExType::Recall ? sel_ : order_[sel_];  // display row -> real option index
-          const bool correct = (chosen_ == E.correct);
-          recordAttempt(correct && !helped_);
+          const bool correct = E.type==ExType::Recall ? (chosen_==2) : (chosen_ == E.correct);
+          recordAttempt(E.type==ExType::Recall ? (chosen_==2 && !helped_) : (correct && !helped_));
           LOGI("EX", "answer ex=%u type=%u chosen=%u correct=%u -> %s",
                (unsigned)exIdx_, (unsigned)E.type, (unsigned)chosen_, (unsigned)E.correct,
                correct ? "RIGHT" : "WRONG");
@@ -926,7 +939,11 @@ class LessonScreen : public Screen {
     }
     correctCount_=s.correct;answerCount_=s.answers;
     answered_=s.answered;chosen_=s.chosen;helped_=s.helped;revealed_=s.revealed;
-    if(phase_==Phase::Exercise && chosen_>=cur().optionCount) {answered_=false;chosen_=0;}
+    if(phase_==Phase::Exercise) {
+      // Recall self-assessment results are 0..2; quizzes are option indices.
+      const bool rc = cur().type==ExType::Recall;
+      if(rc ? chosen_>2 : chosen_>=cur().optionCount) {answered_=false;chosen_=0;}
+    }
     if(phase_==Phase::Exercise && answered_) ensureAnsweredVisible(cur());
   }
   void recordAttempt(bool independent) {
@@ -1007,17 +1024,25 @@ class LessonScreen : public Screen {
     }
     y=paragraph(c,e.answer,y,body,6)+18;
     if(!answered_) {
+      // Three honest outcomes; the cursor starts on the conservative one.
       if(c.portrait()) {
-        chrome::menuRow(c,mt,y,U("NOT YET","НЕ ВСПОМНИЛ"),U("Wrong, incomplete or needed help","Ошибка, неполно или с подсказкой"),sel_==0);
-        y+=mt.menuRowH+10;
-        chrome::menuRow(c,mt,y,U("RECALLED","ВСПОМНИЛ"),U("Correct before revealing","Верно до показа ответа"),sel_==1);
+        chrome::menuRow(c,mt,y,U("NOT YET","НЕ ВСПОМНИЛ"),U("Wrong or incomplete","Ошиблись или неполно"),sel_==0);
+        y+=mt.menuRowH+8;
+        chrome::menuRow(c,mt,y,U("WITH HINT","С ПОДСКАЗКОЙ"),U("Partly, or after help","Частично или с помощью"),sel_==1);
+        y+=mt.menuRowH+8;
+        chrome::menuRow(c,mt,y,U("RECALLED","ВСПОМНИЛ"),U("Correct before revealing","Верно до показа ответа"),sel_==2);
       } else {
         chrome::settingRow(c,mt,y,U("NOT YET","НЕ ВСПОМНИЛ"),"",sel_==0);
-        chrome::settingRow(c,mt,y+mt.rowH+8,U("RECALLED","ВСПОМНИЛ"),"",sel_==1);
+        chrome::settingRow(c,mt,y+mt.rowH+8,U("WITH HINT","С ПОДСКАЗКОЙ"),"",sel_==1);
+        chrome::settingRow(c,mt,y+2*(mt.rowH+8),U("RECALLED","ВСПОМНИЛ"),"",sel_==2);
       }
     } else {
-      y=paragraph(c,chosen_==1&&!helped_?U("Recorded. OK: next.","Записано. OK: дальше."):
-        U("We will practise this again. OK: next.","Повторим это ещё раз. OK: дальше."),y,ui,4)+12;
+      const char* msg =
+        chosen_==2 ? (helped_ ? U("With help — we will practise again. OK: next.","С подсказкой — повторим ещё раз. OK: дальше.")
+                              : U("Recorded. OK: next.","Записано. OK: дальше."))
+                   : chosen_==1 ? U("Partial — it comes back tomorrow. OK: next.","Частично — вернёмся завтра. OK: дальше.")
+                                : U("It comes back soon. OK: next.","Вернёмся к этому скоро. OK: дальше.");
+      y=paragraph(c,msg,y,ui,4)+12;
       paragraph(c,e.explain,y,ui,8);
     }
   }

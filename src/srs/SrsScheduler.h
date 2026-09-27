@@ -79,4 +79,46 @@ class SrsScheduler {
   static bool isDue(const SrsItem& it, uint16_t today) {
     return it.nextDay <= today;
   }
+
+  // Self-assessed free recall outcomes (LessonScreen recall menu).
+  enum class RecallOutcome : uint8_t { Miss = 0, Hint = 1, Recalled = 2 };
+
+  // Grade one self-assessed recall. The three outcomes map to:
+  //   Recalled — full success: SM-2 grade 5 with free-recall retention
+  //              tracking. The caller must pass this outcome ONLY when the
+  //              answer was produced without any help.
+  //   Hint     — partial knowledge: NOT a success (the interval never grows,
+  //              the item comes back tomorrow), but softer than a lapse: the
+  //              ease penalty is half a fail and lapses is not incremented.
+  //              Seeing an item early (not due yet) or again the same day is
+  //              practice — the item is left unchanged.
+  //   Miss     — full lapse: grade 1 (reps reset, ease -0.2, interval 1 day).
+  // The same-day guards of grade() apply to every outcome: a repeat on the
+  // same day can never inflate an interval, and a failure cannot be erased
+  // by an immediate retry.
+  static void gradeRecall(SrsItem& it, uint8_t outcome, uint16_t today) {
+    if (outcome > (uint8_t)RecallOutcome::Recalled) {
+      outcome = (uint8_t)RecallOutcome::Recalled;
+    }
+    if (outcome == (uint8_t)RecallOutcome::Recalled) {
+      grade(it, 5, today, true);
+      return;
+    }
+    if (outcome == (uint8_t)RecallOutcome::Miss) {
+      grade(it, 1, today);
+      return;
+    }
+    // Hint: due items retry tomorrow with a half-size ease penalty; early or
+    // same-day repeats are practice and change nothing.
+    if (it.lastDay == today || it.nextDay > today) return;
+    it.reps = 0;
+    it.retained = false;
+    it.intervalDays = cfg::DAY_MIN;
+    float ease = it.easePct / 100.0f - 0.10f;
+    if (ease < cfg::EASE_MIN) ease = cfg::EASE_MIN;
+    if (ease > cfg::EASE_MAX) ease = cfg::EASE_MAX;
+    it.easePct = (uint16_t)(ease * 100);
+    it.lastDay = today;
+    it.nextDay = (uint16_t)(today + it.intervalDays);
+  }
 };
